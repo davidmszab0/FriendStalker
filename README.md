@@ -1,4 +1,0 @@
-FriendStalker
-=============
-
-Project repository
