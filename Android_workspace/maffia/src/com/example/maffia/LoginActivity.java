@@ -1,18 +1,18 @@
 package com.example.maffia;
-import android.app.Activity;
-import android.os.Bundle;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.maffia.library.DatabaseHandler;
-import com.example.maffia.library.UserFunctions;
-
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.maffia.library.DatabaseHandler;
+import com.example.maffia.library.UserFunctions;
 
 public class LoginActivity extends Activity {
 

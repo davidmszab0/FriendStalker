@@ -10,10 +10,10 @@ import org.apache.http.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.maffia.HTTPactivity;
-
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.example.maffia.HTTPactivity;
 
 public class JSONParser {
     static InputStream is = null;

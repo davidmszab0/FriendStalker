@@ -31,6 +31,7 @@ public class MainActivity extends ActionBarActivity {
         if(userFunctions.isUserLoggedIn(getApplicationContext())){
             setContentView(R.layout.activity_main);
 
+            
         	try {
                 // Loading map
                 initilizeMap();
