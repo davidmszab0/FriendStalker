@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">maffia</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_account">Account</string>
+    <string name="login_activity_title_label_1">Login</string>
+    <string name="login_activity_title_label_2">Login2</string>
+    <string name="login_activity_hint_email">Email</string>
+    <string name="login_activity_hint_pasword">Password</string>
+    <string name="login_activity_button_sign_up">Sign up</string>
+    <string name="login_activity_button_login">Login</string>
+    
+
+</resources>

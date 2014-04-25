@@ -1,0 +1,39 @@
+package naegling.naeglingp2;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+public class LogIn extends Activity {
+
+	private String email;
+	private String username;
+	private String password;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_log_in);
+    }
+
+//	private void login() {
+//		if (CheckDetails.emailAvailable(email) == false)
+//			CheckDetails.getAccount(email);
+//		else if (CheckDetails.usernameAvailable(username) == false)
+//			CheckDetails.getAccount(username);
+//		else {
+//			return;
+//		}
+//		if (password == CheckDetails.account.password()) {
+//			/*
+//			 * Start MainActivity with CheckDetails.account as account;
+//			 */
+//			return;
+//		}
+//		System.out.println("Invalid Username/Email and/or Incorrect Password");
+//	}
+
+	private void register() {
+		// TODO
+	}
+
+}
