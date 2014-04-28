@@ -70,7 +70,10 @@ public class MainActivity extends ActionBarActivity {
         googleMap.getUiSettings().setMyLocationButtonEnabled(true);
          
         // create marker
-        MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).title("I am in Hamburg.");
+        MarkerOptions marker = new MarkerOptions()
+        		.position(new LatLng(latitude, longitude))
+        		.title("I am in Hamburg.")
+        		.icon(BitmapDescriptorFactory.fromResource(R.drawable.ninja));
         
      // GREEN color icon
         marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));

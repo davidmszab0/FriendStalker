@@ -286,6 +286,7 @@ int drawable ic_plusone_medium_off_client 0x7f020072
 int drawable ic_plusone_small_off_client 0x7f020073
 int drawable ic_plusone_standard_off_client 0x7f020074
 int drawable ic_plusone_tall_off_client 0x7f020075
+int drawable ninja 0x7f020076
 int id action_bar 0x7f06001f
 int id action_bar_activity_content 0x7f060018
 int id action_bar_container 0x7f06001e
