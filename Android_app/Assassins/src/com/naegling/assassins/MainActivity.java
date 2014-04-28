@@ -14,10 +14,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.naegling.assassins.library.UserFunctions;
 
-
-
 public class MainActivity extends ActionBarActivity {
-    UserFunctions userFunctions;
+
+	UserFunctions userFunctions;
     private GoogleMap googleMap;
 
     @Override
@@ -103,6 +102,5 @@ public class MainActivity extends ActionBarActivity {
             }
         }
     }
-
 
 }
