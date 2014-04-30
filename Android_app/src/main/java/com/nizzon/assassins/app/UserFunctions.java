@@ -17,8 +17,8 @@ public class UserFunctions {
 
     private JSONParser jsonParser;
 
-    private static String loginURL = "http://www.jnilsson.me/maffia/login/";
-    private static String registerURL = "http://www.jnilsson.me/maffia/login/";
+    private static String loginURL = "http://www.davidmszabo.com/maffia/login/";
+    private static String registerURL = "http://www.davidmszabo.com/maffia/login/";
 
     private static String login_tag = "login";
     private static String register_tag = "register";
