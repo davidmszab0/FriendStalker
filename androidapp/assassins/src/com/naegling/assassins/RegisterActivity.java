@@ -87,6 +87,7 @@ public class RegisterActivity extends Activity {
             }
         });
 
+        
         // Link to Login Screen
 /*        btnLinkToLogin.setOnClickListener(new View.OnClickListener() {
 

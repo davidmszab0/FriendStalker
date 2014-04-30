@@ -2,16 +2,16 @@ package com.naegling.assassins;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.naegling.assassins.lib.UserFunctions;
@@ -73,19 +73,11 @@ public class MainActivity extends ActionBarActivity {
         MarkerOptions marker = new MarkerOptions()
         		.position(new LatLng(latitude, longitude))
         		.title("I am in Hamburg.")
-        		.icon(BitmapDescriptorFactory.fromResource(R.drawable.ninja));
+        		.icon(BitmapDescriptorFactory.fromResource(R.drawable.ninja)); // adding a marker
         
-     // GREEN color icon
-        marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-         
         // adding marker
         googleMap.addMarker(marker);
         
-        // move the camera to a location with an animation
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(
-                new LatLng(17.385044, 78.486671)).zoom(12).build();
- 
-        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 	
     @Override
