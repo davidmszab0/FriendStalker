@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import org.apache.http.NameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,6 +21,7 @@ import android.util.Log;
 public class JSONParser {
     static InputStream is = null;
     static JSONObject jObj = null;
+    static JSONArray jArr = null;
     static String json = "";
 
     // constructor
@@ -29,26 +31,9 @@ public class JSONParser {
 
     public JSONObject getJSONFromUrl(String url, List<NameValuePair> params) {
 
-        // Making HTTP request
-        AsyncTask httpTask = new HttpTask().execute(url, params);
+        AsyncTask bufferTask = new HttpTask().execute(url, params);
         try {
-            is = (InputStream) httpTask.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    is, "iso-8859-1"), 8);
-            StringBuilder sb = new StringBuilder();
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line + "n");
-            }
-            is.close();
-            json = sb.toString();
+            json = (String)bufferTask.get();
             Log.e("JSON", json);
         } catch (Exception e) {
             Log.e("Buffer Error", "Error converting result " + e.toString());
@@ -63,5 +48,26 @@ public class JSONParser {
 
         // return JSON String
         return jObj;
+    }
+
+    public JSONArray getJSONArrayFromUrl(String url, List<NameValuePair> params) {
+
+        AsyncTask bufferTask = new HttpTask().execute(url, params);
+        try {
+            json = (String)bufferTask.get();
+            Log.e("JSON", json);
+        } catch (Exception e) {
+            Log.e("Buffer Error", "Error converting result " + e.toString());
+        }
+
+        // try parse the string to a JSON object
+        try {
+            jArr = new JSONArray(json);
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+
+        // return JSON String
+        return jArr;
     }
 }

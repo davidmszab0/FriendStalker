@@ -69,7 +69,7 @@ if (isset($_POST['tag']) && !empty($_POST['tag'])) {
             } else {
                 // user failed to store
                 $response["error"] = 1;
-                $response["error_msg"] = "Error occured in Registartion";
+                $response["error_msg"] = "Error occured in Registration";
                 echo json_encode($response);
             }
         }
