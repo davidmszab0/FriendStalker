@@ -19,7 +19,7 @@ public class PlayerFunctions {
 
     private JSONParser jsonParser;
 
-    private static String playerURL = "http://www.davidmszabo.com/maffia/player/";
+    private static String playerURL = "http://www.jnilsson.me/maffia/player/";
     private static String setLocationTag = "set_location";
     private static String getTargetLocationTag = "get_target_location";
     private static String setOnlineStatusTag = "set_online_status";
