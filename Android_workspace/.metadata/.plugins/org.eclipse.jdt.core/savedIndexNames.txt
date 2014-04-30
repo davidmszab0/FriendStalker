@@ -1,7 +1,0 @@
-INDEX VERSION 1.126+C:\Users\David\FriendStalker\Android_workspace\.metadata\.plugins\org.eclipse.jdt.core
-3871394155.index
-4216802358.index
-3049029801.index
-4109610200.index
-848856923.index
-2992340958.index
