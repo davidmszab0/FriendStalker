@@ -12,9 +12,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
-public class UserFunctions extends AsyncTask{
+public class UserFunctions {
 
     private JSONParser jsonParser;
 
@@ -29,16 +28,6 @@ public class UserFunctions extends AsyncTask{
         jsonParser = new JSONParser();
     }
 
-    @Override
-    protected Object doInBackground(Object[] params) {
-        return null;
-    }
-
-    /**
-     * function make Login Request
-     * @param email
-     * @param password
-     * */
     public JSONObject loginUser(String email, String password){
         // Building Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
