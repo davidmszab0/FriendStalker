@@ -13,9 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by Johan on 2014-04-28.
- */
 public class PlayerFunctions {
 
     private JSONParser jsonParser;

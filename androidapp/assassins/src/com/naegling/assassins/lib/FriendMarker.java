@@ -7,9 +7,6 @@ import org.json.JSONObject;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-/**
- * Created by Johan on 2014-04-30.
- */
 public class FriendMarker {
 
     PlayerFunctions playerFunctions;
