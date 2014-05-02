@@ -1,14 +1,11 @@
 package com.naegling.assassins.lib;
 
-
 import android.content.Context;
 import android.location.Location;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +21,9 @@ public class PlayerFunctions {
     private static String getAllTag = "get_all";
 
 
-    public PlayerFunctions() {jsonParser = new JSONParser();}
+    public PlayerFunctions() { 
+    	jsonParser = new JSONParser(); 
+    }
 
     public JSONObject updatePlayerLocation(Context context, Location location, String status){
         DatabaseHandler dbh = new DatabaseHandler(context);
