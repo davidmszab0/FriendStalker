@@ -11,7 +11,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.os.AsyncTask;
 
-public class UserFunctions extends AsyncTask{
+public class UserFunctions {
 
     private JSONParser jsonParser;
 
@@ -24,11 +24,6 @@ public class UserFunctions extends AsyncTask{
     // constructor
     public UserFunctions(){
         jsonParser = new JSONParser();
-    }
-
-    @Override
-    protected Object doInBackground(Object[] params) {
-        return null;
     }
 
     /**

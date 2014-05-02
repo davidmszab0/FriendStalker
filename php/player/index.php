@@ -78,7 +78,8 @@ if (isset($_POST['tag']) && !empty($_POST['tag'])) {
 			//echo $result;
 			echo json_encode($return_array);
 		 } else {
-		 	echo "No user online";
+		 	 // echo "something"
+		 	 echo json_encode($return_array);
 		 }
 
 

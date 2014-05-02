@@ -68,7 +68,7 @@ public class LoginActivity extends Activity {
                             userFunction.logoutUser(getApplicationContext());
                             db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json.getString(KEY_UID), json_user.getString(KEY_CREATED_AT));
 
-                            // Launch Dashboard Screen
+                            // Launch Main Screen
                             Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
 
                             // Close all views before launching Dashboard
