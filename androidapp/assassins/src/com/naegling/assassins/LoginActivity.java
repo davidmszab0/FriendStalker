@@ -15,6 +15,12 @@ import android.widget.TextView;
 import com.naegling.assassins.lib.DatabaseHandler;
 import com.naegling.assassins.lib.UserFunctions;
 
+
+/** Activity for login
+ * 
+ * @author Felix
+ *
+ */
 public class LoginActivity extends Activity {
 
     Button btnLogin;
