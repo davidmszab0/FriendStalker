@@ -58,31 +58,44 @@ if (isset($_POST['tag']) && !empty($_POST['tag'])) {
 			}
 		} else {
 			echo "No existing user";
-		}
-
-
 
 	} else if ($tag == 'get_all') {
 		 $data = $db->getAllOnline();
 		 $return_array = array();
 		 if($data != false) {
-			 	while($row = mysql_fetch_array($data))
-				{
+			 	while($row = mysql_fetch_array($data)) {
 					$row_array['name'] = $row['name']; 
 					$row_array['uuid'] = $row['unique_id'];
 					$row_array['lat'] = $row['latitude'];
-					$row_array['long'] = $row['longitude'];					
-		
+					$row_array['long'] = $row['longitude'];
+
 					array_push($return_array, $row_array);
 				}
 			//echo $result;
 			echo json_encode($return_array);
 		 } else {
-		 	 // echo "something"
-		 	 echo json_encode($return_array);
+		 	  echo "something went wrong"
+		 	 //echo json_encode($return_array);
 		 }
+	} else {
+		echo "Tag not found";
 
+	} else if ($tag == 'get_all__uid') {
+		 $data = $db->getAllOnline();
+		 $return_array = array();
+		 if($data != false) {
+			 	while($row = mysql_fetch_array($data)) {
+					
+					$row_array['uuid'] = $row['unique_id'];
 
+					array_push($return_array, $row_array);
+				}
+			//echo $result;
+			echo json_encode($return_array);
+		 } else {
+		 	  echo "No unique id"
+		 	 //echo json_encode($return_array);
+		 }
 	} else {
 		echo "Tag not found";
 	}

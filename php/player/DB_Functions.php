@@ -53,7 +53,7 @@ class DB_Functions {
     }
 
     function getAllOnline() {
-        $result = mysql_query("SELECT * FROM Account WHERE online=1");
+        $result = mysql_query("SELECT * FROM Account WHERE online = 1");
         $no_of_rows = mysql_num_rows($result);
         if ($no_of_rows > 0) {
             // online users in result
