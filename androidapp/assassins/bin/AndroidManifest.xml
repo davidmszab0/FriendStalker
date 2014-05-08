@@ -42,6 +42,10 @@
             android:name="com.naegling.assassins.LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
+        <activity
+            android:name="com.naegling.assassins.ProfileActivity"
+            android:label="@string/title_activity_profile">         
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.version"

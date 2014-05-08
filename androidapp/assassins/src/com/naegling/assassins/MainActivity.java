@@ -78,11 +78,8 @@ public class MainActivity extends ActionBarActivity {
         // adding marker
         googleMap.addMarker(marker);
         
-        // move the camera to a location with an animation
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(
-                new LatLng(17.385044, 78.486671)).zoom(12).build();
+        
  
-        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 	
     @Override
@@ -109,6 +106,14 @@ public class MainActivity extends ActionBarActivity {
 
         if (id == R.id.action_settings) {
 
+            return true;
+        }
+        
+        if (id == R.id.action_profile) {
+        	Intent profile = new Intent(getApplicationContext(), ProfileActivity.class);
+            profile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(profile);
+            finish();
             return true;
         }
 
