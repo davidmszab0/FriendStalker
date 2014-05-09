@@ -20,5 +20,6 @@
     <string name="register_activity_button_sign_up">Sign up</string>
     <string name="main_activity_button_log_out">Log out</string>
     <string name="title_activity_maps">Map</string>
+    <string name="show_friends">Friends</string>
 
 </resources>

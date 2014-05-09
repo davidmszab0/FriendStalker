@@ -1,7 +1,8 @@
 package com.naegling.assassins;
 
+import java.util.ArrayList;
+
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,17 +13,17 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.naegling.assassins.lib.FriendMarker;
 import com.naegling.assassins.lib.PlayerFunctions;
+import com.naegling.assassins.lib.Target;
 import com.naegling.assassins.lib.UserFunctions;
-
 
 public class MainActivity extends ActionBarActivity {
     UserFunctions userFunctions;
@@ -30,7 +31,12 @@ public class MainActivity extends ActionBarActivity {
     private GoogleMap googleMap;
     LocationManager locationManager;
     LocationListener locationListener;
-    FriendMarker friendMarker = new FriendMarker();
+    Target randomTarget = new Target();
+    Target targetClass;
+    TextView test;
+    Marker targetMarker = null;
+    MarkerOptions[] markers;
+    Marker friendM = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,39 +50,33 @@ public class MainActivity extends ActionBarActivity {
             try {
                 // Loading map
                 initilizeMap();
-
-                final TextView textLat = (TextView) findViewById(R.id.textLat);
-                final TextView textLong = (TextView) findViewById(R.id.textLong);
-
-                MarkerOptions[] markers = friendMarker.getMarkers();
-
-                for (int i = 0; i < markers.length; i++){
-                    googleMap.addMarker(markers[i]);
-                }
-
-                // Acquire a reference to the system Location Manager
+                
+                // these are System outprints
+                test = (TextView) findViewById(R.id.test);
+                
+                // Acquire a reference to the system Location Manager - device's geographic location
                 locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-                // Define a listener that responds to location updates
+                // Define a listener that responds to location updates / changes 
                 locationListener = new LocationListener() {
                     public void onLocationChanged(Location location) {
                         // Called when a new location is found by the network location provider.
-                        textLat.setText("" + location.getLatitude());
-                        textLong.setText("" + location.getLongitude());
-                        playerFunctions.updatePlayerLocation(getApplicationContext(), location, "1");
-                        //marker.position(getTarget(target));
-                        //playerFunctions.setOnlineStatus(getApplicationContext(), "1");
+                    	playerFunctions.updatePlayerLocation(getApplicationContext(), location, "1");
                     }
 
                     public void onStatusChanged(String provider, int status, Bundle extras) {}
 
-                    public void onProviderEnabled(String provider) {}
+                    public void onProviderEnabled(String provider) {
+                    	Toast.makeText( getApplicationContext(), "Gps Enabled", Toast.LENGTH_SHORT).show();
+                    }
 
-                    public void onProviderDisabled(String provider) {}
+                    public void onProviderDisabled(String provider) {
+                    	Toast.makeText( getApplicationContext(), "Gps Disabled", Toast.LENGTH_SHORT ).show();
+                    }
                 };
 
-                // Register the listener with the Location Manager to receive location updates
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, locationListener);
+                // Register the listener with the Location Manager to receive location updates - 2seconds, 2 meters
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 2, locationListener);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -105,7 +105,7 @@ public class MainActivity extends ActionBarActivity {
     public void onResume() {
         super.onResume();
         if (locationManager != null)
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 2, locationListener);
         playerFunctions.setOnlineStatus(getApplicationContext(), "1");
     }
 
@@ -141,13 +141,50 @@ public class MainActivity extends ActionBarActivity {
             Intent login = new Intent(getApplicationContext(), LoginActivity.class);
             login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(login);
-            // Closing dashboard screen
+            // Closing mainactivity screen
             finish();
             return true;
         }
+        
+        if (id == R.id.get_target) {
+        	
+        	// it there is one target, then remove it and then create another one
+        	if (targetMarker != null){
+        		targetMarker.remove();
+        	}
+        	
+        	// gets the random target and adds it to the map
+        	targetClass = randomTarget.getRandomTarget(getApplicationContext());
+        	targetMarker = googleMap.addMarker(targetClass.marker);
+        	
+        	 
+        	// to check if the marker already exists on the map
+//        	if (randomTarget.isMarkerOnArray(markers, targetMarker)) {
+//        		friendM.remove();
+//        	}
+        	
+        	// just getting the id of the target
+        	test.setText("" + targetMarker.getId());
+        }
+        
+        if (id == R.id.show_friends) {
+        	
+        	// this section is for Johan: we need to remove the markers from the map
+//        	if (markers.length != 0) {
+//        		for (int i = 0; i < markers.length; i++){
+//    	        	markers[i].visible(false);
+//    	        }
+//        	}
+        	
+        	markers = randomTarget.getMarkers();
+
+	        for (int i = 0; i < markers.length; i++){
+	        	friendM = googleMap.addMarker(markers[i]);
+	        }
+        }
         return super.onOptionsItemSelected(item);
     }
-
+    
     private void initilizeMap() {
         if (googleMap == null) {
             googleMap = ((MapFragment) getFragmentManager().findFragmentById(
@@ -161,22 +198,6 @@ public class MainActivity extends ActionBarActivity {
             }
             googleMap.setMyLocationEnabled(true);
         }
-    }
-
-    private LatLng getTarget(String target) {
-        JSONObject json = playerFunctions.getTargetLocation(target);
-        double lon = 0.0;
-        double lat = 0.0;
-
-        try {
-            if (json.getString("success") != null){
-                lat = Double.parseDouble(json.getString("lat"));
-                lon = Double.parseDouble(json.getString("long"));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return new LatLng(lat, lon);
     }
 }
 
