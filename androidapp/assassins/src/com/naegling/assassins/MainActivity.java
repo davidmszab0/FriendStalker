@@ -1,54 +1,123 @@
 package com.naegling.assassins;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.naegling.assassins.lib.PlayerFunctions;
+import com.naegling.assassins.lib.Target;
 import com.naegling.assassins.lib.UserFunctions;
 
 
 public class MainActivity extends ActionBarActivity {
-    UserFunctions userFunctions;
+	UserFunctions userFunctions;
+    PlayerFunctions playerFunctions;
     private GoogleMap googleMap;
-    double latitude = 53.558;
-    double longitude = 9.927;
-    
+    LocationManager locationManager;
+    LocationListener locationListener;
+    Target randomTarget = new Target();
+    Target targetClass;
+    TextView distance;
+    Marker targetMarker = null;
+    MarkerOptions[] markers;
+    Marker friendM = null;
+    Location currLocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         userFunctions = new UserFunctions();
+        playerFunctions = new PlayerFunctions();
         if(userFunctions.isUserLoggedIn(getApplicationContext())){
             setContentView(R.layout.activity_main);
 
-        	try {
+            try {
                 // Loading map
                 initilizeMap();
-                // showing current location
-                googleMap.setMyLocationEnabled(true); // false to disable
-     
+                
+                
+                // these are System outprints
+                distance = (TextView) findViewById(R.id.distance_text);
+                
+                // Acquire a reference to the system Location Manager - device's geographic location
+                locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+                // Define a listener that responds to location updates / changes 
+                locationListener = new LocationListener() {
+                    public void onLocationChanged(Location location) {
+                        // Called when a new location is found by the network location provider.
+                    	playerFunctions.updatePlayerLocation(getApplicationContext(), location, "1");
+                    }
+
+                    public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+                    public void onProviderEnabled(String provider) {
+                    	Toast.makeText( getApplicationContext(), "Gps Enabled", Toast.LENGTH_SHORT).show();
+                    }
+
+                    public void onProviderDisabled(String provider) {
+                    	Toast.makeText( getApplicationContext(), "Gps Disabled", Toast.LENGTH_SHORT ).show();
+                    }
+                };
+
+                // Register the listener with the Location Manager to receive location updates - 2seconds, 2 meters
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 2, locationListener);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            
+            Button assassinate = (Button) findViewById(R.id.assasinate_button);
+        	assassinate.setOnClickListener(new View.OnClickListener() {
+        		public void onClick(View v) {
+        			playerFunctions.assassinate();
+        			
+        		}
+        	});
+
         }else{
             // user is not logged in show login screen
             Intent login = new Intent(getApplicationContext(), LoginActivity.class);
             login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(login);
-            // Closing dashboard screen
+            // Closing main activity screen
             finish();
         }
+
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (locationManager != null)
+            locationManager.removeUpdates(locationListener);
+        playerFunctions.setOnlineStatus(getApplicationContext(), "0");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (locationManager != null)
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 2, locationListener);
+        playerFunctions.setOnlineStatus(getApplicationContext(), "1");
+    }
+
 
 	/**
 	 * function to load map. If map is not created it will create it for you
@@ -67,26 +136,11 @@ public class MainActivity extends ActionBarActivity {
 	    }
 	    
 	  //my location button
-        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-         
-        // create marker
-        MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).title("I am in Hamburg.");
-        
-     // GREEN color icon
-        marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-         
-        // adding marker
-        googleMap.addMarker(marker);
-        
-        
- 
+        googleMap.setMyLocationEnabled(true);
     }
 	
-    @Override
-    protected void onResume() {
-        super.onResume();
-        initilizeMap();
-    }
+	
+	
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -118,15 +172,46 @@ public class MainActivity extends ActionBarActivity {
         }
 
         if (id == R.id.action_logout) {
+        	locationManager.removeUpdates(locationListener);
+            playerFunctions.setOnlineStatus(getApplicationContext(), "0");
             userFunctions.logoutUser(getApplicationContext());
             Intent login = new Intent(getApplicationContext(), LoginActivity.class);
             login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(login);
-            // Closing dashboard screen
+            // Closing mainactivity screen
             finish();
             return true;
         }
+        
+        if (id == R.id.get_target) {
+        	
+        	// if there is one target, then remove it and then create another one
+        	if (targetMarker != null){
+        		targetMarker.remove();
+        	}
+        	
+        	// gets the random target and adds it to the map
+        	targetClass = randomTarget.getRandomTarget(getApplicationContext());
+        	targetMarker = googleMap.addMarker(targetClass.marker);
+        	
+        	Location location = convertLocation(targetMarker.getPosition());
+        	currLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        	distance.setText(Integer.toString((int)(currLocation.distanceTo(location))) + " m to target");
+        	
+        	
+        	
+        }
         return super.onOptionsItemSelected(item);
+    }
+    
+    public Location convertLocation(LatLng latLong) {
+    	
+    	Location location = new Location("Test");
+    	location.setLatitude(latLong.latitude);
+    	location.setLongitude(latLong.longitude);
+    	
+    	return location;
+	
     }
 
 }

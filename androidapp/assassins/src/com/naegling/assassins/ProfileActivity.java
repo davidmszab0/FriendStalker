@@ -101,10 +101,12 @@ public class ProfileActivity extends Activity {
 		catch(JSONException e) {
 			e.printStackTrace();
 		}
-
+		
+		// set the text to the textviews
 		kills.setText(jKills);       
 		deaths.setText(jDeaths); 
-
+		
+		// calculate the k/d ratio and set it in the textview
 		double kDRatio = Double.parseDouble(jKills) / Double.parseDouble(jDeaths);
 		kD.setText(Double.toString(kDRatio));
 
@@ -121,10 +123,11 @@ public class ProfileActivity extends Activity {
 			e.printStackTrace();
 		}
 
-		// Adding the bonuses to the interface
+		// Adding the bonuses from the items to the interface
 		bonusKill.setText("+" + Integer.toString(jBonusKill) + "%");
 		bonusSurv.setText("+" + Integer.toString(jBonusSurv) + "%");
-
+		
+		// Get the items pictures and set them to the imageviews
 		try {
 			AsyncTask bmWeap = new HttpBitMap().execute(jsonWeapon.getString(KEY_PICT));
 			AsyncTask bmArm = new HttpBitMap().execute(jsonArmour.getString(KEY_PICT));
@@ -143,7 +146,8 @@ public class ProfileActivity extends Activity {
 			e.printStackTrace();
 		}
 	}
-
+	
+	// when pressing the back button go back to the main activity
 	@Override
 	public void onBackPressed() {
 		Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);

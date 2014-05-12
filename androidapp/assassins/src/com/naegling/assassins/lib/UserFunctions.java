@@ -20,6 +20,7 @@ public class UserFunctions extends AsyncTask{
 
     private static String login_tag = "login";
     private static String register_tag = "register";
+    private static String store_user_in_target_tag = "storeUserInTarget";
 
     // constructor
     public UserFunctions(){
@@ -61,6 +62,18 @@ public class UserFunctions extends AsyncTask{
         params.add(new BasicNameValuePair("name", name));
         params.add(new BasicNameValuePair("email", email));
         params.add(new BasicNameValuePair("password", password));
+
+        // getting JSON Object
+        JSONObject json = jsonParser.getJSONFromUrl(registerURL, params);
+        // return json
+        return json;
+    }
+    
+    public JSONObject userInTarget(String uuid) {
+    	// Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", store_user_in_target_tag));
+        params.add(new BasicNameValuePair("uuid", uuid));
 
         // getting JSON Object
         JSONObject json = jsonParser.getJSONFromUrl(registerURL, params);

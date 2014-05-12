@@ -40,5 +40,7 @@
     <string name="profile_weapon">Weapon</string>
     <string name="armour_pic">Equipped Armour</string>
     <string name="weapon_pic">Equipped Weapon</string>
+    <string name="assassinate_button">Assassinate Target</string>
+    <string name="action_get_target">Get Target</string>
 
 </resources>

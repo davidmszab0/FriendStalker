@@ -67,7 +67,8 @@ public class LoginActivity extends Activity {
 
                             // Clear all previous data in database
                             userFunction.logoutUser(getApplicationContext());
-                            db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json.getString(KEY_UID), json_user.getString(KEY_CREATED_AT));
+                            db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), 
+                            		json.getString(KEY_UID), json_user.getString(KEY_CREATED_AT));
 
                             // Launch Dashboard Screen
                             Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
@@ -95,8 +96,7 @@ public class LoginActivity extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),
                         RegisterActivity.class);
-                startActivity(intent);
-                finish();
+                startActivity(intent);                
             }
         });
     }  

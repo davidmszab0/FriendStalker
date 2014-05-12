@@ -4,6 +4,12 @@
     tools:context="com.naegling.assassins.MainActivity" >
 
     <item
+        android:id="@+id/get_target"
+        android:title="@string/action_get_target"
+        app:showAsAction="never">
+    </item>
+    
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
