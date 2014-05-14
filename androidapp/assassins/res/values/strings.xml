@@ -42,5 +42,14 @@
     <string name="weapon_pic">Equipped Weapon</string>
     <string name="assassinate_button">Assassinate Target</string>
     <string name="action_get_target">Get Target</string>
+    <string name="title_take_pic">Take picture</string>
+    <string name="title_collect_item">Collect item</string>
+    <string name="description_picture">Connect the phone to the hub to take a picture</string>
+    <string name="description_item">Connect the phone to the hub to pic up item</string>
+    <string name="nfc_label">Connect the phone to the hub to take a picture</string>
+    <string name="aBonusKill">0</string>
+    <string name="aBonusSurv">0</string>
+    <string name="wBonusKill">0</string>
+    <string name="wBonusSurv">0</string>
 
 </resources>

@@ -26,7 +26,7 @@
         android:typeface="serif" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/aBonusSurv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
@@ -41,7 +41,7 @@
         android:id="@+id/login_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/aBonusSurv"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />

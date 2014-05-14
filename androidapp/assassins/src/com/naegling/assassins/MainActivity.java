@@ -25,18 +25,21 @@ import com.naegling.assassins.lib.UserFunctions;
 
 
 public class MainActivity extends ActionBarActivity {
+	// Global Variables
 	UserFunctions userFunctions;
     PlayerFunctions playerFunctions;
     private GoogleMap googleMap;
     LocationManager locationManager;
     LocationListener locationListener;
     Target randomTarget = new Target();
-    Target targetClass;
+    Target targetClass = null;
     TextView distance;
     Marker targetMarker = null;
     MarkerOptions[] markers;
     Marker friendM = null;
     Location currLocation;
+    Button assassinate;
+    int distanceInt = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,7 @@ public class MainActivity extends ActionBarActivity {
                 initilizeMap();
                 
                 
-                // these are System outprints
+                // this prints out the distance between you and target.
                 distance = (TextView) findViewById(R.id.distance_text);
                 
                 // Acquire a reference to the system Location Manager - device's geographic location
@@ -63,6 +66,18 @@ public class MainActivity extends ActionBarActivity {
                     public void onLocationChanged(Location location) {
                         // Called when a new location is found by the network location provider.
                     	playerFunctions.updatePlayerLocation(getApplicationContext(), location, "1");
+                    	targetClass = null;
+                    	getTarget();
+                    	
+                    	if(distanceInt >= 50){
+                    		assassinate.setClickable(false);
+                    		assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_button));
+
+                    	} else {
+                    		assassinate.setClickable(true);
+                    		assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.assassinate_button));
+                    	}
+                    	
                     }
 
                     public void onStatusChanged(String provider, int status, Bundle extras) {}
@@ -83,13 +98,15 @@ public class MainActivity extends ActionBarActivity {
                 e.printStackTrace();
             }
             
-            Button assassinate = (Button) findViewById(R.id.assasinate_button);
+            assassinate = (Button) findViewById(R.id.assassinate_button);
         	assassinate.setOnClickListener(new View.OnClickListener() {
         		public void onClick(View v) {
-        			playerFunctions.assassinate();
+        			boolean success = playerFunctions.assassinate(getApplicationContext());
+        			targetClass = null;
         			
         		}
         	});
+            
 
         }else{
             // user is not logged in show login screen
@@ -158,10 +175,6 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
         userFunctions = new UserFunctions();
 
-        if (id == R.id.action_settings) {
-
-            return true;
-        }
         
         if (id == R.id.action_profile) {
         	Intent profile = new Intent(getApplicationContext(), ProfileActivity.class);
@@ -183,25 +196,31 @@ public class MainActivity extends ActionBarActivity {
             return true;
         }
         
-        if (id == R.id.get_target) {
-        	
-        	// if there is one target, then remove it and then create another one
-        	if (targetMarker != null){
-        		targetMarker.remove();
-        	}
-        	
-        	// gets the random target and adds it to the map
-        	targetClass = randomTarget.getRandomTarget(getApplicationContext());
-        	targetMarker = googleMap.addMarker(targetClass.marker);
-        	
-        	Location location = convertLocation(targetMarker.getPosition());
-        	currLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        	distance.setText(Integer.toString((int)(currLocation.distanceTo(location))) + " m to target");
-        	
-        	
+        if (id == R.id.get_target) {        	
+        	getTarget();
         	
         }
         return super.onOptionsItemSelected(item);
+    }
+    
+    public void getTarget() {
+    	// gets the random target and adds it to the map
+    	if(targetClass == null) {
+        	targetClass = randomTarget.getRandomTarget(getApplicationContext());
+    	}
+    	// if there is a marker already, remove it.
+    	if (targetMarker != null){
+    		targetMarker.remove();
+    	}
+    	// get the target and place a marker on the map
+    	targetMarker = googleMap.addMarker(targetClass.marker);
+    	assassinate.setText("Assassinate " + targetClass.name);
+    	
+    	//get distance from user location to target location
+    	Location location = convertLocation(targetMarker.getPosition());
+    	currLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+    	distanceInt = (int)currLocation.distanceTo(location);
+    	distance.setText(Integer.toString(distanceInt) + " m to target");
     }
     
     public Location convertLocation(LatLng latLong) {

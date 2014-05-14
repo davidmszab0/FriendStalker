@@ -19,6 +19,7 @@ public class ProfileFunction extends AsyncTask {
 	private static String getProfileWeaponTag = "get_user_weapon";
 	private static String getProfileArmourTag = "get_user_armour";
 	private static String getProfilePictureTag = "get_user_picture";
+	private static String setProfilePictureTag = "set_user_picture";
 	
 	public ProfileFunction() {jsonParser = new JSONParser();}
 	
@@ -71,6 +72,16 @@ public class ProfileFunction extends AsyncTask {
 		
 		return jsonParser.getJSONFromUrl(profileURL, params);
 	}
+	
+	// Set the path to the picture in the database
+    public JSONObject setUserPicture(String userId) {
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", setProfilePictureTag));
+        params.add(new BasicNameValuePair("uuid", userId));
+
+        return jsonParser.getJSONFromUrl(profileURL, params);
+    }
 	
 	
 

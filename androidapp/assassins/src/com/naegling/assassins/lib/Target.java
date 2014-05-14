@@ -1,12 +1,14 @@
 package com.naegling.assassins.lib;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
-import android.content.Context;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.content.Context;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -16,13 +18,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class Target {
 	
 	public String uid;
+	public String name;
 	double lat;
 	double lon;
 	public MarkerOptions marker;
-	PlayerFunctions playerFunctions;
+	PlayerFunctions playerFunctions = new PlayerFunctions();
  	
-	public Target (String uid){
+	public Target (String uid, String name){
 		this.uid = uid;
+		this.name = name;
 		lon = 0.0;
         lat = 0.0;
         
@@ -37,7 +41,6 @@ public class Target {
 	
 	// gets the position of a uuid in the form of LatLng, so it can be used for markers
 	private LatLng getTarget(String target) {
-		playerFunctions = new PlayerFunctions();
         JSONObject json = playerFunctions.getTargetLocation(target);
 
         try {
@@ -53,16 +56,21 @@ public class Target {
 	
 	// gets all the uuid-s from the database in an array, and then randomly selects one from the array
     public Target getRandomTarget(Context context) {
-    	
-    	playerFunctions = new PlayerFunctions();
-    	JSONArray json = playerFunctions.getAlluid();
+    	DatabaseHandler dbh = new DatabaseHandler(context);
+    	HashMap hm = dbh.getUserDetails();
+        String uuid = (String) hm.get("uid");
+        
+    	JSONArray json = playerFunctions.getAllUid(uuid);
+
     	Target target = null;
     	Random rand = new Random();
     	int randomInt = rand.nextInt(json.length());
     	
     		try {
 				uid = json.getJSONObject(randomInt).getString("uuid");
-				target = new Target(uid);
+		    	JSONObject jsonName = playerFunctions.getName(uid);
+		    	name = jsonName.getString("name"); 
+				target = new Target(uid, name);
 				JSONObject jTarget = playerFunctions.updateTarget(context, uid); 
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -73,7 +81,6 @@ public class Target {
     // puts the online player's location into an array of markeroptions
     public MarkerOptions [] getMarkers() {
 
-        playerFunctions = new PlayerFunctions();
         JSONArray array = playerFunctions.getAllOnline();
 
         try {
@@ -92,7 +99,6 @@ public class Target {
     }
     
     public ArrayList<Marker> friendMarkers () {
-    	playerFunctions = new PlayerFunctions();
         JSONArray array = playerFunctions.getAllOnline();
         
 		return null;

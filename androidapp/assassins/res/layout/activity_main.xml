@@ -11,14 +11,14 @@
         android:name="com.google.android.gms.maps.MapFragment"/>
 
     <Button
-        android:id="@+id/assasinate_button"
+        android:id="@+id/assassinate_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:background="@drawable/assassinate_button"
-        android:clickable="true"
+        android:clickable="false"
         android:text="@string/assassinate_button" />
 
     <TextView

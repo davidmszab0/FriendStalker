@@ -37,7 +37,9 @@ public class ProfileActivity extends Activity {
 	private static String KEY_PICT = "picture";
 	private static String KEY_WNAME = "weaponName";
 	private static String KEY_ANAME = "armourName";
-
+	
+	String uid;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -57,17 +59,23 @@ public class ProfileActivity extends Activity {
 		ImageView weaponPic = (ImageView)findViewById(R.id.profileEquipmentWeapon);
 		ImageView armourPic = (ImageView)findViewById(R.id.profileEquipmentArmour);
 		ImageView profilePic = (ImageView)findViewById(R.id.profilePicture);
+		TextView weaponName = (TextView)findViewById(R.id.profileWeaponText);
+		TextView armourName = (TextView)findViewById(R.id.profileArmourText);
+		TextView wK = (TextView)findViewById(R.id.wBonusKill);
+		TextView wS = (TextView)findViewById(R.id.wBonusSurv);
+		TextView aK = (TextView)findViewById(R.id.aBonusKill);
+		TextView aS = (TextView)findViewById(R.id.aBonusSurv);
 
 		// Initializes variables
 		String jKills = "";
 		String jDeaths = "";
-		int jBonusKill = 0;
-		int jBonusSurv = 0;
+		
 
 		// Setting the user name and email to the interface
 		name.setText(user.get(KEY_NAME));
 		email.setText(user.get(KEY_EMAIL));
-
+		uid = user.get(KEY_UID);
+		
 		// Making new profile function
 		ProfileFunction pFunc = new ProfileFunction();
 		
@@ -109,23 +117,44 @@ public class ProfileActivity extends Activity {
 		// calculate the k/d ratio and set it in the textview
 		double kDRatio = Double.parseDouble(jKills) / Double.parseDouble(jDeaths);
 		kD.setText(Double.toString(kDRatio));
+		
+		int jBonusKill = 0;
+		int jBonusSurv = 0;
+		int jABonusKill = 0;
+		int jABonusSurv = 0;
+		
+		String wName = "";
+		String aName = "";
 
 		// Get the weapon/armour from the database
 		JSONObject jsonWeapon = pFunc.getUserWeapon(user.get(KEY_UID));
-		JSONObject jsonArmour = pFunc.getUserArmour(user.get(KEY_UID));       
+		JSONObject jsonArmour = pFunc.getUserArmour(user.get(KEY_UID));
+		
+		
 
 		// Get the specific bonuses from JSON data
 		try {
-			jBonusKill = jsonWeapon.getInt(KEY_KILL) + jsonArmour.getInt(KEY_KILL);
-			jBonusSurv = jsonWeapon.getInt(KEY_SURV) + jsonArmour.getInt(KEY_SURV);
+			jBonusKill = jsonWeapon.getInt(KEY_KILL);
+			jABonusKill = jsonArmour.getInt(KEY_KILL);
+			jABonusSurv = jsonArmour.getInt(KEY_SURV);
+			jBonusSurv = jsonWeapon.getInt(KEY_SURV); 
+			wName = jsonWeapon.getString(KEY_WNAME);
+			aName = jsonArmour.getString(KEY_ANAME);
 		}
 		catch(JSONException e) {
 			e.printStackTrace();
 		}
-
+		
+		weaponName.setText(wName);
+		armourName.setText(aName);
 		// Adding the bonuses from the items to the interface
-		bonusKill.setText("+" + Integer.toString(jBonusKill) + "%");
-		bonusSurv.setText("+" + Integer.toString(jBonusSurv) + "%");
+		bonusKill.setText("+" + Integer.toString(jBonusKill + jABonusKill) + "%");
+		bonusSurv.setText("+" + Integer.toString(jBonusSurv + jABonusSurv) + "%");
+		
+		wK.setText("Kill Bonus: " + Integer.toString(jBonusKill));
+		aK.setText("Kill Bonus: " + Integer.toString(jABonusKill));
+		wS.setText("Defence Bonus: " + Integer.toString(jBonusSurv));
+		aS.setText("Defence Bonus: " + Integer.toString(jABonusSurv));
 		
 		// Get the items pictures and set them to the imageviews
 		try {
@@ -163,7 +192,7 @@ public class ProfileActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.profile, menu);
         return true;
     }
 
@@ -175,15 +204,13 @@ public class ProfileActivity extends Activity {
         int id = item.getItemId();
         UserFunctions userFunctions = new UserFunctions();
 
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        
-        if (id == R.id.action_profile) {
-        	Intent profile = new Intent(getApplicationContext(), ProfileActivity.class);
-            profile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(profile);
-            finish();
+     // Take a picture with the pi
+        if (id == R.id.take_picture) {
+            Intent intent = new Intent(getApplicationContext(), NFCActivity.class);
+            intent.putExtra("MODE", "pic");
+            intent.putExtra("UID", "" + uid);
+            startActivity(intent);
+
             return true;
         }
 

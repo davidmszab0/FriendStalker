@@ -1270,16 +1270,19 @@ containing a value of this type.
         public static final int common_signin_btn_text_normal_light=0x7f02006e;
         public static final int common_signin_btn_text_pressed_dark=0x7f02006f;
         public static final int common_signin_btn_text_pressed_light=0x7f020070;
-        public static final int custom_button=0x7f020071;
-        public static final int ic_action_search=0x7f020072;
-        public static final int ic_launcher=0x7f020073;
-        public static final int ic_plusone_medium_off_client=0x7f020074;
-        public static final int ic_plusone_small_off_client=0x7f020075;
-        public static final int ic_plusone_standard_off_client=0x7f020076;
-        public static final int ic_plusone_tall_off_client=0x7f020077;
-        public static final int profile_picture=0x7f020078;
+        public static final int connect=0x7f020071;
+        public static final int custom_button=0x7f020072;
+        public static final int ic_action_search=0x7f020073;
+        public static final int ic_launcher=0x7f020074;
+        public static final int ic_plusone_medium_off_client=0x7f020075;
+        public static final int ic_plusone_small_off_client=0x7f020076;
+        public static final int ic_plusone_standard_off_client=0x7f020077;
+        public static final int ic_plusone_tall_off_client=0x7f020078;
+        public static final int profile_picture=0x7f020079;
     }
     public static final class id {
+        public static final int aBonusKill=0x7f06005d;
+        public static final int aBonusSurv=0x7f060041;
         public static final int action_bar=0x7f06001f;
         public static final int action_bar_activity_content=0x7f060018;
         public static final int action_bar_container=0x7f06001e;
@@ -1288,15 +1291,14 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f060026;
         public static final int action_bar_title=0x7f060025;
         public static final int action_context_bar=0x7f060020;
-        public static final int action_logout=0x7f060065;
+        public static final int action_logout=0x7f060068;
         public static final int action_menu_divider=0x7f060019;
         public static final int action_menu_presenter=0x7f06001a;
         public static final int action_mode_close_button=0x7f060027;
-        public static final int action_profile=0x7f060064;
-        public static final int action_settings=0x7f060063;
+        public static final int action_profile=0x7f060067;
         public static final int activity_chooser_view_content=0x7f060028;
         public static final int always=0x7f06000f;
-        public static final int assasinate_button=0x7f060048;
+        public static final int assassinate_button=0x7f060048;
         public static final int beginning=0x7f060014;
         public static final int btnLogin=0x7f060045;
         public static final int btnRegister=0x7f060046;
@@ -1311,7 +1313,7 @@ containing a value of this type.
         public static final int end=0x7f060016;
         public static final int expand_activities_button=0x7f060029;
         public static final int expanded_menu=0x7f06002f;
-        public static final int get_target=0x7f060062;
+        public static final int get_target=0x7f060066;
         public static final int home=0x7f060017;
         public static final int homeAsUp=0x7f060009;
         public static final int hybrid=0x7f060004;
@@ -1327,35 +1329,36 @@ containing a value of this type.
         public static final int map=0x7f060047;
         public static final int middle=0x7f060015;
         public static final int never=0x7f06000d;
+        public static final int nfcLabelTextView=0x7f06004a;
         public static final int none=0x7f060000;
         public static final int normal=0x7f060001;
-        public static final int profileArmourText=0x7f060059;
-        public static final int profileBonusToKill=0x7f060052;
-        public static final int profileBonusToSurvive=0x7f060055;
-        public static final int profileDeaths=0x7f06004f;
-        public static final int profileEmail=0x7f06004b;
-        public static final int profileEquipment=0x7f06005a;
-        public static final int profileEquipmentArmour=0x7f060058;
+        public static final int profileArmourText=0x7f06005a;
+        public static final int profileBonusToKill=0x7f060053;
+        public static final int profileBonusToSurvive=0x7f060056;
+        public static final int profileDeaths=0x7f060050;
+        public static final int profileEmail=0x7f06004c;
+        public static final int profileEquipment=0x7f060059;
+        public static final int profileEquipmentArmour=0x7f06005b;
         public static final int profileEquipmentWeapon=0x7f06005c;
-        public static final int profileKDRatio=0x7f060056;
-        public static final int profileKills=0x7f060057;
-        public static final int profileNumberBonusKill=0x7f060051;
-        public static final int profileNumberBonusSurvive=0x7f060054;
-        public static final int profileNumberDeath=0x7f06004e;
-        public static final int profileNumberKD=0x7f060053;
-        public static final int profileNumberKills=0x7f060050;
-        public static final int profilePicture=0x7f06004a;
-        public static final int profileStatistics=0x7f06004d;
-        public static final int profileUsername=0x7f06004c;
-        public static final int profileWeaponText=0x7f06005b;
+        public static final int profileKDRatio=0x7f060057;
+        public static final int profileKills=0x7f060058;
+        public static final int profileNumberBonusKill=0x7f060052;
+        public static final int profileNumberBonusSurvive=0x7f060055;
+        public static final int profileNumberDeath=0x7f06004f;
+        public static final int profileNumberKD=0x7f060054;
+        public static final int profileNumberKills=0x7f060051;
+        public static final int profilePicture=0x7f06004b;
+        public static final int profileStatistics=0x7f06004e;
+        public static final int profileUsername=0x7f06004d;
+        public static final int profileWeaponText=0x7f06005e;
         public static final int progress_circular=0x7f06001b;
         public static final int progress_horizontal=0x7f06001c;
         public static final int radio=0x7f060032;
-        public static final int registerConfirmPassword=0x7f060061;
-        public static final int registerEmail=0x7f06005f;
-        public static final int registerName=0x7f06005e;
-        public static final int registerPassword=0x7f060060;
-        public static final int register_error=0x7f06005d;
+        public static final int registerConfirmPassword=0x7f060065;
+        public static final int registerEmail=0x7f060063;
+        public static final int registerName=0x7f060062;
+        public static final int registerPassword=0x7f060064;
+        public static final int register_error=0x7f060061;
         public static final int satellite=0x7f060002;
         public static final int search_badge=0x7f060035;
         public static final int search_bar=0x7f060034;
@@ -1374,13 +1377,15 @@ containing a value of this type.
         public static final int split_action_bar=0x7f060021;
         public static final int submit_area=0x7f06003c;
         public static final int tabMode=0x7f060006;
+        public static final int take_picture=0x7f060069;
         public static final int terrain=0x7f060003;
         public static final int textView=0x7f060040;
-        public static final int textView2=0x7f060041;
         public static final int title=0x7f06002e;
         public static final int top_action_bar=0x7f060023;
         public static final int up=0x7f060024;
         public static final int useLogo=0x7f060007;
+        public static final int wBonusKill=0x7f06005f;
+        public static final int wBonusSurv=0x7f060060;
         public static final int withText=0x7f060010;
     }
     public static final class integer {
@@ -1436,14 +1441,18 @@ containing a value of this type.
         public static final int abc_simple_decor=0x7f030017;
         public static final int activity_login=0x7f030018;
         public static final int activity_main=0x7f030019;
-        public static final int activity_profile=0x7f03001a;
-        public static final int activity_register=0x7f03001b;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001c;
+        public static final int activity_nfc=0x7f03001a;
+        public static final int activity_profile=0x7f03001b;
+        public static final int activity_register=0x7f03001c;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001d;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;
+        public static final int profile=0x7f0c0001;
     }
     public static final class string {
+        public static final int aBonusKill=0x7f070056;
+        public static final int aBonusSurv=0x7f070057;
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
          */
         public static final int abc_action_bar_home_description=0x7f07001c;
@@ -1585,6 +1594,8 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f070013;
+        public static final int description_item=0x7f070054;
+        public static final int description_picture=0x7f070053;
         /**  Location client code resources (prefix with location_client) 
          */
         public static final int location_client_powered_by_google=0x7f07001a;
@@ -1595,6 +1606,7 @@ containing a value of this type.
         public static final int login_activity_title_label_1=0x7f07002f;
         public static final int login_activity_title_label_2=0x7f070030;
         public static final int main_activity_button_log_out=0x7f07003a;
+        public static final int nfc_label=0x7f070055;
         public static final int profile_armour=0x7f07004b;
         public static final int profile_bonusToKill=0x7f070042;
         public static final int profile_bonusToSurvive=0x7f070043;
@@ -1621,6 +1633,10 @@ containing a value of this type.
         public static final int title_activity_maps=0x7f07003b;
         public static final int title_activity_profile=0x7f07002e;
         public static final int title_activity_register=0x7f07002d;
+        public static final int title_collect_item=0x7f070052;
+        public static final int title_take_pic=0x7f070051;
+        public static final int wBonusKill=0x7f070058;
+        public static final int wBonusSurv=0x7f070059;
         public static final int weapon_pic=0x7f07004e;
     }
     public static final class style {

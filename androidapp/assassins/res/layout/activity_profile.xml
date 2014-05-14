@@ -134,51 +134,86 @@
         android:text="@string/profile_kills"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <ImageView
-        android:id="@+id/profileEquipmentArmour"
+    <TextView
+        android:id="@+id/profileEquipment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/profileStatistics"
-        android:layout_marginBottom="52dp"
-        android:src="@drawable/abc_ab_bottom_solid_light_holo"
-        android:contentDescription="@string/armour_pic" />
+        android:layout_alignLeft="@+id/profileEmail"
+        android:layout_below="@+id/profileBonusToSurvive"
+        android:layout_marginTop="46dp"
+        android:text="@string/profile_equipment"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/profileArmourText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/profileEquipmentArmour"
-        android:layout_alignRight="@+id/profileBonusToKill"
-        android:layout_marginBottom="16dp"
+        android:layout_alignLeft="@+id/profileEquipmentArmour"
+        android:layout_below="@+id/profileEquipment"
         android:text="@string/profile_armour" />
 
+    <ImageView
+        android:id="@+id/profileEquipmentArmour"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/profileArmourText"
+        android:layout_marginTop="14dp"
+        android:layout_toRightOf="@+id/profileKills"
+        android:contentDescription="@string/armour_pic"
+        android:scaleType="centerInside"
+        android:src="@drawable/abc_ab_bottom_solid_light_holo" />
+
+    <ImageView
+        android:id="@+id/profileEquipmentWeapon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignTop="@+id/profileEquipmentArmour"
+        android:layout_marginRight="15dp"
+        android:layout_toLeftOf="@+id/profileNumberBonusSurvive"
+        android:contentDescription="@string/weapon_pic"
+        android:scaleType="centerInside"
+        android:src="@drawable/abc_ab_bottom_solid_light_holo" />
+
     <TextView
-        android:id="@+id/profileEquipment"
+        android:id="@+id/aBonusSurv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/profileWeaponText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24dp"
-        android:text="@string/profile_equipment"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_alignLeft="@+id/aBonusKill"
+        android:layout_below="@+id/aBonusKill"
+        android:layout_marginTop="14dp"
+        android:text="@string/aBonusSurv" />
+
+    <TextView
+        android:id="@+id/aBonusKill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/profileEquipmentArmour"
+        android:layout_below="@+id/profileEquipmentArmour"
+        android:text="@string/aBonusKill" />
 
     <TextView
         android:id="@+id/profileWeaponText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/profileArmourText"
-        android:layout_alignBottom="@+id/profileArmourText"
-        android:layout_alignRight="@+id/profileEquipmentWeapon"
+        android:layout_above="@+id/profileEquipmentArmour"
+        android:layout_alignLeft="@+id/profileEquipmentWeapon"
         android:text="@string/profile_weapon" />
 
-    <ImageView
-        android:id="@+id/profileEquipmentWeapon"
+    <TextView
+        android:id="@+id/wBonusKill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/profileEquipmentArmour"
-        android:layout_toRightOf="@+id/profileEmail"
-        android:contentDescription="@string/weapon_pic"
-        android:src="@drawable/abc_ab_bottom_solid_light_holo" />
+        android:layout_above="@+id/aBonusSurv"
+        android:layout_alignLeft="@+id/profileEquipmentWeapon"
+        android:text="@string/wBonusKill" />
+
+    <TextView
+        android:id="@+id/wBonusSurv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/wBonusKill"
+        android:layout_below="@+id/wBonusKill"
+        android:layout_marginTop="14dp"
+        android:text="@string/wBonusSurv" />
 
 </RelativeLayout>
