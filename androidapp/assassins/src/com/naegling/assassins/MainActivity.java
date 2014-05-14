@@ -66,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
                     public void onLocationChanged(Location location) {
                         // Called when a new location is found by the network location provider.
                     	playerFunctions.updatePlayerLocation(getApplicationContext(), location, "1");
-                    	targetClass = null;
+                    	//targetClass = null;
                     	getTarget();
                     	
                     	if(distanceInt >= 50){
