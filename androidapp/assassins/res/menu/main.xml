@@ -1,25 +1,3 @@
-<<<<<<< HEAD
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.naegling.assassins.MainActivity" >
-
-    <item android:id="@+id/action_profile"
-        android:title="@string/action_profile"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never"/> <!-- if your device has a menu button, this will not show in the action overflow (actionbar) -->
-    <item
-        android:id="@+id/action_logout"
-        android:orderInCategory="100"
-        android:title="@string/action_logout"
-        app:showAsAction="never"/>
-
-=======
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -47,6 +25,4 @@
         android:title="@string/action_logout"
         app:showAsAction="never"/>
     
-
->>>>>>> 5e2bae9f009d1eff75dd0792a474e6711aa98732
 </menu>
