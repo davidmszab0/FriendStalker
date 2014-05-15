@@ -49,10 +49,15 @@ if (isset($_POST['tag']) && !empty($_POST['tag'])) {
         $password = $_POST['password'];
  
         // check if user is already existed
-        if ($db->isUserExisted($email)) {
-            // user is already existed - error response
+        if ($db->isEmailExisted($email)) {
+            // email already exists - error response
             $response["error"] = 2;
-            $response["error_msg"] = "User already existed";
+            $response["error_msg"] = "E-mail already existed";
+            echo json_encode($response);
+        } else if ($db->isNameExisted($name)) {
+            // user name already exists - error response
+            $response["error"] = 3;
+            $response["error_msg"] = "Name already existed";
             echo json_encode($response);
         } else {
             // store user
@@ -73,10 +78,51 @@ if (isset($_POST['tag']) && !empty($_POST['tag'])) {
                 echo json_encode($response);
             }
         }
-    } else {
+    } else if ($tag == 'storeUserInTarget') {
+        $uuid = $_POST['uuid'];
+         // store user
+        if($db->userExists($uuid)) {
+
+            $user = $db->storeUserInTarget($uuid);
+            if ($user != false) {
+                 // user stored successfully
+                $response["success"] = 1;
+                echo json_encode($response);
+            } else {
+                // user failed to store
+                $response["error"] = 1;
+                $response["error_msg"] = "Error occured in storing user in Target";
+                echo json_encode($response);
+             }
+        } else {
+            echo "Not existing user";
+        }  
+    } else if ($tag == 'change_password') {
+        $uuid = $_POST['uuid'];
+        $password = $_POST['password'];
+        if($db->userExists($uuid)) {
+            if($db->changePassword($uuid, $password)) {
+                $response['success'] = 1;
+                echo json_encode($response);
+            } else {
+                $response["error"] = 1;
+                $response["error_msg"] = "Error in updating password";
+                echo json_encode($response);    
+            }
+        } else {
+            $response["error"] = 1;
+            $response["error_msg"] = "User does not exist";
+            echo json_encode($response);
+        }
+    }
+
+
+    else {
         echo "Invalid Request";
     }
 } else {
     echo "Access Denied";
 }
+
+
 ?>

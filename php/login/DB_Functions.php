@@ -27,14 +27,40 @@ class DB_Functions {
         $hash = $this->hashSSHA($password);
         $encrypted_password = $hash["encrypted"]; // encrypted password
         $salt = $hash["salt"]; // salt
-        $result = mysql_query("INSERT INTO Account(unique_id, name, email, password, salt, created_at) VALUES('$uuid', '$name', '$email', '$encrypted_password', '$salt', NOW())");
+        $result = mysql_query("INSERT INTO Account(unique_id, name, email, password, salt, created_at) 
+            VALUES('$uuid', '$name', '$email', '$encrypted_password', '$salt', NOW())");
         // check for successful store
         if ($result) {
             // get user details 
             $uid = mysql_insert_id(); // last inserted id
             $result = mysql_query("SELECT * FROM Account WHERE account_id = $uid");
+            $stats = mysql_query("INSERT INTO Statistics(account_id) VALUES($uid)");
+            $weapon = mysql_query("INSERT INTO PlayerWeapon(account_id) VALUES($uid)");
+            $armour = mysql_query("INSERT INTO PlayerArmour(account_id) VALUES($uid)");
             // return user details
             return mysql_fetch_array($result);
+        } else {
+            return false;
+        }
+    }
+
+    public function storeUserInTarget($uuid) {
+        $result = mysql_query("INSERT INTO Target(player_id) VALUES('$uuid')");
+        // check for successful store
+        if ($result) {
+            return mysql_fetch_array($result);
+        } else {
+            return false;
+        }
+    }
+
+    public function changePassword($uuid, $password) {
+        $hash = $this->hashSSHA($password);
+        $encrypted_password = $hash['encrypted'];
+        $salt = $hash['salt'];
+        $result = mysql_query("UPDATE Account SET password = '$encrypted_password', salt='$salt' WHERE unique_id = '$uuid'");
+        if ($result) {
+            return true;
         } else {
             return false;
         }
@@ -62,11 +88,24 @@ class DB_Functions {
             return false;
         }
     }
+
+    /* Checks if the user exist */
+    function userExists($uuid) {
+        $result = mysql_query("SELECT * from Account WHERE unique_id = '$uuid'");
+        $no_of_rows = mysql_num_rows($result);
+        if ($no_of_rows > 0) {
+            // user existed
+            return true;
+        } else {
+            // user not existed
+            return false;
+        }
+    }
  
     /**
-     * Check user is existed or not
+     * Check if the e-mail already exists in the db
      */
-    public function isUserExisted($email) {
+    public function isEmailExisted($email) {
         $result = mysql_query("SELECT email from Account WHERE email = '$email'");
         $no_of_rows = mysql_num_rows($result);
         if ($no_of_rows > 0) {
@@ -77,6 +116,21 @@ class DB_Functions {
             return false;
         }
     }
+
+    /**
+     * Check if the name already exists in the db
+     */
+    public function isNameExisted($name) {
+        $result = mysql_query("SELECT name from Account WHERE name = '$name'");
+        $no_of_rows = mysql_num_rows($result);
+        if ($no_of_rows > 0) {
+            // user existed 
+            return true;
+        } else {
+            // user not existed
+            return false;
+        }
+    } 
  
     /**
      * Encrypting password
