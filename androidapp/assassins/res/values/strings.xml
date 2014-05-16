@@ -51,5 +51,8 @@
     <string name="aBonusSurv">0</string>
     <string name="wBonusKill">0</string>
     <string name="wBonusSurv">0</string>
+    <string name="title_activity_change_password">Change Password</string>
+    <string name="change_password_button">Change Password</string>
+    <string name="current_password">Current password</string>
 
 </resources>

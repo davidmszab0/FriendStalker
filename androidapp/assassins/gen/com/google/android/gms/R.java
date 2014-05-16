@@ -65,10 +65,10 @@ public final class R {
 		public static final int common_signin_btn_text_normal_light = 0x7f02006e;
 		public static final int common_signin_btn_text_pressed_dark = 0x7f02006f;
 		public static final int common_signin_btn_text_pressed_light = 0x7f020070;
-		public static final int ic_plusone_medium_off_client = 0x7f020075;
-		public static final int ic_plusone_small_off_client = 0x7f020076;
-		public static final int ic_plusone_standard_off_client = 0x7f020077;
-		public static final int ic_plusone_tall_off_client = 0x7f020078;
+		public static final int ic_plusone_medium_off_client = 0x7f020077;
+		public static final int ic_plusone_small_off_client = 0x7f020078;
+		public static final int ic_plusone_standard_off_client = 0x7f020079;
+		public static final int ic_plusone_tall_off_client = 0x7f02007a;
 	}
 	public static final class id {
 		public static final int hybrid = 0x7f060004;

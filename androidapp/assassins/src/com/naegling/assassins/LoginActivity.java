@@ -1,11 +1,7 @@
 package com.naegling.assassins;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-
-
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +11,10 @@ import android.widget.TextView;
 
 import com.naegling.assassins.lib.DatabaseHandler;
 import com.naegling.assassins.lib.UserFunctions;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class LoginActivity extends Activity {
 
@@ -32,9 +32,10 @@ public class LoginActivity extends Activity {
     private static String KEY_NAME = "name";
     private static String KEY_EMAIL = "email";
     private static String KEY_CREATED_AT = "created_at";
+    private static String KEY_REGID = "regid";
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -49,6 +50,7 @@ public class LoginActivity extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
+                Context context = getApplicationContext();
                 String email = inputEmail.getText().toString();
                 String password = inputPassword.getText().toString();
                 UserFunctions userFunction = new UserFunctions();
@@ -67,8 +69,8 @@ public class LoginActivity extends Activity {
 
                             // Clear all previous data in database
                             userFunction.logoutUser(getApplicationContext());
-                            db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), 
-                            		json.getString(KEY_UID), json_user.getString(KEY_CREATED_AT));
+                            db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL),
+                                    json.getString(KEY_UID), json_user.getString(KEY_CREATED_AT));
 
                             // Launch Dashboard Screen
                             Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
@@ -96,8 +98,8 @@ public class LoginActivity extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),
                         RegisterActivity.class);
-                startActivity(intent);                
+                startActivity(intent);
             }
         });
-    }  
+    }
 }

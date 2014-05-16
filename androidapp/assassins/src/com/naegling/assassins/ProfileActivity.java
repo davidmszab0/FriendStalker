@@ -1,5 +1,7 @@
 package com.naegling.assassins;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
@@ -30,15 +32,38 @@ public class ProfileActivity extends Activity {
 	private static String KEY_UID = "uid";
 	private static String KEY_NAME = "name";
 	private static String KEY_EMAIL = "email";
-	private static String KEY_KILLS = "kills";
-	private static String KEY_DEATHS = "deaths";
-	private static String KEY_KILL = "bonusKill";
-	private static String KEY_SURV = "bonusSurv";
-	private static String KEY_PICT = "picture";
+	private static String KEY_KILLS = "noKills";
+	private static String KEY_DEATHS = "noDeaths";
+    private static String KEY_PICT = "picture";
+	private static String KEY_WKILL = "weaponBonusKill";
+	private static String KEY_WSURV = "weaponBonusSurv";
+	private static String KEY_WPICT = "weaponPicture";
 	private static String KEY_WNAME = "weaponName";
 	private static String KEY_ANAME = "armourName";
+    private static String KEY_AKILL = "armourBonusKill";
+    private static String KEY_ASURV = "armourBonusSurv";
+    private static String KEY_APICT = "armourPic";
 	
 	String uid;
+    String email;
+
+    TextView nameTextView;
+    TextView emailTextView;
+    TextView killsTextView;
+    TextView deathsTextView;
+    TextView kDTextView;
+    TextView bonusKillTextView;
+    TextView bonusSurvTextView;
+    ImageView weaponPic;
+    ImageView armourPic;
+    ImageView profilePic;
+    TextView weaponNameTextView;
+    TextView armourNameTextView;
+    TextView wKTextView;
+    TextView wSTextView;
+    TextView aKTextView;
+    TextView aSTextView;
+
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,131 +74,107 @@ public class ProfileActivity extends Activity {
 		HashMap<String, String> user = db.getUserDetails();
 
 		// TextViews being initialized
-		TextView name = (TextView)findViewById(R.id.profileUsername);
-		TextView email = (TextView)findViewById(R.id.profileEmail);
-		TextView kills = (TextView)findViewById(R.id.profileNumberKills);
-		TextView deaths = (TextView)findViewById(R.id.profileNumberDeath);
-		TextView kD = (TextView)findViewById(R.id.profileNumberKD);
-		TextView bonusKill = (TextView)findViewById(R.id.profileNumberBonusKill);
-		TextView bonusSurv = (TextView)findViewById(R.id.profileNumberBonusSurvive);
-		ImageView weaponPic = (ImageView)findViewById(R.id.profileEquipmentWeapon);
-		ImageView armourPic = (ImageView)findViewById(R.id.profileEquipmentArmour);
-		ImageView profilePic = (ImageView)findViewById(R.id.profilePicture);
-		TextView weaponName = (TextView)findViewById(R.id.profileWeaponText);
-		TextView armourName = (TextView)findViewById(R.id.profileArmourText);
-		TextView wK = (TextView)findViewById(R.id.wBonusKill);
-		TextView wS = (TextView)findViewById(R.id.wBonusSurv);
-		TextView aK = (TextView)findViewById(R.id.aBonusKill);
-		TextView aS = (TextView)findViewById(R.id.aBonusSurv);
+		nameTextView = (TextView)findViewById(R.id.profileUsername);
+		emailTextView = (TextView)findViewById(R.id.profileEmail);
+		killsTextView = (TextView)findViewById(R.id.profileNumberKills);
+		deathsTextView = (TextView)findViewById(R.id.profileNumberDeath);
+		kDTextView = (TextView)findViewById(R.id.profileNumberKD);
+		bonusKillTextView = (TextView)findViewById(R.id.profileNumberBonusKill);
+		bonusSurvTextView = (TextView)findViewById(R.id.profileNumberBonusSurvive);
+		weaponPic = (ImageView)findViewById(R.id.profileEquipmentWeapon);
+		armourPic = (ImageView)findViewById(R.id.profileEquipmentArmour);
+		profilePic = (ImageView)findViewById(R.id.profilePicture);
+		weaponNameTextView = (TextView)findViewById(R.id.profileWeaponText);
+		armourNameTextView = (TextView)findViewById(R.id.profileArmourText);
+		wKTextView = (TextView)findViewById(R.id.wBonusKill);
+		wSTextView = (TextView)findViewById(R.id.wBonusSurv);
+		aKTextView = (TextView)findViewById(R.id.aBonusKill);
+		aSTextView = (TextView)findViewById(R.id.aBonusSurv);
+
+        // Making new profile function
+        ProfileFunction pFunc = new ProfileFunction();
+
 
 		// Initializes variables
-		String jKills = "";
-		String jDeaths = "";
-		
+		int kills = 0;
+		int deaths = 0;
+        Double kdRatio;
+        int wBonusKill = 0;
+        int wBonusSurv = 0;
+        int aBonusKill = 0;
+        int aBonusSurv = 0;
+        String wName = "";
+        String aName = "";
 
-		// Setting the user name and email to the interface
-		name.setText(user.get(KEY_NAME));
-		email.setText(user.get(KEY_EMAIL));
+        // Get data from the server through API
+        JSONObject jsonProfile = pFunc.getProfile(user.get(KEY_UID));
+
+		// Setting the user nameTextView and email to the interface
+		nameTextView.setText(user.get(KEY_NAME));
+		emailTextView.setText(user.get(KEY_EMAIL));
 		uid = user.get(KEY_UID);
-		
-		// Making new profile function
-		ProfileFunction pFunc = new ProfileFunction();
-		
-		// Get profile picture
-		JSONObject jsonPicture = pFunc.getUserPicture(user.get(KEY_UID));
-		
-		try {
-			AsyncTask bmPict = new HttpBitMap().execute(jsonPicture.getString(KEY_PICT));
-			try {
-				Bitmap bitPict = (Bitmap) bmPict.get();
+        email = user.get(KEY_EMAIL);
 
-				profilePic.setImageBitmap(bitPict);
-			}catch(InterruptedException e) {
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				e.printStackTrace();
-			}
-		}catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
+		// Get picture for profile, weapon and armour and set ImageViews
 
-		// Get the users kills and deaths from the database
-		JSONObject jsonKills = pFunc.getUserKills(user.get(KEY_UID));
-		JSONObject jsonDeaths = pFunc.getUserDeaths(user.get(KEY_UID));
+        try {
+            URL[] urls = {new URL(jsonProfile.getString(KEY_PICT)),new URL(jsonProfile.getString(KEY_WPICT)),new URL(jsonProfile.getString(KEY_APICT))};
+            AsyncTask bmTask = new HttpBitMap().execute(urls[0], urls[1], urls[2]);
+            //AsyncTask bmTaskWPic = new HttpBitMap().execute();
+            //AsyncTask bmTaskAPic = new HttpBitMap().execute();
+            try {
+                Bitmap[] bitMap = (Bitmap[])bmTask.get();
+                //Bitmap bitMapWPic = (Bitmap)bmTaskWPic.get();
+                //Bitmap bitMapAPic = (Bitmap)bmTaskAPic.get();
+                profilePic.setImageBitmap(bitMap[0]);
+                weaponPic.setImageBitmap(bitMap[1]);
+                armourPic.setImageBitmap(bitMap[2]);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
 
-		try {
-			jKills = jsonKills.getString(KEY_KILLS);
-			jDeaths = jsonDeaths.getString(KEY_DEATHS);
-		}
-		catch(JSONException e) {
-			e.printStackTrace();
-		}
-		
-		// set the text to the textviews
-		kills.setText(jKills);       
-		deaths.setText(jDeaths); 
-		
+            // Get kills, deaths from server
+            kills = jsonProfile.getInt(KEY_KILLS);
+            deaths = jsonProfile.getInt(KEY_DEATHS);
+            wName = jsonProfile.getString(KEY_WNAME);
+            wBonusKill = jsonProfile.getInt(KEY_WKILL);
+            wBonusSurv = jsonProfile.getInt(KEY_WSURV);
+            aName = jsonProfile.getString(KEY_ANAME);
+            aBonusKill = jsonProfile.getInt(KEY_AKILL);
+            aBonusSurv = jsonProfile.getInt(KEY_ASURV);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        // set the text to the textviews
+		killsTextView.setText("" + kills);
+		deathsTextView.setText("" + deaths);
+        weaponNameTextView.setText(wName);
+        armourNameTextView.setText(aName);
+
 		// calculate the k/d ratio and set it in the textview
-		double kDRatio = Double.parseDouble(jKills) / Double.parseDouble(jDeaths);
-		kD.setText(Double.toString(kDRatio));
-		
-		int jBonusKill = 0;
-		int jBonusSurv = 0;
-		int jABonusKill = 0;
-		int jABonusSurv = 0;
-		
-		String wName = "";
-		String aName = "";
+		if (deaths > 0)
+            kdRatio = 0.0 + kills / deaths;
+        else
+            kdRatio = 0.0;
+		kDTextView.setText(Double.toString(kdRatio));
 
-		// Get the weapon/armour from the database
-		JSONObject jsonWeapon = pFunc.getUserWeapon(user.get(KEY_UID));
-		JSONObject jsonArmour = pFunc.getUserArmour(user.get(KEY_UID));
-		
 		
 
-		// Get the specific bonuses from JSON data
-		try {
-			jBonusKill = jsonWeapon.getInt(KEY_KILL);
-			jABonusKill = jsonArmour.getInt(KEY_KILL);
-			jABonusSurv = jsonArmour.getInt(KEY_SURV);
-			jBonusSurv = jsonWeapon.getInt(KEY_SURV); 
-			wName = jsonWeapon.getString(KEY_WNAME);
-			aName = jsonArmour.getString(KEY_ANAME);
-		}
-		catch(JSONException e) {
-			e.printStackTrace();
-		}
-		
-		weaponName.setText(wName);
-		armourName.setText(aName);
 		// Adding the bonuses from the items to the interface
-		bonusKill.setText("+" + Integer.toString(jBonusKill + jABonusKill) + "%");
-		bonusSurv.setText("+" + Integer.toString(jBonusSurv + jABonusSurv) + "%");
+		bonusKillTextView.setText("+" + Integer.toString(wBonusKill + aBonusKill) + "%");
+		bonusSurvTextView.setText("+" + Integer.toString(wBonusSurv + aBonusSurv) + "%");
 		
-		wK.setText("Kill Bonus: " + Integer.toString(jBonusKill));
-		aK.setText("Kill Bonus: " + Integer.toString(jABonusKill));
-		wS.setText("Defence Bonus: " + Integer.toString(jBonusSurv));
-		aS.setText("Defence Bonus: " + Integer.toString(jABonusSurv));
-		
-		// Get the items pictures and set them to the imageviews
-		try {
-			AsyncTask bmWeap = new HttpBitMap().execute(jsonWeapon.getString(KEY_PICT));
-			AsyncTask bmArm = new HttpBitMap().execute(jsonArmour.getString(KEY_PICT));
-			try {
-				Bitmap bitWeap = (Bitmap) bmWeap.get();
-				Bitmap bitArm = (Bitmap) bmArm.get();
+		wKTextView.setText("Kill Bonus: " + Integer.toString(wBonusKill));
+		aKTextView.setText("Kill Bonus: " + Integer.toString(aBonusKill));
+		wSTextView.setText("Defence Bonus: " + Integer.toString(wBonusSurv));
+		aSTextView.setText("Defence Bonus: " + Integer.toString(aBonusSurv));
 
-				weaponPic.setImageBitmap(bitWeap);
-				armourPic.setImageBitmap(bitArm);
-			}catch(InterruptedException e) {
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				e.printStackTrace();
-			}
-		}catch(JSONException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	// when pressing the back button go back to the main activity
@@ -212,6 +213,13 @@ public class ProfileActivity extends Activity {
             startActivity(intent);
 
             return true;
+        }
+
+        if (id == R.id.change_password) {
+            Intent intent = new Intent(getApplicationContext(), ChangePassword.class);
+            intent.putExtra("UID", uid);
+            intent.putExtra("EMAIL", email);
+            startActivity(intent);
         }
 
         if (id == R.id.action_logout) {

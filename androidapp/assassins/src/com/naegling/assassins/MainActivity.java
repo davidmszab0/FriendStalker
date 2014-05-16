@@ -1,10 +1,14 @@
 package com.naegling.assassins;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -19,7 +23,9 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.naegling.assassins.lib.Notifications;
 import com.naegling.assassins.lib.PlayerFunctions;
+import com.naegling.assassins.lib.ProfileFunction;
 import com.naegling.assassins.lib.Target;
 import com.naegling.assassins.lib.UserFunctions;
 
@@ -28,6 +34,8 @@ public class MainActivity extends ActionBarActivity {
 	// Global Variables
 	UserFunctions userFunctions;
     PlayerFunctions playerFunctions;
+    ProfileFunction profileFunc = new ProfileFunction();
+    Notifications notifications = new Notifications();
     private GoogleMap googleMap;
     LocationManager locationManager;
     LocationListener locationListener;
@@ -40,6 +48,7 @@ public class MainActivity extends ActionBarActivity {
     Location currLocation;
     Button assassinate;
     int distanceInt = 0;
+    int oldDeaths = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +56,31 @@ public class MainActivity extends ActionBarActivity {
 
         userFunctions = new UserFunctions();
         playerFunctions = new PlayerFunctions();
+        
+
         if(userFunctions.isUserLoggedIn(getApplicationContext())){
             setContentView(R.layout.activity_main);
+            
+            assassinate = (Button) findViewById(R.id.assassinate_button);
+            assassinate.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    boolean success = playerFunctions.assassinate(getApplicationContext(), targetClass.uid);
+                    if(success) {
+                    	playerFunctions.updateStatistics(getApplicationContext(), targetClass.uid);
+                    	Toast.makeText( getApplicationContext(), "You slaughtered " + targetClass.name, Toast.LENGTH_LONG).show();
+                    } else {
+                    	Toast.makeText( getApplicationContext(), targetClass.name + " escaped!", Toast.LENGTH_LONG).show();
+                    }
+                    targetClass = null;
+                    getTarget();
+
+                }
+            });
 
             try {
                 // Loading map
                 initilizeMap();
-                
+                getOldDeaths();
                 
                 // this prints out the distance between you and target.
                 distance = (TextView) findViewById(R.id.distance_text);
@@ -63,21 +90,28 @@ public class MainActivity extends ActionBarActivity {
 
                 // Define a listener that responds to location updates / changes 
                 locationListener = new LocationListener() {
-                    public void onLocationChanged(Location location) {
+                    public void onLocationChanged(final Location location) {
                         // Called when a new location is found by the network location provider.
-                    	playerFunctions.updatePlayerLocation(getApplicationContext(), location, "1");
-                    	//targetClass = null;
-                    	getTarget();
-                    	
-                    	if(distanceInt >= 50){
-                    		assassinate.setClickable(false);
-                    		assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_button));
 
-                    	} else {
-                    		assassinate.setClickable(true);
-                    		assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.assassinate_button));
-                    	}
                     	
+                        playerFunctions.updatePlayerLocation(getApplicationContext(), location, "1");
+                        getTarget();
+                        checkIfKilled();
+                        
+                        if(distanceInt > 15000) {
+                        	targetClass = null;
+                        	Toast.makeText( getApplicationContext(), "This target is too far away", Toast.LENGTH_SHORT).show();
+                        }
+                        
+                        if(distanceInt >= 50){
+                            assassinate.setClickable(false);
+                            assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_button));
+
+                        } else {
+                            assassinate.setClickable(true);
+                            assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.assassinate_button));
+                        }
+
                     }
 
                     public void onStatusChanged(String provider, int status, Bundle extras) {}
@@ -94,18 +128,13 @@ public class MainActivity extends ActionBarActivity {
                 // Register the listener with the Location Manager to receive location updates - 2seconds, 2 meters
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 2, locationListener);
 
+
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
             
-            assassinate = (Button) findViewById(R.id.assassinate_button);
-        	assassinate.setOnClickListener(new View.OnClickListener() {
-        		public void onClick(View v) {
-        			boolean success = playerFunctions.assassinate(getApplicationContext());
-        			targetClass = null;
-        			
-        		}
-        	});
+
             
 
         }else{
@@ -151,7 +180,7 @@ public class MainActivity extends ActionBarActivity {
 	                    .show();
 	        }
 	    }
-	    
+	    	    
 	  //my location button
         googleMap.setMyLocationEnabled(true);
     }
@@ -180,7 +209,6 @@ public class MainActivity extends ActionBarActivity {
         	Intent profile = new Intent(getApplicationContext(), ProfileActivity.class);
             profile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(profile);
-            finish();
             return true;
         }
 
@@ -191,7 +219,7 @@ public class MainActivity extends ActionBarActivity {
             Intent login = new Intent(getApplicationContext(), LoginActivity.class);
             login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(login);
-            // Closing mainactivity screen
+            // Closing main activity screen
             finish();
             return true;
         }
@@ -232,5 +260,43 @@ public class MainActivity extends ActionBarActivity {
     	return location;
 	
     }
-
+    
+    public void checkIfKilled() {
+    	JSONObject Deaths = profileFunc.getUserDeaths(getApplicationContext());
+    	int newDeaths = 0;
+    	try {
+			newDeaths = Deaths.getInt("deaths");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	if(oldDeaths < newDeaths) {
+    		String killer = "";
+    		JSONObject json = playerFunctions.getKiller(getApplicationContext());
+    		oldDeaths = newDeaths;
+    		try {
+				killer = json.getString("killer");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
+    		notifications.youGotKilled(getApplicationContext(), killer);
+    	}       
+    }
+    
+    public void getOldDeaths() {
+    	System.out.println("I'm in deaths");
+    	JSONObject Deaths = profileFunc.getUserDeaths(getApplicationContext());
+        System.out.println("getting deaths");
+    	try {
+			oldDeaths = Deaths.getInt("deaths");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	System.out.println("these are the old deaths " + oldDeaths);
+    }
 }

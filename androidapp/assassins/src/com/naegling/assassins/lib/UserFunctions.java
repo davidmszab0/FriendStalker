@@ -21,6 +21,7 @@ public class UserFunctions extends AsyncTask{
     private static String login_tag = "login";
     private static String register_tag = "register";
     private static String store_user_in_target_tag = "storeUserInTarget";
+    private static String changePasswordTag = "change_password";
 
     // constructor
     public UserFunctions(){
@@ -102,5 +103,19 @@ public class UserFunctions extends AsyncTask{
         DatabaseHandler db = new DatabaseHandler(context);
         db.resetTables();
         return true;
+    }
+
+    /**
+     * Function to change password in database
+     */
+    public JSONObject changePassword(String uuid, String password) {
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", changePasswordTag));
+        params.add(new BasicNameValuePair("uuid", uuid));
+        params.add(new BasicNameValuePair("password", password));
+
+        JSONObject json = jsonParser.getJSONFromUrl(registerURL, params);
+
+        return json;
     }
 }

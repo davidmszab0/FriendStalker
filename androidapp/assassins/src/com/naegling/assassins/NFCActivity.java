@@ -1,17 +1,17 @@
 package com.naegling.assassins;
 
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
-import android.os.Bundle;
 import android.os.Parcelable;
+import android.os.Bundle;
 import android.widget.TextView;
 
 import com.naegling.assassins.lib.NFCFunction;
 import com.naegling.assassins.lib.ProfileFunction;
+
+import org.json.JSONObject;
 
 
 public class NFCActivity extends Activity {

@@ -13,28 +13,27 @@ import java.net.URL;
 /**
  * Created by Johan on 2014-05-02.
  */
-public class HttpBitMap extends AsyncTask<Object, Object, Object> {
+public class HttpBitMap extends AsyncTask<URL, Object, Bitmap[]> {
 
     @Override
-    protected Object doInBackground(Object... params) {
+    protected Bitmap[] doInBackground(URL... params) {
 
-        Bitmap bmImg = null;
+        Bitmap[] bmImg = new Bitmap[params.length];
 
         try {
-            URL url = new URL((String)params[0]);
-            HttpURLConnection conn = null;
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setDoInput(true);
-            conn.connect();
-            InputStream is = conn.getInputStream();
-            bmImg = BitmapFactory.decodeStream(is);
+            for (int i = 0; i < params.length; i++) {
+               HttpURLConnection conn = (HttpURLConnection) params[i].openConnection();
+                conn.setDoInput(true);
+                conn.connect();
+                InputStream is = conn.getInputStream();
+                bmImg[i] = BitmapFactory.decodeStream(is);
 
+            }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         return bmImg;
     }
