@@ -56,6 +56,31 @@ class DB_Functions {
         }
     }
 
+    function getRandomWeapon() {
+        $result = mysql_query("SELECT weaponID, weaponName, weaponPicture, weaponBonusKill, weaponBonusSurv 
+            FROM Weapon ORDER BY RAND() LIMIT 1");
+        $no_of_rows = mysql_num_rows($result);
+        
+        if ($no_of_rows > 0) {
+            return mysql_fetch_array($result);
+        } else {
+            return false;
+        }
+
+    }
+
+    function getRandomArmour() {
+        $result = mysql_query("SELECT armour_id, armourName, armourPic, armourBonusKill, armourBonusSurv 
+            FROM Armour ORDER BY RAND() LIMIT 1");
+        $no_of_rows = mysql_num_rows($result);
+        
+        if ($no_of_rows > 0) {
+            return mysql_fetch_array($result);
+        } else {
+            return false;
+        }
+    }
+
     function getUserWeapon($uuid) {
         $result = mysql_query("SELECT * FROM Weapon 
             INNER JOIN  PlayerWeapon ON Weapon.weaponId = PlayerWeapon.weaponId 
@@ -109,9 +134,11 @@ class DB_Functions {
         }
     }
 
+
     // Get all the profile data (kills, deaths, weapon and armour) for profile
     function getProfile($uuid) {
-        $result = mysql_query("SELECT sw.noKills, sw.noDeaths, sw.unique_id, sw.weaponName, sw.weaponPicture, sw.weaponBonusKill, sw.weaponBonusSurv, a.armourName, a.armourPic, a.armourBonusKill, a.armourBonusSurv FROM 
+        $result = mysql_query("SELECT sw.noKills, sw.noDeaths, sw.unique_id, sw.weaponName, sw.weaponPicture, 
+            sw.weaponBonusKill, sw.weaponBonusSurv, a.armourName, a.armourPic, a.armourBonusKill, a.armourBonusSurv FROM 
         (SELECT noKills, noDeaths, s.unique_id, weaponName, weaponPicture, weaponBonusKill, weaponBonusSurv FROM 
         (SELECT noKills, noDeaths, unique_id FROM Statistics
         INNER JOIN Account ON Account.account_id = Statistics.account_id

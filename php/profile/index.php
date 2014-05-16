@@ -123,36 +123,7 @@ if (isset($_POST['tag']) && !empty($_POST['tag'])) {
 			echo "No existing user";
 		}
 	 }
-	 else if ($tag == 'get_profil'){
-	 	$uuid = $_POST['uuid'];
-	 	if($db->userExists($uuid)) {
-	 		$data = $db->getProfile($uuid);
-	 		if($data != false) {
-	 			$response['success'] = 1;
-	 			$response['noKills'] = $data['noKills'];
-	 			$response['noDeaths'] = $data['noDeaths'];
-	 			$response['weaponName'] = $data['weaponName'];
-	 			$response['weaponPicture'] = $data['weaponPicture'];
-	 			$response['weaponBonusKill'] = $data['weaponBonusKill'];
-	 			$response['weaponBonusSurv'] = $data['weaponBonusSurv'];
-	 			$response['armourName'] = $data['armourName'];
-	 			$response['armourPic'] = $data['armourPic'];
-	 			$response['armourBonusKill'] = $data['armourBonusKill'];
-	 			$response['armourBonusSurv'] = $data['armourBonusSurv'];
-	 			echo json_encode($response);
-	 		} else {
-	 			$response['success'] = 0;
-	 			$response['error'] = 1;
-	 			$response['error_message'] = 'No data from query';
-	 			echo json_encode($response);
-	 		}
-	 	} else {
-	 		$response['success'] = 0;
-	 		$response['error'] = 1;
-	 		$response['error_message'] = 'No existing user';
-	 		echo json_encode($response);
-	 	}
-	 }
+	 
 	 else if ($tag == 'get_profile') {
 	 	$uuid = $_POST['uuid'];
 	 	if ($db->userExists($uuid)) {
@@ -207,7 +178,75 @@ if (isset($_POST['tag']) && !empty($_POST['tag'])) {
 	 		$response['error_message'] = 'User does not exist';
 	 		echo json_encode($response);
 	 	}
-	 } 
+	 }
+	 else if ($tag == 'collect_item') {
+	 	$uuid = $_POST['uuid'];
+	 	if($db->userExists($uuid)){
+	 		if (rand(0, 1)) {
+	 			$response['success'] = 1;
+	 			$response['type'] = 'weapon';
+	 			$data = $db->getRandomWeapon();
+	 			if ($data != false) {
+	 				$response['item_new']['id'] = $data['weaponID'];
+	 				$response['item_new']['name'] = $data['weaponName'];
+	 				$response['item_new']['picture'] = $data['weaponPicture'];
+	 				$response['item_new']['bonus_kill'] = $data['weaponBonusKill'];
+	 				$response['item_new']['bonus_surv'] = $data['weaponBonusSurv'];
+	 			} else {
+	 				$response['success'] = 0;
+	 				$response['error'] = 1;
+	 				$response['error_msg'] = "Error getting data";
+	 			}
+	 			$data = $db->getUserWeapon($uuid);
+	 			if ($data != false) {
+	 				$response['item_old']['name'] = $data['weaponName'];
+	 				$response['item_old']['picture'] = $data['weaponPicture'];
+	 				$response['item_old']['bonus_kill'] = $data['weaponBonusKill'];
+	 				$response['item_old']['bonus_surv'] = $data['weaponBonusSurv'];
+	 			} else {
+	 				$response['success'] = 0;
+	 				$response['error'] = 1;
+	 				$response['error_msg'] = "Error getting data";
+	 			}
+
+	 		} else {
+	 			$response['success'] = 1;
+	 			$response['type'] = 'armour';
+	 			$data = $db->getRandomArmour();
+	 			if ($data != false) {
+	 				$response['item_new']['id'] = $data['armour_id'];
+	 				$response['item_new']['name'] = $data['armourName'];
+	 				$response['item_new']['picture'] = $data['armourPic'];
+	 				$response['item_new']['bonus_kill'] = $data['armourBonusKill'];
+	 				$response['item_new']['bonus_surv'] = $data['armourBonusSurv'];
+	 			} else {
+	 				$response['success'] = 0;
+	 				$response['error'] = 1;
+	 				$response['error_msg'] = "Error getting data";
+	 			}
+	 			$data = $db->getUserArmour($uuid);
+	 			if ($data != false) {
+	 				$response['item_old']['name'] = $data['armourName'];
+	 				$response['item_old']['picture'] = $data['armourPic'];
+	 				$response['item_old']['bonus_kill'] = $data['armourBonusKill'];
+	 				$response['item_old']['bonus_surv'] = $data['armourBonusSurv'];
+	 			} else {
+	 				$response['success'] = 0;
+	 				$response['error'] = 1;
+	 				$response['error_msg'] = "Error getting data";
+	 			}
+
+	 		}
+	 		echo json_encode($response);
+	 	} else {
+	 		$response['success'] = 0;
+	 		$response['error'] = 1;
+	 		$response['error_message'] = 'User does not exist';
+	 		echo json_encode($response);
+	 	}
+	 }
+
+
 	 else {
 	 	echo 'Tag does not exist';
 	 }

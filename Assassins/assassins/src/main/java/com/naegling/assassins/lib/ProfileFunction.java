@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 
-public class ProfileFunction extends AsyncTask {
+public class ProfileFunction {
 	private JSONParser jsonParser;
 	
 	// Tags for the json
@@ -21,7 +21,8 @@ public class ProfileFunction extends AsyncTask {
 	private static String getProfilePictureTag = "get_user_picture";
 	private static String setProfilePictureTag = "set_user_picture";
     private static String getProfileTag = "get_profile";
-	
+    private static String collectItemTag = "collect_item";
+
 	public ProfileFunction() {jsonParser = new JSONParser();}
 
     public JSONObject getProfile(String userId) {
@@ -92,11 +93,12 @@ public class ProfileFunction extends AsyncTask {
         return jsonParser.getJSONFromUrl(profileURL, params);
     }
 	
-	
+	public JSONObject collectItem(String userId) {
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", collectItemTag));
+        params.add(new BasicNameValuePair("uuid", userId));
 
-	@Override
-	protected Object doInBackground(Object[] params) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        return jsonParser.getJSONFromUrl(profileURL, params);
+    }
+
 }
