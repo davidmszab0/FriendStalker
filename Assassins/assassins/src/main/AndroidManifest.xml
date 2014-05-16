@@ -47,7 +47,7 @@
             android:value="AIzaSyD8cxJUMSb5NzFabscCYgX9Zo8cXukZNKQ" />
 
         <activity
-            android:name="com.naegling.assassins.ChangePassword"
+            android:name=".ChangePasswordActivity"
             android:label="@string/title_activity_change_password" >
         </activity>
         <activity

@@ -2,11 +2,13 @@ package com.naegling.assassins;
 
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.os.Parcelable;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.naegling.assassins.lib.NFCFunction;
 import com.naegling.assassins.lib.ProfileFunction;
@@ -25,6 +27,7 @@ public class NFCActivity extends Activity {
     boolean item = false;
     Intent intent;
     TextView textViewNFCLabel;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,7 @@ public class NFCActivity extends Activity {
         } else if (mode.equals("item")) {
             item = true;
             pic = false;
-            setTitle(R.string.title_collect_item);;
+            setTitle(R.string.collect_item);
             textViewNFCLabel.setText(R.string.description_item);
         }
 
@@ -55,6 +58,16 @@ public class NFCActivity extends Activity {
     }
 
     private void pickUpItem(Intent intent){
+        Parcelable[] msgs = intent.getParcelableArrayExtra(NFCFunction.getInstance().getNFCAdapter().EXTRA_NDEF_MESSAGES);
+
+        if (NFCFunction.getInstance().getNFCAdapter().ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
+            String message = "" + NFCFunction.getInstance().getMessageFromPi(intent);
+            if (message.equals("Item collected"))
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(getApplicationContext(), "Tag not recognized " + message, Toast.LENGTH_LONG).show();
+
+        }
 
     }
 

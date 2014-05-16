@@ -16,7 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class ChangePassword extends Activity {
+public class ChangePasswordActivity extends Activity {
 
     EditText inputCurrentPassword;
     EditText inputPassword;

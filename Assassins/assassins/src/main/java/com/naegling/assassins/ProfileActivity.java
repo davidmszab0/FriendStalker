@@ -215,8 +215,17 @@ public class ProfileActivity extends Activity {
             return true;
         }
 
+        if (id == R.id.collect_item) {
+            Intent intent = new Intent(getApplicationContext(), NFCActivity.class);
+            intent.putExtra("MODE", "item");
+            intent.putExtra("UID", "" + uid);
+            startActivity(intent);
+
+            return true;
+        }
+
         if (id == R.id.change_password) {
-            Intent intent = new Intent(getApplicationContext(), ChangePassword.class);
+            Intent intent = new Intent(getApplicationContext(), ChangePasswordActivity.class);
             intent.putExtra("UID", uid);
             intent.putExtra("EMAIL", email);
             startActivity(intent);

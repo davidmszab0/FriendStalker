@@ -9,6 +9,11 @@
         android:title="@string/title_take_pic"
         app:showAsAction="never"/>
     <item
+        android:id="@+id/collect_item"
+        android:orderInCategory="100"
+        android:title="@string/collect_item"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/change_password"
         android:orderInCategory="100"
         android:title="@string/title_activity_change_password"
