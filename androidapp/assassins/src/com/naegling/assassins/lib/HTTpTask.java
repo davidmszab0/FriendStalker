@@ -1,3 +1,4 @@
+
 package com.naegling.assassins.lib;
 
 
@@ -51,7 +52,11 @@ public class HTTpTask extends AsyncTask<Object, Object, Object>{
             StringBuilder sb = new StringBuilder();
             String line = null;
             while ((line = reader.readLine()) != null) {
+<<<<<<< HEAD
+                sb.append(line + "\n");
+=======
                 sb.append(line + "n");
+>>>>>>> ce3ee1488983100b77648af93e7dabf4a10f17ed
             }
             is.close();
 
@@ -61,6 +66,11 @@ public class HTTpTask extends AsyncTask<Object, Object, Object>{
         } catch (IOException e) {
             e.printStackTrace();
         }
+<<<<<<< HEAD
+
+=======
+>>>>>>> ce3ee1488983100b77648af93e7dabf4a10f17ed
         return json;
     }
+
 }

@@ -1,3 +1,4 @@
+
 package com.naegling.assassins.lib;
 
 
@@ -20,6 +21,9 @@ public class UserFunctions {
 
     private static String login_tag = "login";
     private static String register_tag = "register";
+    private static String store_user_in_target_tag = "storeUserInTarget";
+    private static String changePasswordTag = "change_password";
+    private static String newPasswordTag = "new_password";
 
     // constructor
     public UserFunctions(){
@@ -62,6 +66,18 @@ public class UserFunctions {
         // return json
         return json;
     }
+    
+    public JSONObject userInTarget(String uuid) {
+    	// Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", store_user_in_target_tag));
+        params.add(new BasicNameValuePair("uuid", uuid));
+
+        // getting JSON Object
+        JSONObject json = jsonParser.getJSONFromUrl(registerURL, params);
+        // return json
+        return json;
+    }
 
     /**
      * Function get Login status
@@ -85,4 +101,32 @@ public class UserFunctions {
         db.resetTables();
         return true;
     }
+
+    /**
+     * Function to change password in database
+     */
+    public JSONObject changePassword(String uuid, String password) {
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", changePasswordTag));
+        params.add(new BasicNameValuePair("uuid", uuid));
+        params.add(new BasicNameValuePair("password", password));
+
+        JSONObject json = jsonParser.getJSONFromUrl(registerURL, params);
+
+        return json;
+    }
+
+    /**
+     * Function to reset a forgotten password
+     */
+    public JSONObject newPassword(String email){
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", newPasswordTag));
+        params.add(new BasicNameValuePair("email", email));
+
+        JSONObject json = jsonParser.getJSONFromUrl(registerURL, params);
+
+        return json;
+    }
+>>>>>>> Mikaela
 }

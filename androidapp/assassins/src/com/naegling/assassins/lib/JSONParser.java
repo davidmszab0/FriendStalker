@@ -1,3 +1,4 @@
+
 package com.naegling.assassins.lib;
 
 
@@ -24,7 +25,6 @@ public class JSONParser {
     }
 
     public JSONObject getJSONFromUrl(String url, List<NameValuePair> params) {
-
     	 AsyncTask bufferTask = new HTTpTask().execute(url, params);
          try {
              json = (String)bufferTask.get();
@@ -33,6 +33,17 @@ public class JSONParser {
              Log.e("Buffer Error", "Error converting result " + e.toString());
          }
 
+<<<<<<< HEAD
+=======
+    	 AsyncTask bufferTask = new HTTpTask().execute(url, params);
+         try {
+             json = (String)bufferTask.get();
+             Log.e("JSON", json);
+         } catch (Exception e) {
+             Log.e("Buffer Error", "Error converting result " + e.toString());
+         }
+
+>>>>>>> ce3ee1488983100b77648af93e7dabf4a10f17ed
         // try parse the string to a JSON object
         try {
             jObj = new JSONObject(json);
@@ -45,7 +56,10 @@ public class JSONParser {
     }
     
     public JSONArray getJSONArrayFromUrl(String url, List<NameValuePair> params) {
+<<<<<<< HEAD
+=======
 
+>>>>>>> ce3ee1488983100b77648af93e7dabf4a10f17ed
         AsyncTask bufferTask = new HTTpTask().execute(url, params);
         try {
             json = (String)bufferTask.get();
@@ -65,3 +79,4 @@ public class JSONParser {
         return jArr;
     }
 }
+
