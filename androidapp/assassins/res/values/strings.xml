@@ -8,6 +8,7 @@
     <string name="title_activity_login">Login</string>
     <string name="title_activity_register">Register</string>
     <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_ranking">Profile</string>
     <string name="login_activity_title_label_1">City of</string>
     <string name="login_activity_title_label_2">Assassins</string>
     <string name="login_activity_hint_email">Enter email</string>
@@ -43,7 +44,7 @@
     <string name="assassinate_button">Assassinate Target</string>
     <string name="action_get_target">Get Target</string>
     <string name="title_take_pic">Take picture</string>
-    <string name="title_collect_item">Collect item</string>
+    <string name="collect_item">Collect item</string>
     <string name="description_picture">Connect the phone to the hub to take a picture</string>
     <string name="description_item">Connect the phone to the hub to pic up item</string>
     <string name="nfc_label">Connect the phone to the hub to take a picture</string>
@@ -51,8 +52,22 @@
     <string name="aBonusSurv">0</string>
     <string name="wBonusKill">0</string>
     <string name="wBonusSurv">0</string>
+    <string name="action_ranking">Ranking</string>
+    <string name="allRankText1"></string>
+    <string name="allRankText2"></string>
+    <string name="allRankText3"></string>
+    <string name="allRankText4"></string>
+    <string name="allRankText5"></string>
     <string name="title_activity_change_password">Change Password</string>
     <string name="change_password_button">Change Password</string>
     <string name="current_password">Current password</string>
+    <string name="forgot_password"><u>Forgot your password?</u></string>
+    <string name="title_activity_forgot_password">Send new password</string>
+    <string name="send_new_password">Send new password</string>
+    <string name="enter_email">Enter Your e-mail</string>
+    <string name="new_password_description">A new auto-generated password will be sent to Your e-mail</string>
+    <string name="new_item">New item</string>
+    <string name="old_item">Old item</string>
+    <string name="collect_item_text">Click on the item you want to keep</string>
 
 </resources>

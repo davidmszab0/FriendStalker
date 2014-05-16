@@ -22,6 +22,7 @@ public class UserFunctions extends AsyncTask{
     private static String register_tag = "register";
     private static String store_user_in_target_tag = "storeUserInTarget";
     private static String changePasswordTag = "change_password";
+    private static String newPasswordTag = "new_password";
 
     // constructor
     public UserFunctions(){
@@ -113,6 +114,19 @@ public class UserFunctions extends AsyncTask{
         params.add(new BasicNameValuePair("tag", changePasswordTag));
         params.add(new BasicNameValuePair("uuid", uuid));
         params.add(new BasicNameValuePair("password", password));
+
+        JSONObject json = jsonParser.getJSONFromUrl(registerURL, params);
+
+        return json;
+    }
+
+    /**
+     * Function to reset a forgotten password
+     */
+    public JSONObject newPassword(String email){
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", newPasswordTag));
+        params.add(new BasicNameValuePair("email", email));
 
         JSONObject json = jsonParser.getJSONFromUrl(registerURL, params);
 

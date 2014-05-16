@@ -32,6 +32,7 @@ public class PlayerFunctions {
     private static String getNameTag = "get_name";
     private static String updateStatisticsTag = "update_statistics";
     private static String getKillerTag = "get_killer";
+    private static String getAllRankingTag = "get_all_ranking";
 
 
     public PlayerFunctions() {
@@ -104,6 +105,14 @@ public class PlayerFunctions {
         params.add(new BasicNameValuePair("uuid", uid));
         
         return jsonParser.getJSONArrayFromUrl(playerURL, params);
+    }
+    
+    public JSONArray getAllRanking(){
+    	
+    	List<NameValuePair> params = new ArrayList<NameValuePair>();
+    	params.add(new BasicNameValuePair("tag", getAllRankingTag));
+    	
+    	return jsonParser.getJSONArrayFromUrl(playerURL, params);
     }
     
     public JSONObject getName(String uuid) {

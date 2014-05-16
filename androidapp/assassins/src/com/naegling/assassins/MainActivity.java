@@ -260,6 +260,27 @@ public class MainActivity extends ActionBarActivity {
     	return location;
 	
     }
+    private class LocationTask extends AsyncTask<Location, Object, Object> {
+
+        @Override
+        protected Object doInBackground(Location... params) {
+
+            playerFunctions.updatePlayerLocation(getApplicationContext(), params[0], "1");
+            //targetClass = null;
+            getTarget();
+
+
+            if(distanceInt >= 50){
+                assassinate.setClickable(false);
+                assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_button));
+
+            } else {
+                assassinate.setClickable(true);
+                assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.assassinate_button));
+            }
+            return null;
+        }
+    }
     
     public void checkIfKilled() {
     	JSONObject Deaths = profileFunc.getUserDeaths(getApplicationContext());

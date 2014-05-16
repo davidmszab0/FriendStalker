@@ -18,6 +18,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.NFC" />
     
     <!-- Required to show current location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -49,6 +50,20 @@
         <activity
             android:name="com.naegling.assassins.ProfileActivity"
             android:label="@string/title_activity_profile">         
+        </activity>
+        <activity
+            android:name="com.naegling.assassins.RankingActivity"
+            android:label="@string/title_activity_ranking">         
+        </activity>
+        <activity android:name="com.naegling.assassins.NFCActivity" >
+        </activity>
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:label="@string/title_activity_change_password" >
+        </activity>
+        <activity
+            android:name="com.naegling.assassins.ForgotPasswordActivity"
+            android:label="@string/title_activity_forgot_password" >
         </activity>
         
         <meta-data

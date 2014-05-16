@@ -32,7 +32,6 @@ public class LoginActivity extends Activity {
     private static String KEY_NAME = "name";
     private static String KEY_EMAIL = "email";
     private static String KEY_CREATED_AT = "created_at";
-    private static String KEY_REGID = "regid";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
