@@ -1,6 +1,4 @@
-FriendStalker
+Assassins
 =============
 
-This is the branch for the website and the main features that David did.  
-
-Project repository
+This is the branch that contains the changes made by Johan.
