@@ -51,7 +51,7 @@ public class HTTpTask extends AsyncTask<Object, Object, Object>{
             StringBuilder sb = new StringBuilder();
             String line = null;
             while ((line = reader.readLine()) != null) {
-                sb.append(line + "n");
+                sb.append(line + "\n");
             }
             is.close();
 

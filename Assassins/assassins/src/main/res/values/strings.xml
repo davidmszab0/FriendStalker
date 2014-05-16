@@ -54,5 +54,10 @@
     <string name="title_activity_change_password">Change Password</string>
     <string name="change_password_button">Change Password</string>
     <string name="current_password">Current password</string>
+    <string name="forgot_password"><u>Forgot your password?</u></string>
+    <string name="title_activity_forgot_password">Send new password</string>
+    <string name="send_new_password">Send new password</string>
+    <string name="enter_email">Enter Your e-mail</string>
+    <string name="new_password_description">A new auto-generated password will be sent to Your e-mail</string>
 
 </resources>

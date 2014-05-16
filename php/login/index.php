@@ -114,6 +114,26 @@ if (isset($_POST['tag']) && !empty($_POST['tag'])) {
             $response["error_msg"] = "User does not exist";
             echo json_encode($response);
         }
+    } else if ($tag == 'new_password') {
+        $email = $_POST['email'];
+        if($db->isEmailExisted($email)) {
+            $password = $db->newPassword($email);
+            if($password != false) {
+                sendMail($email, $password);
+                $response['success'] = 1;
+                $response['password'] = $password;
+                echo json_encode($response);
+            } else {
+                $response['error'] = 1;
+                $response['error_msg'] = "Error setting new password";
+                echo json_encode($response);
+            }
+
+        } else {
+            $response["error"] = 1;
+            $response["error_msg"] = "No account found with email " . $email;
+            echo json_encode($response);
+        }
     }
 
 
@@ -122,6 +142,13 @@ if (isset($_POST['tag']) && !empty($_POST['tag'])) {
     }
 } else {
     echo "Access Denied";
+}
+
+function sendMail($email, $password) {
+    $subject="New password for Assassins"; 
+    $header="From: ro-reply@davidmszabo.com"; 
+    $content= "Hello,\n\nThe password has been changed to the following:\n\n" . $password . "\n\nPlease login and change to a new personal password"; 
+    mail($email, $subject, $content, $header); 
 }
 
 

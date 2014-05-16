@@ -50,6 +50,10 @@
             android:name="com.naegling.assassins.ChangePassword"
             android:label="@string/title_activity_change_password" >
         </activity>
+        <activity
+            android:name="com.naegling.assassins.ForgotPasswordActivity"
+            android:label="@string/title_activity_forgot_password" >
+        </activity>
     </application>
 
     <!-- Allow to connect with internet -->

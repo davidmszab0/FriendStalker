@@ -131,6 +131,39 @@ class DB_Functions {
             return false;
         }
     } 
+
+    /** 
+    * Set new password to account
+    * @param email
+    */
+    public function newPassword($email) {
+        $password = $this->passwordGenerator(8);
+        $hash = $this->hashSSHA($password);
+        $encrypted_password = $hash['encrypted'];
+        $salt = $hash['salt'];
+        $result = mysql_query("UPDATE Account SET password = '$encrypted_password', salt='$salt' WHERE email = '$email'");
+        if ($result) {
+            return $password;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+    * Generate a random password of given length
+    * from characters "abcdefgijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!*?&#%"
+    * @param length
+    */
+    public function passwordGenerator($length) {
+        $characters = 'abcdefgijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!*?&#%';
+        $password = '';
+        for ($i = 0; $i < $length; $i++) {
+            $password .= $characters[(rand() % strlen($characters))];
+        }
+        return $password;
+    }
+
+
  
     /**
      * Encrypting password
