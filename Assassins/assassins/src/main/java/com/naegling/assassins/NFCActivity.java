@@ -1,12 +1,17 @@
 package com.naegling.assassins;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.nfc.NfcAdapter;
 import android.os.Parcelable;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,8 +67,18 @@ public class NFCActivity extends Activity {
 
         if (NFCFunction.getInstance().getNFCAdapter().ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
             String message = "" + NFCFunction.getInstance().getMessageFromPi(intent);
-            if (message.equals("Item collected"))
+            if (message.equals("Item collected")) {
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                View popupView = getLayoutInflater().inflate(R.layout.item_collect_popup, null);
+                PopupWindow popupWindow = new PopupWindow(popupView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
+
+                popupWindow.setFocusable(true);
+                popupWindow.setBackgroundDrawable(new ColorDrawable());
+                popupWindow.showAtLocation(getWindow().getDecorView().findViewById(android.R.id.content), Gravity.CENTER, 0, 0);
+
+
+
+            }
             else
                 Toast.makeText(getApplicationContext(), "Tag not recognized " + message, Toast.LENGTH_LONG).show();
 

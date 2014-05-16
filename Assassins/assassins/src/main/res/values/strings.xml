@@ -59,5 +59,9 @@
     <string name="send_new_password">Send new password</string>
     <string name="enter_email">Enter Your e-mail</string>
     <string name="new_password_description">A new auto-generated password will be sent to Your e-mail</string>
+    <string name="new_item">New item</string>
+    <string name="old_item">Old item</string>
+    <string name="collect_item_text">Click on the item you want to keep</string>
+
 
 </resources>
