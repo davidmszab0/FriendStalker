@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/friend_request_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+
+    
+    <TextView
+        android:id="@+id/friend_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+    />
+    
+    <TextView
+        android:id="@+id/friend_online_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/friend_name"
+        android:text="offline"
+    />
+    
+    
+    <TextView
+        android:id="@+id/friend_kills"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/friend_online_status"
+        android:text="OVER 9000!!!1!!one!"       
+    />
+    
+    
+    <TextView
+        android:id="@+id/friend_deaths"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/friend_kills"
+        android:text="0"       
+    />
+    
+    
+    <Button 
+        android:id="@+id/friend_return"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/friend_deaths"
+        android:text="Back"
+        android:onClick="returnButton"
+        />
+    
+    <Button 
+        android:id="@+id/friend_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"        
+        android:layout_below="@+id/friend_deaths"
+        android:text="Delete Friend"
+        />
+
+</RelativeLayout>
