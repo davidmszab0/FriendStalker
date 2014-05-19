@@ -24,6 +24,7 @@ public class ProfileFunction extends AsyncTask {
 	private static String setProfilePictureTag = "set_user_picture";
 	private static String getProfileTag = "get_profile";
 	private static String collectItemTag = "collect_item";
+	private static String getProfileKillstreakTag = "get_user_killstreak";
 
 	public ProfileFunction() {jsonParser = new JSONParser();}
 
@@ -116,6 +117,15 @@ public class ProfileFunction extends AsyncTask {
         return jsonParser.getJSONFromUrl(profileURL, params);
     }
 
+	// Get the current user killstreak number
+	public JSONObject getUserKillstreak(String userId) {
+
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", getProfileKillstreakTag));
+		params.add(new BasicNameValuePair("uuid", userId));
+
+		return jsonParser.getJSONFromUrl(profileURL, params);
+	}
 
 
 	@Override

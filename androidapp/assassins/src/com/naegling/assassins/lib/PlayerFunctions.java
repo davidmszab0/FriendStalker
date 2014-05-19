@@ -33,6 +33,7 @@ public class PlayerFunctions {
     private static String updateStatisticsTag = "update_statistics";
     private static String getKillerTag = "get_killer";
     private static String getAllRankingTag = "get_all_ranking";
+    private static String getFriendRankingTag = "get_friend_ranking";
 
 
     public PlayerFunctions() {
@@ -111,6 +112,18 @@ public class PlayerFunctions {
     	
     	List<NameValuePair> params = new ArrayList<NameValuePair>();
     	params.add(new BasicNameValuePair("tag", getAllRankingTag));
+    	
+    	return jsonParser.getJSONArrayFromUrl(playerURL, params);
+    }
+    
+    public JSONArray getFriendRanking(Context context){
+    	DatabaseHandler dbh = new DatabaseHandler(context);
+    	HashMap hm = dbh.getUserDetails();
+        String uid = (String) hm.get("uid");
+    	
+    	List<NameValuePair> params = new ArrayList<NameValuePair>();
+    	params.add(new BasicNameValuePair("tag", getFriendRankingTag));
+    	params.add(new BasicNameValuePair("uuid", uid));
     	
     	return jsonParser.getJSONArrayFromUrl(playerURL, params);
     }
