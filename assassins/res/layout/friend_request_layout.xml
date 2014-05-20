@@ -6,11 +6,18 @@
     android:orientation="vertical" >
     
 
+    <ImageView 
+   		android:id="@+id/profile_picture"
+   		android:layout_width="92dp"
+   		android:layout_height="87dp"
+   		
+   	/>    
     
     <TextView
         android:id="@+id/friend_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"        
     />
     
     <TextView
@@ -18,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/friend_name"
-        android:text="offline"
+        android:layout_alignParentRight="true"        
     />
     
     
@@ -27,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/friend_online_status"
-        android:text="OVER 9000!!!1!!one!"       
+        android:layout_alignParentRight="true"        
     />
     
     
@@ -36,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/friend_kills"
-        android:text="0"       
+        android:layout_alignParentRight="true"       
     />
     
     
@@ -56,6 +63,7 @@
         android:layout_alignParentRight="true"        
         android:layout_below="@+id/friend_deaths"
         android:text="Delete Friend"
+        android:onClick="deleteButton"
         />
 
 </RelativeLayout>

@@ -1,7 +1,10 @@
 package com.naegling.assassins;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,7 +20,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.LayoutInflater;
@@ -30,6 +35,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -38,7 +44,8 @@ import android.os.Build;
 
 import com.naegling.assassins.lib.DatabaseHandler;
 import com.naegling.assassins.lib.FriendFunctions;
-//import com.naegling.assassins.lib.FriendFunctions;
+import com.naegling.assassins.lib.ProfileFunction;
+import com.naegling.assassins.lib.HttpBitMap;
 
 public class FriendActivity extends ActionBarActivity {
 
@@ -51,8 +58,15 @@ public class FriendActivity extends ActionBarActivity {
     private static String KEY_ERROR_MSG = "error_msg";
     private static String KEY_UID = "uid";
     private static String KEY_FRIEND = "friend";
-    private ListView friendListDisplay, friendRequestDisplay;
+    private static String KEY_FRIEND_ID = "friendUID";
+    private static String KEY_FRIEND_KILLS = "kills";
+    private static String KEY_FRIEND_DEATHS = "deaths";
+    private static String KEY_ONLINE_STATUS = "onlineStatus";
+    private static String KEY_PROFILE_PIC = "picture";
+    private ListView friendListDisplay;
+    static String selectedFriendName, selectedFriendUniqueId;
     ArrayAdapter<String> arrayAdapter, arrayAdapter2;
+	
     
     
 	@Override
@@ -63,10 +77,10 @@ public class FriendActivity extends ActionBarActivity {
 		final Context context = this;
 		
         friendListDisplay = (ListView) findViewById(R.id.friend_list_layout);
-		
-		DatabaseHandler dbh = new DatabaseHandler(getApplicationContext());
-		final HashMap<String, String> user = dbh.getUserDetails();
+        DatabaseHandler dbh = new DatabaseHandler(getApplicationContext());
+        final HashMap<String, String> user = dbh.getUserDetails();
 		final FriendFunctions friendFunc = new FriendFunctions();
+		final ProfileFunction profileFunc = new ProfileFunction();
 		
 		
 		final ActionBar actionBar = getSupportActionBar();
@@ -96,13 +110,40 @@ public class FriendActivity extends ActionBarActivity {
 						public void onItemClick(AdapterView<?> parent,
 								View view, int position, long id) {
 							// TODO Auto-generated method stub
+							selectedFriendName = arrayAdapter.getItem(position);
 							setContentView(R.layout.friend_request_layout);
+							ImageView profileImage = (ImageView) findViewById(R.id.profile_picture);
 							TextView friendName = (TextView) findViewById(R.id.friend_name);
-							friendName.setText(arrayAdapter.getItem(position));
-							
+							TextView onlineStatus = (TextView) findViewById(R.id.friend_online_status);							
+							TextView friendKills = (TextView) findViewById(R.id.friend_kills);
+							TextView friendDeaths = (TextView) findViewById(R.id.friend_deaths);
 							Button back = (Button) findViewById(R.id.friend_return);
-							if(back.isPressed()==true){
-								System.out.println("woooohoooooo oooohooooooo woooooo");
+							
+							selectedFriendUniqueId = user.get(KEY_UID);
+							friendName.setText(selectedFriendName);
+														
+							JSONObject getId = friendFunc.translateToUniqueID(selectedFriendName);
+							try {
+								
+								String friendId = getId.getString(KEY_FRIEND_ID);
+								JSONObject getPicture = profileFunc.getUserPicture(friendId);
+								URL[] url = {new URL(getPicture.getString(KEY_PROFILE_PIC))};
+								AsyncTask bmTask = new HttpBitMap().execute(url[0]);
+								Bitmap[] bitmap = (Bitmap[])bmTask.get();
+								profileImage.setImageBitmap(bitmap[0]);
+								
+								JSONObject getFriendKills = profileFunc.getUserKills(friendId);
+								friendKills.setText("Number of kills: "+getFriendKills.getString(KEY_FRIEND_KILLS));
+								
+								JSONObject getFriendDeaths = profileFunc.getUserDeaths(friendId);
+								friendDeaths.setText("Number of deaths: "+getFriendDeaths.getString(KEY_FRIEND_DEATHS));
+								
+								JSONObject getOnlineStatus = friendFunc.getOnlineStatus(friendId);
+								onlineStatus.setText(getOnlineStatus.getString(KEY_ONLINE_STATUS));
+								
+							} catch (JSONException | MalformedURLException | InterruptedException | ExecutionException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
 							}
 							
 							
@@ -246,7 +287,31 @@ public class FriendActivity extends ActionBarActivity {
 		}
 	}
 	
+	
 	public void returnButton(View view) {
 		setContentView(friendListDisplay);
+	}
+	
+	
+	public void deleteButton(View view) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Are you sure you want to delete "+selectedFriendName+" from your friend list?")
+		       .setCancelable(false)
+		       .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		    	   public void onClick(DialogInterface dialog, int which) {
+		    		   
+		    	   }
+		       })
+		       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		        	   FriendFunctions remove = new FriendFunctions();
+		        	   remove.removeFriend(selectedFriendUniqueId, selectedFriendName);
+		        	   arrayAdapter.remove(selectedFriendName);
+		        	   setContentView(friendListDisplay);
+		           }
+		       });
+		AlertDialog alert = builder.create();
+		alert.show();	
+	
 	}
 }

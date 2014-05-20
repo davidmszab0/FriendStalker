@@ -66,6 +66,28 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.naegling.assassins" />
         </activity>
+        
+   
+
+		<activity android:name="com.naegling.assassins.ProfileActivity" 
+	    	android:label="@string/title_activity_profile"> 
+	    	</activity>
+
+		<activity android:name="com.naegling.assassins.RankingActivity" 
+		    android:label="@string/title_activity_ranking"> 
+		    </activity>
+
+		<activity android:name="com.naegling.assassins.NFCActivity"> 
+		    </activity>
+
+		<activity android:name=".ChangePasswordActivity" 
+		    android:label="@string/title_activity_change_password"> 
+		    </activity>
+
+		<activity android:name="com.naegling.assassins.ForgotPasswordActivity" 
+		    android:label="@string/title_activity_forgot_password">
+            </activity>
+        
     </application>
 
 </manifest>

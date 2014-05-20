@@ -27,6 +27,9 @@ public class FriendFunctions {
     private static String friendRequesterTag = "get_friend_requests";
     private static String acceptFriend = "accept_request";
     private static String denyFriend = "deny_request";
+    private static String getId = "get_friend_id";
+    private static String friendOnlineStatus = "is_friend_online";
+    private static String deleteFriend = "remove_friend";
 	
     
 	public FriendFunctions(){
@@ -101,6 +104,41 @@ public class FriendFunctions {
         
         return jsonParser.getJSONFromUrl(playerURL, friendInvitation);
 	}
+	
+	
+	public JSONObject translateToUniqueID(String name){
+		
+		List<NameValuePair> friendInvitation = new ArrayList<NameValuePair>();
+		
+		friendInvitation.add(new BasicNameValuePair("tag", getId));
+		friendInvitation.add(new BasicNameValuePair("friendName", name));
+        
+        return jsonParser.getJSONFromUrl(playerURL, friendInvitation);
+	}
+	
+
+	public JSONObject getOnlineStatus(String name){
+		
+		List<NameValuePair> friendInvitation = new ArrayList<NameValuePair>();
+		
+		friendInvitation.add(new BasicNameValuePair("tag", friendOnlineStatus));
+		friendInvitation.add(new BasicNameValuePair("friendName", name));
+        
+        return jsonParser.getJSONFromUrl(playerURL, friendInvitation);
+	}
+	
+	
+	public JSONObject removeFriend(String uuid, String name){
+		
+		List<NameValuePair> friendInvitation = new ArrayList<NameValuePair>();
+		
+		friendInvitation.add(new BasicNameValuePair("tag", deleteFriend));
+		friendInvitation.add(new BasicNameValuePair("uuid", uuid));
+		friendInvitation.add(new BasicNameValuePair("friendName", name));
+        
+        return jsonParser.getJSONFromUrl(playerURL, friendInvitation);
+	}
+	
 	
 	public ArrayList<String> translate(JSONArray jsonArray, ArrayList<String> arrayList){		
 		String friendListString = "";

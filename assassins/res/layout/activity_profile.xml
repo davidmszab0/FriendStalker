@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/profilePicture"
+        android:layout_width="92dp"
+        android:layout_height="87dp"
+        android:contentDescription="@string/profile_picture"
+        android:src="@drawable/profile_picture" />
+
+    <TextView
+        android:id="@+id/profileEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/profilePicture"
+        android:layout_alignLeft="@+id/profileUsername"
+        android:text="@string/profile_email"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/profileStatistics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/profilePicture"
+        android:layout_marginTop="34dp"
+        android:text="@string/profile_statistics"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/profileNumberDeath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/profileDeaths"
+        android:layout_alignBottom="@+id/profileDeaths"
+        android:layout_alignRight="@+id/profileNumberKills"
+        android:text="@string/profile_number_deaths"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/profileNumberBonusKill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/profileBonusToKill"
+        android:layout_alignRight="@+id/profileNumberKD"
+        android:text="@string/profile_number_bonus_kill"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/profileNumberBonusSurvive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/profileBonusToSurvive"
+        android:layout_alignRight="@+id/profileNumberBonusKill"
+        android:text="@string/profile_number_bonus_survive"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/profileNumberKD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/profileBonusToKill"
+        android:layout_alignRight="@+id/profileNumberDeath"
+        android:text="@string/profile_number_k_d"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/profileUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@+id/profileBonusToSurvive"
+        android:text="@string/profile_username"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/profileBonusToKill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/profilePicture"
+        android:layout_below="@+id/profileKDRatio"
+        android:text="@string/profile_bonusToKill"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/profileBonusToSurvive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/profileBonusToKill"
+        android:layout_below="@+id/profileBonusToKill"
+        android:text="@string/profile_bonusToSurvive"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/profileNumberKills"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/profileKills"
+        android:layout_alignBottom="@+id/profileKills"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="22dp"
+        android:text="@string/profile_number_kills"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/profileKDRatio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/profileBonusToKill"
+        android:layout_below="@+id/profileDeaths"
+        android:text="@string/profile_k_d_ratio"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/profileDeaths"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/profileKDRatio"
+        android:layout_below="@+id/profileKills"
+        android:text="@string/profile_deaths"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/profileKills"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/profileDeaths"
+        android:layout_below="@+id/profileStatistics"
+        android:layout_marginTop="17dp"
+        android:text="@string/profile_kills"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/profileEquipment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/profileEmail"
+        android:layout_below="@+id/profileBonusToSurvive"
+        android:layout_marginTop="46dp"
+        android:text="@string/profile_equipment"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/profileArmourText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/profileEquipmentArmour"
+        android:layout_below="@+id/profileEquipment"
+        android:text="@string/profile_armour" />
+
+    <ImageView
+        android:id="@+id/profileEquipmentArmour"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/profileArmourText"
+        android:layout_marginTop="14dp"
+        android:layout_toRightOf="@+id/profileKills"
+        android:contentDescription="@string/armour_pic"
+        android:scaleType="centerInside"
+        android:src="@drawable/abc_ab_bottom_solid_light_holo" />
+
+    <ImageView
+        android:id="@+id/profileEquipmentWeapon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignTop="@+id/profileEquipmentArmour"
+        android:layout_marginRight="15dp"
+        android:layout_toLeftOf="@+id/profileNumberBonusSurvive"
+        android:contentDescription="@string/weapon_pic"
+        android:scaleType="centerInside"
+        android:src="@drawable/abc_ab_bottom_solid_light_holo" />
+
+    <TextView
+        android:id="@+id/aBonusSurv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/aBonusKill"
+        android:layout_below="@+id/aBonusKill"
+        android:layout_marginTop="14dp"
+        android:text="@string/aBonusSurv" />
+
+    <TextView
+        android:id="@+id/aBonusKill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/profileEquipmentArmour"
+        android:layout_below="@+id/profileEquipmentArmour"
+        android:text="@string/aBonusKill" />
+
+    <TextView
+        android:id="@+id/profileWeaponText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/profileEquipmentArmour"
+        android:layout_alignLeft="@+id/profileEquipmentWeapon"
+        android:text="@string/profile_weapon" />
+
+    <TextView
+        android:id="@+id/wBonusKill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/aBonusSurv"
+        android:layout_alignLeft="@+id/profileEquipmentWeapon"
+        android:text="@string/wBonusKill" />
+
+    <TextView
+        android:id="@+id/wBonusSurv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/wBonusKill"
+        android:layout_below="@+id/wBonusKill"
+        android:layout_marginTop="14dp"
+        android:text="@string/wBonusSurv" />
+
+</RelativeLayout>
