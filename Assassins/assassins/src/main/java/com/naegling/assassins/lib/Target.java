@@ -32,7 +32,7 @@ public class Target {
         
 		// create marker
    	 	this.marker = new MarkerOptions().position(getTarget(uid))
-   			 .title("Assassinate")
+   			 .title(name)
    			 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
 	}
 	

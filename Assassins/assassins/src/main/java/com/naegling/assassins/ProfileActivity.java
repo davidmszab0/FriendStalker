@@ -214,7 +214,7 @@ public class ProfileActivity extends Activity {
 
             return true;
         }
-
+        
         if (id == R.id.collect_item) {
             Intent intent = new Intent(getApplicationContext(), NFCActivity.class);
             intent.putExtra("MODE", "item");
@@ -223,9 +223,17 @@ public class ProfileActivity extends Activity {
 
             return true;
         }
+        
+        if (id == R.id.action_ranking) {
+            Intent ranking = new Intent(getApplicationContext(), RankingActivity.class);
+            ranking.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(ranking);
+            finish();
+            return true;
+        }
 
         if (id == R.id.change_password) {
-            Intent intent = new Intent(getApplicationContext(), ChangePasswordActivity.class);
+            Intent intent = new Intent(getApplicationContext(), ChangePassword.class);
             intent.putExtra("UID", uid);
             intent.putExtra("EMAIL", email);
             startActivity(intent);

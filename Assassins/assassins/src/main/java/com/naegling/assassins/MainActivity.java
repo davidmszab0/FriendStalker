@@ -1,5 +1,8 @@
 package com.naegling.assassins;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -20,7 +23,9 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.naegling.assassins.lib.Notifications;
 import com.naegling.assassins.lib.PlayerFunctions;
+import com.naegling.assassins.lib.ProfileFunction;
 import com.naegling.assassins.lib.Target;
 import com.naegling.assassins.lib.UserFunctions;
 
@@ -29,6 +34,8 @@ public class MainActivity extends ActionBarActivity {
 	// Global Variables
 	UserFunctions userFunctions;
     PlayerFunctions playerFunctions;
+    ProfileFunction profileFunc = new ProfileFunction();
+    Notifications notifications = new Notifications();
     private GoogleMap googleMap;
     LocationManager locationManager;
     LocationListener locationListener;
@@ -41,7 +48,7 @@ public class MainActivity extends ActionBarActivity {
     Location currLocation;
     Button assassinate;
     int distanceInt = 0;
-    AsyncTask locationTask;
+    int oldDeaths = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,15 +56,23 @@ public class MainActivity extends ActionBarActivity {
 
         userFunctions = new UserFunctions();
         playerFunctions = new PlayerFunctions();
+        
 
         if(userFunctions.isUserLoggedIn(getApplicationContext())){
             setContentView(R.layout.activity_main);
-
+            
             assassinate = (Button) findViewById(R.id.assassinate_button);
             assassinate.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    boolean success = playerFunctions.assassinate(getApplicationContext());
+                    boolean success = playerFunctions.assassinate(getApplicationContext(), targetClass.uid);
+                    if(success) {
+                    	playerFunctions.updateStatistics(getApplicationContext(), targetClass.uid);
+                    	Toast.makeText( getApplicationContext(), "You slaughtered " + targetClass.name, Toast.LENGTH_LONG).show();
+                    } else {
+                    	Toast.makeText( getApplicationContext(), targetClass.name + " escaped!", Toast.LENGTH_LONG).show();
+                    }
                     targetClass = null;
+                    getTarget();
 
                 }
             });
@@ -65,7 +80,7 @@ public class MainActivity extends ActionBarActivity {
             try {
                 // Loading map
                 initilizeMap();
-                
+                getOldDeaths();
                 
                 // this prints out the distance between you and target.
                 distance = (TextView) findViewById(R.id.distance_text);
@@ -78,11 +93,16 @@ public class MainActivity extends ActionBarActivity {
                     public void onLocationChanged(final Location location) {
                         // Called when a new location is found by the network location provider.
 
+                    	
                         playerFunctions.updatePlayerLocation(getApplicationContext(), location, "1");
-                        //targetClass = null;
                         getTarget();
-
-
+                        checkIfKilled();
+                        
+                        if(distanceInt > 15000) {
+                        	targetClass = null;
+                        	Toast.makeText( getApplicationContext(), "This target is too far away", Toast.LENGTH_SHORT).show();
+                        }
+                        
                         if(distanceInt >= 50){
                             assassinate.setClickable(false);
                             assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_button));
@@ -160,7 +180,7 @@ public class MainActivity extends ActionBarActivity {
 	                    .show();
 	        }
 	    }
-	    
+	    	    
 	  //my location button
         googleMap.setMyLocationEnabled(true);
     }
@@ -240,7 +260,6 @@ public class MainActivity extends ActionBarActivity {
     	return location;
 	
     }
-
     private class LocationTask extends AsyncTask<Location, Object, Object> {
 
         @Override
@@ -261,5 +280,44 @@ public class MainActivity extends ActionBarActivity {
             }
             return null;
         }
+    }
+    
+    public void checkIfKilled() {
+    	JSONObject Deaths = profileFunc.getUserDeaths(getApplicationContext());
+    	int newDeaths = 0;
+    	try {
+			newDeaths = Deaths.getInt("deaths");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	if(oldDeaths < newDeaths) {
+    		String killer = "";
+    		JSONObject json = playerFunctions.getKiller(getApplicationContext());
+    		oldDeaths = newDeaths;
+    		try {
+				killer = json.getString("killer");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
+    		notifications.youGotKilled(getApplicationContext(), killer);
+    	}       
+    }
+    
+    public void getOldDeaths() {
+    	System.out.println("I'm in deaths");
+    	JSONObject Deaths = profileFunc.getUserDeaths(getApplicationContext());
+        System.out.println("getting deaths");
+    	try {
+			oldDeaths = Deaths.getInt("deaths");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	System.out.println("these are the old deaths " + oldDeaths);
     }
 }

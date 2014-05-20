@@ -9,12 +9,11 @@ import java.util.Random;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
 import android.location.Location;
-
-import com.naegling.assassins.ProfileActivity;
 
 /**
  * Created by Johan on 2014-04-28.
@@ -31,6 +30,10 @@ public class PlayerFunctions {
     private static String getAlluidTag = "get_all_uid";
     private static String updateTargetTag = "update_target";
     private static String getNameTag = "get_name";
+    private static String updateStatisticsTag = "update_statistics";
+    private static String getKillerTag = "get_killer";
+    private static String getAllRankingTag = "get_all_ranking";
+    private static String getFriendRankingTag = "get_friend_ranking";
 
 
     public PlayerFunctions() {
@@ -105,6 +108,26 @@ public class PlayerFunctions {
         return jsonParser.getJSONArrayFromUrl(playerURL, params);
     }
     
+    public JSONArray getAllRanking(){
+    	
+    	List<NameValuePair> params = new ArrayList<NameValuePair>();
+    	params.add(new BasicNameValuePair("tag", getAllRankingTag));
+    	
+    	return jsonParser.getJSONArrayFromUrl(playerURL, params);
+    }
+    
+    public JSONArray getFriendRanking(Context context){
+    	DatabaseHandler dbh = new DatabaseHandler(context);
+    	HashMap hm = dbh.getUserDetails();
+        String uid = (String) hm.get("uid");
+    	
+    	List<NameValuePair> params = new ArrayList<NameValuePair>();
+    	params.add(new BasicNameValuePair("tag", getFriendRankingTag));
+    	params.add(new BasicNameValuePair("uuid", uid));
+    	
+    	return jsonParser.getJSONArrayFromUrl(playerURL, params);
+    }
+    
     public JSONObject getName(String uuid) {
     	List<NameValuePair> params = new ArrayList<NameValuePair>();
     	params.add(new BasicNameValuePair("tag", getNameTag));
@@ -113,23 +136,62 @@ public class PlayerFunctions {
     	return jsonParser.getJSONFromUrl(playerURL, params);
     }
     
-    
-    public boolean assassinate(Context context) {
+    public JSONObject updateStatistics(Context context, String target) {
     	DatabaseHandler dbh = new DatabaseHandler(context);
     	HashMap hm = dbh.getUserDetails();
         String uid = (String) hm.get("uid");
         
-    	ProfileActivity profile = new ProfileActivity();
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", updateStatisticsTag));
+        params.add(new BasicNameValuePair("uuid", uid));
+        params.add(new BasicNameValuePair("target", target));
+        
+        return jsonParser.getJSONFromUrl(playerURL, params);
+    }
+    
+    public JSONObject getKiller(Context context) {
+		DatabaseHandler dbh = new DatabaseHandler(context);
+		HashMap hm = dbh.getUserDetails();
+		String uid = (String) hm.get("uid");
+		
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", getKillerTag));
+		params.add(new BasicNameValuePair("uuid", uid));
+		
+		return jsonParser.getJSONFromUrl(playerURL, params);
+	}
+    
+    
+    public boolean assassinate(Context context, String target) {
+    	DatabaseHandler dbh = new DatabaseHandler(context);
+    	HashMap hm = dbh.getUserDetails();
+        String uid = (String) hm.get("uid");
+        
+        ProfileFunction profile = new ProfileFunction();
+        
     	Random rand = new Random();
     	int roll = rand.nextInt(100);
+    	
+    	JSONObject uArm = profile.getUserArmour(uid);
+    	JSONObject tArm = profile.getUserArmour(target);
+    	JSONObject uWeap = profile.getUserWeapon(uid);
+    	JSONObject tWeap = profile.getUserWeapon(target);
+    	
+    	int targetBonus = 0;
+    	int userBonus = 0;
+    	try {
+    	targetBonus = tArm.getInt("bonusSurv") + tWeap.getInt("bonusSurv");
+    	userBonus = uArm.getInt("bonusKill") + uWeap.getInt("bonusKill");
+    	} catch(JSONException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	System.out.println(roll);
+    	roll += (userBonus - targetBonus);
     	System.out.println(roll);
     	
     	
-    	System.out.println(roll);
-    	
-    	
-    	if (roll > 41) {
-    		
+    	if (roll > 39) {
     		
     		return true;
     	} else return false;

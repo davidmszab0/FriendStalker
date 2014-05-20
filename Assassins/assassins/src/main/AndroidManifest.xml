@@ -47,12 +47,16 @@
             android:value="AIzaSyD8cxJUMSb5NzFabscCYgX9Zo8cXukZNKQ" />
 
         <activity
-            android:name=".ChangePasswordActivity"
+            android:name="com.naegling.assassins.ChangePasswordActivity"
             android:label="@string/title_activity_change_password" >
         </activity>
         <activity
             android:name="com.naegling.assassins.ForgotPasswordActivity"
             android:label="@string/title_activity_forgot_password" >
+        </activity>
+        <activity
+            android:name="com.naegling.assassins.RankingActivity"
+            android:label="@string/title_activity_ranking" >
         </activity>
     </application>
 
