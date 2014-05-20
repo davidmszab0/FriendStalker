@@ -28,13 +28,27 @@ public class ItemFunctions {
 		Random r = new Random();
 		int roll = r.nextInt(10)+1;
 		
-		if (roll <= lootBonus(uid)) 
-			//Item exist at hub
-			return true;
-		
+		if (roll <= lootBonus(uid)) {
+            //Item exist at hub
+            return true;
+        }
 		//No item exist at hub
 		return false;
 		
 	}
+    public static boolean isItemCollectable(String uid) {
+
+        ProfileFunction profileFunction = new ProfileFunction();
+        try {
+            int itemToCollect = profileFunction.isItemCollectable(uid).getInt("item_to_collect");
+            if (itemToCollect == 1) {
+                return true;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 
 }

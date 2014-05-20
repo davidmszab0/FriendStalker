@@ -52,6 +52,7 @@ public class MainActivity extends ActionBarActivity {
     Button buttonCollectItem;
     int distanceInt = 0;
     int oldDeaths = 0;
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,10 @@ public class MainActivity extends ActionBarActivity {
 
         userFunctions = new UserFunctions();
         playerFunctions = new PlayerFunctions();
+
+        DatabaseHandler dbh = new DatabaseHandler(getApplicationContext());
+        HashMap hm = dbh.getUserDetails();
+        uid = (String) hm.get("uid");
         
 
         if(userFunctions.isUserLoggedIn(getApplicationContext())){
@@ -68,14 +73,10 @@ public class MainActivity extends ActionBarActivity {
             buttonCollectItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DatabaseHandler dbh = new DatabaseHandler(getApplicationContext());
-                    HashMap hm = dbh.getUserDetails();
-                    String uid = (String) hm.get("uid");
                     Intent intent = new Intent(getApplicationContext(), NFCActivity.class);
                     intent.putExtra("MODE", "item");
                     intent.putExtra("UID", "" + uid);
                     startActivity(intent);
-                    buttonCollectItem.setVisibility(View.GONE);
                 }
             });
 
@@ -86,11 +87,10 @@ public class MainActivity extends ActionBarActivity {
                     if(success) {
                     	playerFunctions.updateStatistics(getApplicationContext(), targetClass.uid);
                         Toast.makeText( getApplicationContext(), "You slaughtered " + targetClass.name, Toast.LENGTH_LONG).show();
-                        DatabaseHandler dbh = new DatabaseHandler(getApplicationContext());
-                        HashMap hm = dbh.getUserDetails();
-                        String uid = (String) hm.get("uid");
-                        if (ItemFunctions.loot(uid))
+                        if (ItemFunctions.loot(uid)) {
                             buttonCollectItem.setVisibility(View.VISIBLE);
+                            profileFunc.setItemCollectable(uid, true);
+                        }
 
                     } else {
                     	Toast.makeText( getApplicationContext(), targetClass.name + " escaped!", Toast.LENGTH_LONG).show();
@@ -105,6 +105,11 @@ public class MainActivity extends ActionBarActivity {
                 // Loading map
                 initilizeMap();
                 getOldDeaths();
+                if (ItemFunctions.isItemCollectable(uid)) {
+                    buttonCollectItem.setVisibility(View.VISIBLE);
+                } else {
+                    buttonCollectItem.setVisibility(View.GONE);
+                }
                 
                 // this prints out the distance between you and target.
                 distance = (TextView) findViewById(R.id.distance_text);
@@ -175,6 +180,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public void onPause() {
         super.onPause();
+        assassinate.setClickable(false);
         if (locationManager != null)
             locationManager.removeUpdates(locationListener);
         playerFunctions.setOnlineStatus(getApplicationContext(), "0");
@@ -186,6 +192,11 @@ public class MainActivity extends ActionBarActivity {
         if (locationManager != null)
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 2, locationListener);
         playerFunctions.setOnlineStatus(getApplicationContext(), "1");
+        if (ItemFunctions.isItemCollectable(uid)) {
+            buttonCollectItem.setVisibility(View.VISIBLE);
+        } else {
+            buttonCollectItem.setVisibility(View.GONE);
+        }
     }
 
 

@@ -25,6 +25,9 @@ public class ProfileFunction extends AsyncTask {
 	private static String getProfileTag = "get_profile";
 	private static String collectItemTag = "collect_item";
 	private static String getProfileKillstreakTag = "get_user_killstreak";
+    private static String isItemCollectableTag = "is_item_collectable";
+    private static String setItemCollectableTag = "set_item_collectable";
+    private static String setItemTag = "set_item";
 
 	public ProfileFunction() {jsonParser = new JSONParser();}
 
@@ -126,6 +129,37 @@ public class ProfileFunction extends AsyncTask {
 
 		return jsonParser.getJSONFromUrl(profileURL, params);
 	}
+
+    public JSONObject isItemCollectable(String userId) {
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", isItemCollectableTag));
+        params.add(new BasicNameValuePair("uuid", userId));
+
+        return jsonParser.getJSONFromUrl(profileURL, params);
+    }
+
+    public JSONObject setItemCollectable(String userId, boolean collectable) {
+        String collectableString = collectable ? "1" : "0";
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", setItemCollectableTag));
+        params.add(new BasicNameValuePair("uuid", userId));
+        params.add(new BasicNameValuePair("item_to_collect", collectableString));
+
+        return jsonParser.getJSONFromUrl(profileURL, params);
+
+    }
+
+    public JSONObject setItem(String userId, String type, String itemId){
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", setItemTag));
+        params.add(new BasicNameValuePair("uuid", userId));
+        params.add(new BasicNameValuePair("type", type));
+        params.add(new BasicNameValuePair("item_id", itemId));
+
+        return jsonParser.getJSONFromUrl(profileURL, params);
+    }
 
 
 	@Override
