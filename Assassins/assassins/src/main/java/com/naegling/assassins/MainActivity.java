@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.naegling.assassins.lib.DatabaseHandler;
+import com.naegling.assassins.lib.ItemFunctions;
 import com.naegling.assassins.lib.Notifications;
 import com.naegling.assassins.lib.PlayerFunctions;
 import com.naegling.assassins.lib.ProfileFunction;
@@ -46,10 +47,9 @@ public class MainActivity extends ActionBarActivity {
     Target targetClass = null;
     TextView distance;
     Marker targetMarker = null;
-    MarkerOptions[] markers;
-    Marker friendM = null;
     Location currLocation;
     Button assassinate;
+    Button buttonCollectItem;
     int distanceInt = 0;
     int oldDeaths = 0;
 
@@ -63,14 +63,35 @@ public class MainActivity extends ActionBarActivity {
 
         if(userFunctions.isUserLoggedIn(getApplicationContext())){
             setContentView(R.layout.activity_main);
-            
+
+            buttonCollectItem = (Button) findViewById(R.id.buttonCollectItem);
+            buttonCollectItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DatabaseHandler dbh = new DatabaseHandler(getApplicationContext());
+                    HashMap hm = dbh.getUserDetails();
+                    String uid = (String) hm.get("uid");
+                    Intent intent = new Intent(getApplicationContext(), NFCActivity.class);
+                    intent.putExtra("MODE", "item");
+                    intent.putExtra("UID", "" + uid);
+                    startActivity(intent);
+                    buttonCollectItem.setVisibility(View.GONE);
+                }
+            });
+
             assassinate = (Button) findViewById(R.id.assassinate_button);
             assassinate.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     boolean success = playerFunctions.assassinate(getApplicationContext(), targetClass.uid);
                     if(success) {
                     	playerFunctions.updateStatistics(getApplicationContext(), targetClass.uid);
-                    	Toast.makeText( getApplicationContext(), "You slaughtered " + targetClass.name, Toast.LENGTH_LONG).show();
+                        Toast.makeText( getApplicationContext(), "You slaughtered " + targetClass.name, Toast.LENGTH_LONG).show();
+                        DatabaseHandler dbh = new DatabaseHandler(getApplicationContext());
+                        HashMap hm = dbh.getUserDetails();
+                        String uid = (String) hm.get("uid");
+                        if (ItemFunctions.loot(uid))
+                            buttonCollectItem.setVisibility(View.VISIBLE);
+
                     } else {
                     	Toast.makeText( getApplicationContext(), targetClass.name + " escaped!", Toast.LENGTH_LONG).show();
                     }

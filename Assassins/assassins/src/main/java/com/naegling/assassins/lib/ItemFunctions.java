@@ -8,13 +8,13 @@ import android.content.Context;
 public class ItemFunctions {
 	
 	//Counting the lootbonus based on the player's current killstreak
-	private int lootBonus(String uid) {
+	private static int lootBonus(String uid) {
 		
 		int uKillstreak = 0; 
         
         ProfileFunction profile = new ProfileFunction();
         try {
-        uKillstreak = profile.getUserKillstreak(uid).getInt("killstreak");
+            uKillstreak = profile.getUserKillstreak(uid).getInt("killstreak");
     	} catch(JSONException e) {
     		e.printStackTrace();
     	}
@@ -23,7 +23,7 @@ public class ItemFunctions {
 	}
 	
 	//Roll to see if there is any item to loot at the hub 
-	public boolean loot(String uid) {
+	public static boolean loot(String uid) {
 
 		Random r = new Random();
 		int roll = r.nextInt(10)+1;

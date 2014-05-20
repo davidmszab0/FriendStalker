@@ -31,4 +31,16 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#ff14005d" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/collect_item"
+        android:id="@+id/buttonCollectItem"
+        android:background="@drawable/assassinate_button"
+        android:layout_above="@+id/assassinate_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp"
+        android:layout_alignParentEnd="false"
+        android:visibility="gone"/>
+
 </RelativeLayout>
