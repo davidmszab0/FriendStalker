@@ -253,17 +253,6 @@ public class MainActivity extends ActionBarActivity {
         	
         }
 
-        if (id == R.id.collect_item) {
-            DatabaseHandler dbh = new DatabaseHandler(getApplicationContext());
-            HashMap hm = dbh.getUserDetails();
-            String uid = (String) hm.get("uid");
-            Intent intent = new Intent(getApplicationContext(), NFCActivity.class);
-            intent.putExtra("MODE", "item");
-            intent.putExtra("UID", "" + uid);
-            startActivity(intent);
-
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
     

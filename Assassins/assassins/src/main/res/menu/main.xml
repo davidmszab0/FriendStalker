@@ -7,10 +7,6 @@
         android:title="@string/action_get_target"
         app:showAsAction="never" />
     <item
-        android:id="@+id/collect_item"
-        android:title="@string/collect_item"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_profile"
         android:orderInCategory="100"
         android:title="@string/action_profile"
