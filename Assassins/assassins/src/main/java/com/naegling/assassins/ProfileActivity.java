@@ -233,7 +233,7 @@ public class ProfileActivity extends Activity {
         }
 
         if (id == R.id.change_password) {
-            Intent intent = new Intent(getApplicationContext(), ChangePassword.class);
+            Intent intent = new Intent(getApplicationContext(), ChangePasswordActivity.class);
             intent.putExtra("UID", uid);
             intent.putExtra("EMAIL", email);
             startActivity(intent);

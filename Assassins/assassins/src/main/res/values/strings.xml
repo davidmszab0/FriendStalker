@@ -58,6 +58,17 @@
     <string name="allRankText3"></string>
     <string name="allRankText4"></string>
     <string name="allRankText5"></string>
+    <string name="allRankNum1"></string>
+    <string name="allRankNum2"></string>
+    <string name="allRankNum3"></string>
+    <string name="allRankNum4"></string>
+    <string name="allRankNum5"></string>
+    <string name="friendRankText1">You have no friends/your friends have no rank</string>
+    <string name="friendRankText2"></string>
+    <string name="friendRankText3"></string>
+    <string name="friendRankNum1"></string>
+    <string name="friendRankNum2"></string>
+    <string name="friendRankNum3"></string>
     <string name="title_activity_change_password">Change Password</string>
     <string name="change_password_button">Change Password</string>
     <string name="current_password">Current password</string>

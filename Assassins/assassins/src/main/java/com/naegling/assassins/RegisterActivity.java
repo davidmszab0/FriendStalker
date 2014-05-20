@@ -1,22 +1,26 @@
 package com.naegling.assassins;
 
+import java.io.IOException;
+import java.util.HashMap;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.gcm.*;
 import com.naegling.assassins.lib.DatabaseHandler;
 import com.naegling.assassins.lib.UserFunctions;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
 
 
 public class RegisterActivity extends Activity {
@@ -56,6 +60,8 @@ public class RegisterActivity extends Activity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Context context = getApplicationContext();
+                
+                
                 String name = inputFullName.getText().toString();
                 String email = inputEmail.getText().toString();
                 String password = inputPassword.getText().toString();
@@ -105,5 +111,4 @@ public class RegisterActivity extends Activity {
             }
         });
     }
-
 }

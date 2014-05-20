@@ -31,30 +31,43 @@ public class RankingActivity extends Activity {
 		JSONArray friendRanking = playerFunctions.getFriendRanking(getApplicationContext());
 
 		TextView textArray[] = new TextView[5];
+		TextView numArray[] = new TextView[5];
 		textArray[0] = (TextView)findViewById(R.id.allRankText1);
 		textArray[1] = (TextView)findViewById(R.id.allRankText2);
 		textArray[2] = (TextView)findViewById(R.id.allRankText3);
 		textArray[3] = (TextView)findViewById(R.id.allRankText4);
 		textArray[4] = (TextView)findViewById(R.id.allRankText5);
+		numArray[0] = (TextView)findViewById(R.id.allRankNum1);
+		numArray[1] = (TextView)findViewById(R.id.allRankNum2);
+		numArray[2] = (TextView)findViewById(R.id.allRankNum3);
+		numArray[3] = (TextView)findViewById(R.id.allRankNum4);
+		numArray[4] = (TextView)findViewById(R.id.allRankNum5);
+		
 
 		try {
 			for(int i = 0; i < ranking.length(); i++) {
-				textArray[i].setText(ranking.getJSONObject(i).getString("name") + " \t " + ranking.getJSONObject(i).getDouble("killDeath"));
+				textArray[i].setText(ranking.getJSONObject(i).getString("name"));
+				numArray[i].setText(Double.toString(ranking.getJSONObject(i).getDouble("killDeath")));
 
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		TextView textFriendArray[] = new TextView[3];
+		TextView numFriendArray[] = new TextView[3];
 		textFriendArray[0] = (TextView)findViewById(R.id.friendRankText1);
 		textFriendArray[1] = (TextView)findViewById(R.id.friendRankText2);
 		textFriendArray[2] = (TextView)findViewById(R.id.friendRankText3);
-
-
+		numFriendArray[0] = (TextView)findViewById(R.id.friendRankNum1);
+		numFriendArray[1] = (TextView)findViewById(R.id.friendRankNum2);
+		numFriendArray[2] = (TextView)findViewById(R.id.friendRankNum3);
+		
 		try {
 			for(int i = 0; i < friendRanking.length(); i++) {
-				textFriendArray[i].setText(friendRanking.getJSONObject(i).getString("name") + " \t " + friendRanking.getJSONObject(i).getDouble("killDeath"));
+				textFriendArray[i].setText(friendRanking.getJSONObject(i).getString("name"));
+				numFriendArray[i].setText(Double.toString(ranking.getJSONObject(i).getDouble("killDeath")));
 
 			}
 		} catch (JSONException e) {

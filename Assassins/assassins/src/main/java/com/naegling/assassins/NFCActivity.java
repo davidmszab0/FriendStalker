@@ -11,6 +11,7 @@ import android.nfc.NfcAdapter;
 import android.os.AsyncTask;
 import android.os.Parcelable;
 import android.os.Bundle;
+import android.support.v7.internal.view.menu.MenuView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -21,9 +22,11 @@ import android.widget.Toast;
 
 import com.naegling.assassins.lib.DatabaseHandler;
 import com.naegling.assassins.lib.HttpBitMap;
+import com.naegling.assassins.lib.JSONParser;
 import com.naegling.assassins.lib.NFCFunction;
 import com.naegling.assassins.lib.ProfileFunction;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

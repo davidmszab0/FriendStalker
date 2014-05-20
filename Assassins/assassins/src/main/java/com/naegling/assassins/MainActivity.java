@@ -93,24 +93,24 @@ public class MainActivity extends ActionBarActivity {
                     public void onLocationChanged(final Location location) {
                         // Called when a new location is found by the network location provider.
 
-                    	
+                    	AsyncTask locationTask = new LocationTask().execute(location);
                         playerFunctions.updatePlayerLocation(getApplicationContext(), location, "1");
-                        getTarget();
-                        checkIfKilled();
-                        
-                        if(distanceInt > 15000) {
-                        	targetClass = null;
-                        	Toast.makeText( getApplicationContext(), "This target is too far away", Toast.LENGTH_SHORT).show();
-                        }
-                        
-                        if(distanceInt >= 50){
-                            assassinate.setClickable(false);
-                            assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_button));
-
-                        } else {
-                            assassinate.setClickable(true);
-                            assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.assassinate_button));
-                        }
+//                        getTarget();
+//                        checkIfKilled();
+//
+//                        if(distanceInt > 15000) {
+//                        	targetClass = null;
+//                        	Toast.makeText( getApplicationContext(), "This target is too far away", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        if(distanceInt >= 50){
+//                            assassinate.setClickable(false);
+//                            assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_button));
+//
+//                        } else {
+//                            assassinate.setClickable(true);
+//                            assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.assassinate_button));
+//                        }
 
                     }
 
@@ -268,7 +268,12 @@ public class MainActivity extends ActionBarActivity {
             playerFunctions.updatePlayerLocation(getApplicationContext(), params[0], "1");
             //targetClass = null;
             getTarget();
+            checkIfKilled();
 
+            if(distanceInt > 15000) {
+                        	targetClass = null;
+                        	Toast.makeText( getApplicationContext(), "This target is too far away", Toast.LENGTH_SHORT).show();
+            }
 
             if(distanceInt >= 50){
                 assassinate.setClickable(false);
