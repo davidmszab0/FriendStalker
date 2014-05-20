@@ -104,5 +104,4 @@ public class Notifications {
 		NotificationManager manager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);  
 		manager.notify(notId, builder.build());
 	}
-
 }

@@ -23,11 +23,14 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.naegling.assassins.lib.DatabaseHandler;
 import com.naegling.assassins.lib.Notifications;
 import com.naegling.assassins.lib.PlayerFunctions;
 import com.naegling.assassins.lib.ProfileFunction;
 import com.naegling.assassins.lib.Target;
 import com.naegling.assassins.lib.UserFunctions;
+
+import java.util.HashMap;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -93,24 +96,24 @@ public class MainActivity extends ActionBarActivity {
                     public void onLocationChanged(final Location location) {
                         // Called when a new location is found by the network location provider.
 
-                    	AsyncTask locationTask = new LocationTask().execute(location);
+                    	//AsyncTask locationTask = new LocationTask().execute(location);
                         playerFunctions.updatePlayerLocation(getApplicationContext(), location, "1");
-//                        getTarget();
-//                        checkIfKilled();
-//
-//                        if(distanceInt > 15000) {
-//                        	targetClass = null;
-//                        	Toast.makeText( getApplicationContext(), "This target is too far away", Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                        if(distanceInt >= 50){
-//                            assassinate.setClickable(false);
-//                            assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_button));
-//
-//                        } else {
-//                            assassinate.setClickable(true);
-//                            assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.assassinate_button));
-//                        }
+                        getTarget();
+                        checkIfKilled();
+
+                        if(distanceInt > 15000) {
+                        	targetClass = null;
+                        	Toast.makeText( getApplicationContext(), "This target is too far away", Toast.LENGTH_SHORT).show();
+                        }
+
+                        if(distanceInt >= 50){
+                            assassinate.setClickable(false);
+                            assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_button));
+
+                        } else {
+                            assassinate.setClickable(true);
+                            assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.assassinate_button));
+                        }
 
                     }
 
@@ -228,6 +231,18 @@ public class MainActivity extends ActionBarActivity {
         	getTarget();
         	
         }
+
+        if (id == R.id.collect_item) {
+            DatabaseHandler dbh = new DatabaseHandler(getApplicationContext());
+            HashMap hm = dbh.getUserDetails();
+            String uid = (String) hm.get("uid");
+            Intent intent = new Intent(getApplicationContext(), NFCActivity.class);
+            intent.putExtra("MODE", "item");
+            intent.putExtra("UID", "" + uid);
+            startActivity(intent);
+
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
     
@@ -235,20 +250,24 @@ public class MainActivity extends ActionBarActivity {
     	// gets the random target and adds it to the map
     	if(targetClass == null) {
         	targetClass = randomTarget.getRandomTarget(getApplicationContext());
+            if (targetClass == null)
+                Toast.makeText(getApplicationContext(), "No other users online", Toast.LENGTH_LONG).show();
     	}
-    	// if there is a marker already, remove it.
-    	if (targetMarker != null){
-    		targetMarker.remove();
-    	}
-    	// get the target and place a marker on the map
-    	targetMarker = googleMap.addMarker(targetClass.marker);
-    	assassinate.setText("Assassinate " + targetClass.name);
-    	
-    	//get distance from user location to target location
-    	Location location = convertLocation(targetMarker.getPosition());
-    	currLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-    	distanceInt = (int)currLocation.distanceTo(location);
-    	distance.setText(Integer.toString(distanceInt) + " m to target");
+        if (targetClass != null) {
+            // if there is a marker already, remove it.
+            if (targetMarker != null) {
+                targetMarker.remove();
+            }
+            // get the target and place a marker on the map
+            targetMarker = googleMap.addMarker(targetClass.marker);
+            assassinate.setText("Assassinate " + targetClass.name);
+
+            //get distance from user location to target location
+            Location location = convertLocation(targetMarker.getPosition());
+            currLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            distanceInt = (int) currLocation.distanceTo(location);
+            distance.setText(Integer.toString(distanceInt) + " m to target");
+        }
     }
     
     public Location convertLocation(LatLng latLong) {
@@ -313,16 +332,13 @@ public class MainActivity extends ActionBarActivity {
     }
     
     public void getOldDeaths() {
-    	System.out.println("I'm in deaths");
     	JSONObject Deaths = profileFunc.getUserDeaths(getApplicationContext());
-        System.out.println("getting deaths");
     	try {
 			oldDeaths = Deaths.getInt("deaths");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
-    	System.out.println("these are the old deaths " + oldDeaths);
+
     }
 }

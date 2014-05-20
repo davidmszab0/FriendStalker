@@ -37,5 +37,4 @@ public class HttpBitMap extends AsyncTask<URL, Object, Bitmap[]> {
 
         return bmImg;
     }
-
 }

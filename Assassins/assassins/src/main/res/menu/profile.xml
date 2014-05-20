@@ -8,11 +8,6 @@
         android:orderInCategory="100"
         android:title="@string/title_take_pic"
         app:showAsAction="never"/>
-    <item
-        android:id="@+id/collect_item"
-        android:orderInCategory="100"
-        android:title="@string/collect_item"
-        app:showAsAction="never"/>
     <item 
         android:id="@+id/action_ranking"
         android:orderInCategory="100"
