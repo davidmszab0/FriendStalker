@@ -44,7 +44,8 @@ public class Target {
             Bitmap[] bitMap = (Bitmap[])bmTask.get();
             this.marker = new MarkerOptions().position(getTarget(uid))
                     .title(name)
-                    .icon(BitmapDescriptorFactory.fromBitmap(bitMap[0]));
+                    .icon(BitmapDescriptorFactory.fromBitmap(bitMap[0]))
+                    .anchor(0.5F, 0.5F);
         } catch (Exception e) {
             e.printStackTrace();
             this.marker = new MarkerOptions().position(getTarget(uid))
