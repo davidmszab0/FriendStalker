@@ -1304,8 +1304,8 @@ containing a value of this type.
         public static final int action_ranking=0x7f06009f;
         public static final int action_settings=0x7f060098;
         public static final int activity_chooser_view_content=0x7f060028;
-        public static final int add_friend_result=0x7f060089;
-        public static final int add_friend_text=0x7f060087;
+        public static final int add_friend_result=0x7f06008e;
+        public static final int add_friend_text=0x7f06008c;
         public static final int allRankButton=0x7f060081;
         public static final int allRankNum1=0x7f06006a;
         public static final int allRankNum2=0x7f06006d;
@@ -1329,7 +1329,7 @@ containing a value of this type.
         public static final int btnRegister=0x7f06004c;
         public static final int buttonChangePassword=0x7f060043;
         public static final int buttonNewPassword=0x7f060046;
-        public static final int button_send_friend=0x7f060088;
+        public static final int button_send_friend=0x7f06008d;
         public static final int change_password=0x7f0600a0;
         public static final int checkbox=0x7f060030;
         public static final int collapseActionView=0x7f060011;
@@ -1354,14 +1354,13 @@ containing a value of this type.
         public static final int friendRankText1=0x7f060079;
         public static final int friendRankText2=0x7f06007c;
         public static final int friendRankText3=0x7f06007f;
-        public static final int friend_deaths=0x7f060090;
-        public static final int friend_delete=0x7f060092;
-        public static final int friend_kills=0x7f06008f;
-        public static final int friend_list_layout=0x7f06008a;
-        public static final int friend_name=0x7f06008d;
-        public static final int friend_online_status=0x7f06008e;
-        public static final int friend_request_layout=0x7f06008b;
-        public static final int friend_return=0x7f060091;
+        public static final int friend_deaths=0x7f060094;
+        public static final int friend_delete=0x7f060096;
+        public static final int friend_kills=0x7f060093;
+        public static final int friend_name=0x7f060091;
+        public static final int friend_online_status=0x7f060092;
+        public static final int friend_request_layout=0x7f06008f;
+        public static final int friend_return=0x7f060095;
         public static final int friendsRankRow1=0x7f060078;
         public static final int friendsRankRow2=0x7f06007b;
         public static final int friendsRankRow3=0x7f06007e;
@@ -1373,10 +1372,11 @@ containing a value of this type.
         public static final int ifRoom=0x7f06000e;
         public static final int image=0x7f06002a;
         public static final int imageView=0x7f06003f;
-        public static final int imageViewNewItem=0x7f060095;
-        public static final int imageViewOldItem=0x7f060097;
+        public static final int imageViewNewItem=0x7f060089;
+        public static final int imageViewOldItem=0x7f06008b;
         public static final int listMode=0x7f060005;
         public static final int list_item=0x7f06002c;
+        public static final int list_layout=0x7f060097;
         public static final int loginEmail=0x7f060049;
         public static final int loginPassword=0x7f06004a;
         public static final int login_error=0x7f060048;
@@ -1405,7 +1405,7 @@ containing a value of this type.
         public static final int profileStatistics=0x7f060054;
         public static final int profileUsername=0x7f060053;
         public static final int profileWeaponText=0x7f060064;
-        public static final int profile_picture=0x7f06008c;
+        public static final int profile_picture=0x7f060090;
         public static final int progress_circular=0x7f06001b;
         public static final int progress_horizontal=0x7f06001c;
         public static final int radio=0x7f060032;
@@ -1436,9 +1436,9 @@ containing a value of this type.
         public static final int take_picture=0x7f06009d;
         public static final int terrain=0x7f060003;
         public static final int textView=0x7f060044;
-        public static final int textViewNewItem=0x7f060094;
-        public static final int textViewOldItem=0x7f060096;
-        public static final int textViewTitle=0x7f060093;
+        public static final int textViewNewItem=0x7f060088;
+        public static final int textViewOldItem=0x7f06008a;
+        public static final int textViewTitle=0x7f060087;
         public static final int title=0x7f06002e;
         public static final int top_action_bar=0x7f060023;
         public static final int up=0x7f060024;
@@ -1506,12 +1506,12 @@ containing a value of this type.
         public static final int activity_profile=0x7f03001d;
         public static final int activity_ranking=0x7f03001e;
         public static final int activity_register=0x7f03001f;
-        public static final int add_friend_layout=0x7f030020;
-        public static final int fragment_friend=0x7f030021;
-        public static final int fragment_menu=0x7f030022;
-        public static final int friend_list_layout=0x7f030023;
-        public static final int friend_request_layout=0x7f030024;
-        public static final int item_collect_popup=0x7f030025;
+        public static final int fragment_friend=0x7f030020;
+        public static final int fragment_menu=0x7f030021;
+        public static final int item_collect_popup=0x7f030022;
+        public static final int layout_add_friend=0x7f030023;
+        public static final int layout_friend_profile=0x7f030024;
+        public static final int layout_list_display=0x7f030025;
         public static final int support_simple_spinner_dropdown_item=0x7f030026;
     }
     public static final class menu {
