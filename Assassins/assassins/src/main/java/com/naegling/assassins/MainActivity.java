@@ -258,6 +258,12 @@ public class MainActivity extends ActionBarActivity {
             finish();
             return true;
         }
+
+        if (id == R.id.action_friends) {
+            Intent intent = new Intent(this, FriendActivity.class);
+            startActivity(intent);
+            return true;
+        }
         
         if (id == R.id.get_target) {        	
         	getTarget();

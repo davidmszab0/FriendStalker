@@ -1,14 +1,19 @@
 package com.naegling.assassins.lib;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -29,12 +34,25 @@ public class Target {
 		this.name = name;
 		lon = 0.0;
         lat = 0.0;
-        
-		// create marker
-   	 	this.marker = new MarkerOptions().position(getTarget(uid))
-   			 .title(name)
-   			 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-	}
+
+        ProfileFunction profileFunction = new ProfileFunction();
+
+        try {
+            String url = profileFunction.getUserPicture(uid).getString("picture");
+            String markerUrl = url.substring(0, url.length() -4) + "_marker.png";
+            AsyncTask bmTask = new HttpBitMap().execute(new URL(markerUrl));
+            Bitmap[] bitMap = (Bitmap[])bmTask.get();
+            this.marker = new MarkerOptions().position(getTarget(uid))
+                    .title(name)
+                    .icon(BitmapDescriptorFactory.fromBitmap(bitMap[0]));
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.marker = new MarkerOptions().position(getTarget(uid))
+                    .title(name)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+        }
+
+    }
 	
 	public Target () {
 	}

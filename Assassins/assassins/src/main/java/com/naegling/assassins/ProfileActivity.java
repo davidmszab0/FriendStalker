@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -207,6 +208,7 @@ public class ProfileActivity extends Activity {
 
      // Take a picture with the pi
         if (id == R.id.take_picture) {
+            Log.e("Strings: ", uid);
             Intent intent = new Intent(getApplicationContext(), NFCActivity.class);
             intent.putExtra("MODE", "pic");
             intent.putExtra("UID", "" + uid);
