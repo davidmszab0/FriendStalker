@@ -84,19 +84,23 @@ public class Target {
     	Target target = null;
     	Random rand = new Random();
     	int randomInt = rand.nextInt(json.length());
-    	
-    		try {
-				uid = json.getJSONObject(randomInt).getString("uuid");
-		    	JSONObject jsonName = playerFunctions.getName(uid);
-		    	name = jsonName.getString("name"); 
-				target = new Target(uid, name);
-				JSONObject jTarget = playerFunctions.updateTarget(context, uid); 
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-    	return target;
+
+        try {
+
+
+            uid = json.getJSONObject(randomInt).getString("uuid");
+            if(!uid.equals("0")) {
+                JSONObject jsonName = playerFunctions.getName(uid);
+                name = jsonName.getString("name");
+                target = new Target(uid, name);
+                JSONObject jTarget = playerFunctions.updateTarget(context, uid);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return target;
     }
-    
+
     // puts the online player's location into an array of markeroptions
     public MarkerOptions [] getMarkers() {
 

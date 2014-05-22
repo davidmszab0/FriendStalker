@@ -279,7 +279,7 @@ public class MainActivity extends ActionBarActivity {
     	if(targetClass == null) {
         	targetClass = randomTarget.getRandomTarget(getApplicationContext());
             if (targetClass == null)
-                Toast.makeText(getApplicationContext(), "No other users online", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "No other users online", Toast.LENGTH_SHORT).show();
     	}
         if (targetClass != null) {
             // if there is a marker already, remove it.
