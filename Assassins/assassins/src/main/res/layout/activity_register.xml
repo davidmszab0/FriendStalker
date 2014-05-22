@@ -38,16 +38,6 @@
         android:textIsSelectable="false"
         android:textSize="40dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/register_error"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp" />
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"

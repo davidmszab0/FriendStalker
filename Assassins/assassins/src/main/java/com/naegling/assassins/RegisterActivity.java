@@ -53,24 +53,20 @@ public class RegisterActivity extends Activity {
         inputPassword = (EditText) findViewById(R.id.registerPassword);
         inputConfirmPassword = (EditText) findViewById(R.id.registerConfirmPassword);
         btnRegister = (Button) findViewById(R.id.btnRegister);
-        registerErrorMsg = (TextView) findViewById(R.id.register_error);
-
 
         // Register Button Click event
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Context context = getApplicationContext();
-                
-                
+
                 String name = inputFullName.getText().toString();
                 String email = inputEmail.getText().toString();
                 String password = inputPassword.getText().toString();
                 String passwordConfirm = inputConfirmPassword.getText().toString();
 
                 if (password.length() < 8) {
-                    Toast.makeText(context, "Password needs to be at least 8 characters long", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Password needs to be at least 8 characters long", Toast.LENGTH_SHORT).show();
                 } else if (!password.equals(passwordConfirm)) {
-                    Toast.makeText(context, "Passwords are not equal", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Passwords are not equal", Toast.LENGTH_SHORT).show();
                 } else {
                     UserFunctions userFunction = new UserFunctions();
                     JSONObject json = userFunction.registerUser(name, email, password);
@@ -101,7 +97,7 @@ public class RegisterActivity extends Activity {
                                 finish();
                             } else {
                                 // Error in registration
-                                Toast.makeText(context, json.getString(KEY_ERROR_MSG), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), json.getString(KEY_ERROR_MSG), Toast.LENGTH_SHORT).show();
                             }
                         }
                     } catch (JSONException e) {
