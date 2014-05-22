@@ -42,13 +42,13 @@ public class Target {
             String markerUrl = url.substring(0, url.length() -4) + "_marker.png";
             AsyncTask bmTask = new HttpBitMap().execute(new URL(markerUrl));
             Bitmap[] bitMap = (Bitmap[])bmTask.get();
-            this.marker = new MarkerOptions().position(getTarget(uid))
+            this.marker = new MarkerOptions().position(getLocation())
                     .title(name)
                     .icon(BitmapDescriptorFactory.fromBitmap(bitMap[0]))
                     .anchor(0.5F, 0.5F);
         } catch (Exception e) {
             e.printStackTrace();
-            this.marker = new MarkerOptions().position(getTarget(uid))
+            this.marker = new MarkerOptions().position(getLocation())
                     .title(name)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
         }
@@ -59,8 +59,8 @@ public class Target {
 	}
 	
 	// gets the position of a uuid in the form of LatLng, so it can be used for markers
-	private LatLng getTarget(String target) {
-        JSONObject json = playerFunctions.getTargetLocation(target);
+	public LatLng getLocation() {
+        JSONObject json = playerFunctions.getTargetLocation(uid);
 
         try {
             if (json.getString("success") != null){

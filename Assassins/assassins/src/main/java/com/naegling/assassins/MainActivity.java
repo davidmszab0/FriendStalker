@@ -60,6 +60,7 @@ public class MainActivity extends ActionBarActivity {
 
         userFunctions = new UserFunctions();
         playerFunctions = new PlayerFunctions();
+        distanceInt = 100; // set distance more than 100;
 
         DatabaseHandler dbh = new DatabaseHandler(getApplicationContext());
         HashMap hm = dbh.getUserDetails();
@@ -286,14 +287,19 @@ public class MainActivity extends ActionBarActivity {
                 targetMarker.remove();
             }
             // get the target and place a marker on the map
+            targetClass.marker.position(targetClass.getLocation());
             targetMarker = googleMap.addMarker(targetClass.marker);
             assassinate.setText("Assassinate " + targetClass.name);
 
             //get distance from user location to target location
             Location location = convertLocation(targetMarker.getPosition());
             currLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            distanceInt = (int) currLocation.distanceTo(location);
-            distance.setText(Integer.toString(distanceInt) + " m to target");
+            if(currLocation != null) {
+                distanceInt = (int) currLocation.distanceTo(location);
+                distance.setText(Integer.toString(distanceInt) + " m to target");
+            } else
+                distanceInt = 100;
+                distance.setText("");
         }
     }
     
