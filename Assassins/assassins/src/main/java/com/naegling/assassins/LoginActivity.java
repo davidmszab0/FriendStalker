@@ -23,6 +23,7 @@ public class LoginActivity extends Activity {
     EditText inputEmail;
     EditText inputPassword;
     TextView loginErrorMsg;
+    TextView textViewForgotPassword;
 
     // JSON Response node names
     private static String KEY_SUCCESS = "success";
@@ -44,6 +45,7 @@ public class LoginActivity extends Activity {
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnRegistering = (Button) findViewById(R.id.btnRegister);
         loginErrorMsg = (TextView) findViewById(R.id.login_error);
+        textViewForgotPassword = (TextView) findViewById(R.id.textViewForgotPassword);
 
         // Login button Click Event
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +99,15 @@ public class LoginActivity extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),
                         RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        textViewForgotPassword.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
                 startActivity(intent);
             }
         });

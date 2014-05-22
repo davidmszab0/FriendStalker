@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="${packageName}.${activityClass}">
+    android:screenOrientation="portrait"
+    tools:context="com.naegling.assassins.RegisterActivity">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -29,7 +30,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/login_activity_title_label_2"
-        android:id="@+id/aBonusSurv"
+        android:id="@+id/textView2"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:textColor="#ff0000"
@@ -43,7 +44,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/register_error"
-        android:layout_below="@+id/aBonusSurv"
+        android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp" />
 
@@ -92,7 +93,11 @@
             android:layout_height="wrap_content"
             android:text="@string/register_activity_button_sign_up"
             android:id="@+id/btnRegister"
-            android:layout_gravity="center_horizontal" />
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:padding="20dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/assassinate_button" />
     </LinearLayout>
 
 </RelativeLayout>

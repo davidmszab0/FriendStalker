@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="${packageName}.${activityClass}" >
+    android:screenOrientation="portrait"
+    tools:context="com.naegling.assassins.LoginActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -26,7 +27,7 @@
         android:typeface="serif" />
 
     <TextView
-        android:id="@+id/aBonusSurv"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
@@ -41,7 +42,7 @@
         android:id="@+id/login_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/aBonusSurv"
+        android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -76,17 +77,30 @@
             android:id="@+id/btnLogin"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:padding="20dp"
-            android:text="@string/login_activity_button_login" />
+            android:text="@string/login_activity_button_login"
+            android:background="@drawable/assassinate_button" />
 
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:padding="20dp"
-            android:text="@string/login_activity_button_sign_up" />
+            android:text="@string/login_activity_button_sign_up"
+            android:background="@drawable/assassinate_button" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/forgot_password"
+            android:id="@+id/textViewForgotPassword"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:textColor="#ff00d9ff"
+            android:gravity="center_horizontal" />
     </LinearLayout>
 
 </RelativeLayout>
