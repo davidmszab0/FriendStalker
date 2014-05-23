@@ -114,7 +114,6 @@ class DB_Functions {
     function getUserPicture($uuid) {
         $result = mysql_query("SELECT picture FROM Account WHERE unique_id = '$uuid'");
         $no_of_rows = mysql_num_rows($result);
-
         if ($no_of_rows > 0) {
             $result = mysql_fetch_array($result);
             return $result;    
@@ -129,6 +128,29 @@ class DB_Functions {
         $affected_rows = mysql_affected_rows();
         if ($affected_rows > 0) {
             return true;
+        } else {
+            return false;
+        }
+    }
+
+    function getId($uuid){
+        $result = mysql_query("SELECT unique_id FROM Account WHERE name = '$uuid'");
+        $no_of_rows = mysql_num_rows($result);
+        if ($no_of_rows > 0) {
+            // user existed
+            $result = mysql_fetch_array($result);
+            return $result;
+        } else {
+            // user not existed
+            return false;
+        }
+    }
+
+    function getKillStreak($uuid) {
+        $result = mysql_query("SELECT killstreak FROM Account WHERE unique_id = '$uuid'");
+        $no_of_rows = mysql_num_rows($result);
+        if ($no_of_rows > 0) {
+            return mysql_fetch_array($result);
         } else {
             return false;
         }
@@ -162,6 +184,50 @@ class DB_Functions {
             return false;
         }
     }
+
+    function isItemCollectable($uuid) {
+        $result = mysql_query("SELECT item_to_collect FROM Account WHERE unique_id = '$uuid'");
+        $no_of_rows = mysql_num_rows($result);
+        if ($no_of_rows > 0) {
+            return mysql_fetch_array($result);
+        } else {
+            return false;
+        }
+    }
+    function setItemCollectable($uuid, $collectable) {
+        mysql_query("UPDATE Account SET item_to_collect = $collectable WHERE unique_id = '$uuid'");
+        $affected_rows = mysql_affected_rows();
+        if ($affected_rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function setItem($uuid, $type, $itemId) {
+        if ($type == 'weapon') {
+            mysql_query("UPDATE PlayerWeapon AS pw INNER JOIN Account AS a SET pw.weaponID = $itemId
+                WHERE a.account_id = pw.account_id AND a.unique_id = '$uuid'");
+            $affected_rows = mysql_affected_rows();
+            if ($affected_rows > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } else if ($type == 'armour') {
+            mysql_query("UPDATE PlayerArmour AS pw INNER JOIN Account AS a SET pw.armour_id = $itemId
+                WHERE a.account_id = pw.account_id AND a.unique_id = '$uuid'");
+            $affected_rows = mysql_affected_rows();
+            if ($affected_rows > 0) {
+                return true;
+            } else {
+                return false;
+            }            
+        } else {
+            return false;
+        }
+    }
 }
- 
+
+
 ?>

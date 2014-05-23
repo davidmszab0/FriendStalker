@@ -184,7 +184,7 @@ public class MainActivity extends ActionBarActivity {
         assassinate.setClickable(false);
         if (locationManager != null)
             locationManager.removeUpdates(locationListener);
-        playerFunctions.setOnlineStatus(getApplicationContext(), "0");
+        //playerFunctions.setOnlineStatus(getApplicationContext(), "0");
     }
 
     @Override
@@ -192,7 +192,7 @@ public class MainActivity extends ActionBarActivity {
         super.onResume();
         if (locationManager != null)
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 2, locationListener);
-        playerFunctions.setOnlineStatus(getApplicationContext(), "1");
+        //playerFunctions.setOnlineStatus(getApplicationContext(), "1");
         if (ItemFunctions.isItemCollectable(uid)) {
             buttonCollectItem.setVisibility(View.VISIBLE);
         } else {
@@ -297,9 +297,10 @@ public class MainActivity extends ActionBarActivity {
             if(currLocation != null) {
                 distanceInt = (int) currLocation.distanceTo(location);
                 distance.setText(Integer.toString(distanceInt) + " m to target");
-            } else
+            } else {
                 distanceInt = 100;
                 distance.setText("");
+            }
         }
     }
     

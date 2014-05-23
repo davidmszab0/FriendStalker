@@ -175,7 +175,7 @@ public class NFCActivity extends Activity {
 
         if (NFCFunction.getInstance().getNFCAdapter().ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
             NFCFunction.getInstance().sendMessageToPi("pic " + uid, intent);
-            Toast.makeText(getApplicationContext(), uid, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), uid, Toast.LENGTH_SHORT).show();
 
         }
     }

@@ -245,6 +245,77 @@ if (isset($_POST['tag']) && !empty($_POST['tag'])) {
 	 		echo json_encode($response);
 	 	}
 	 }
+	 else if ($tag == 'set_item') {
+	 	$uuid = $_POST['uuid'];
+	 	$type = $_POST['type'];
+	 	$itemId = $_POST['item_id'];
+	 	if($db->setItem($uuid, $type, $itemId)) {
+	 		$response['success'] = 1;
+	 		echo json_encode($response);
+	 	} else {
+	 		$response['error'] = 1;
+	 		$response['error_msg'] = "Error updating database";
+	 		echo json_encode($response);
+	 	}
+
+	 }
+
+	 
+	else if ($tag == 'get_user_killstreak') {
+	 	$uuid = $_POST['uuid'];
+	 	$data = $db->getKillStreak($uuid);
+	 	if ($data != false) {
+	 		$response['success'] = 1;
+	 		$response['killstreak'] = $data['killstreak'];
+	 		echo json_encode($response);
+	 	} else {
+	 		$response['error'] = 1;
+	 		$response['error_msg'] = 'User not found';
+	 		echo json_encode($response);
+	 	}
+ 	}
+
+	 else if ($tag == 'get_id'){
+	 	$friendName = $_POST['uuid'];
+        $data = $db->getId($friendName);
+	 	$response['friend_id'] = $data['unique_id'];
+	 	echo json_encode($response);
+	 }
+
+	 else if ($tag == 'is_item_collectable') {
+	 	$uuid = $_POST['uuid'];
+	 	if($db->userExists($uuid)){
+	 		$data = $db->isItemCollectable($uuid);
+	 		if ($data != false) {
+	 			$response['success'] = 1;
+	 			$response['item_to_collect'] = $data['item_to_collect'];
+	 			echo json_encode($response);
+	 		} else {
+	 			$response['error'] = 1;
+	 			$response['error_msg'] = "Error in query";
+	 			echo json_encode($response);
+	 		}
+
+	 	} else {
+	 		$response['error'] = 1;
+	 		$response['error_msg'] = "User does not exist";
+	 		echo json_encode($response);
+	 	}
+
+	 }
+
+	 else if ($tag == 'set_item_collectable') {
+	 	$uuid = $_POST['uuid'];
+	 	$collectable = $_POST['item_to_collect'];
+	 	if($db->setItemCollectable($uuid, $collectable)) {
+	 		$response['success'] = 1;
+	 		echo json_encode($response);
+	 	} else {
+	 		$response['error'] = 1;
+	 		$response['error_msg'] = "Error updating database";
+	 		echo json_encode($response);
+	 	}
+	 }
 
 
 	 else {

@@ -177,6 +177,8 @@ public class ProfileActivity extends Activity {
 		aSTextView.setText("Defence Bonus: " + Integer.toString(aBonusSurv));
 
 	}
+
+
 	
 	// when pressing the back button go back to the main activity
 	@Override

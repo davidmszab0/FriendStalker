@@ -83,7 +83,7 @@
     <string name="action_friends">Friends</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="menu_activity_view_friends_button">Friends</string>
-    <string name="title_activity_friend">FriendActivity</string>
+    <string name="title_activity_friend">Friends</string>
     <string name="add_friend_text">Enter a Name</string>
     <string name="button_send_friend_request">Send</string>
     <string name="button_accept_friend_request">Accept</string>
