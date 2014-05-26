@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * @author Simonas Stirbys and Elsa Wide
+ */
 public class FriendFunctions {
 		
 	private JSONParser jsonParser;
@@ -37,104 +40,104 @@ public class FriendFunctions {
 	
 	public JSONArray getFriendList(String userId){
 		
-		List<NameValuePair> friendList = new ArrayList<NameValuePair>();
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		
-        friendList.add(new BasicNameValuePair("tag", friendIdTag));
-        friendList.add(new BasicNameValuePair("uuid", userId));
+        params.add(new BasicNameValuePair("tag", friendIdTag));
+        params.add(new BasicNameValuePair("uuid", userId));
         
-        return jsonParser.getJSONArrayFromUrl(playerURL, friendList);
+        return jsonParser.getJSONArrayFromUrl(playerURL, params);
 	}
 	
 	
 	public JSONObject searchForFriend(String friendName){
 		
-		List<NameValuePair> friendInvitation = new ArrayList<NameValuePair>();
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		
-		friendInvitation.add(new BasicNameValuePair("tag", searchUserTag));
-		friendInvitation.add(new BasicNameValuePair("uuid", friendName));
+		params.add(new BasicNameValuePair("tag", searchUserTag));
+		params.add(new BasicNameValuePair("uuid", friendName));
         
-        return jsonParser.getJSONFromUrl(playerURL, friendInvitation);
+        return jsonParser.getJSONFromUrl(playerURL, params);
 	}
 	
 	public JSONObject sendFriendRequest(String userName, String friendName){
 		
-		List<NameValuePair> friendInvitation = new ArrayList<NameValuePair>();
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		
-		friendInvitation.add(new BasicNameValuePair("tag", sendFriendRequest));
-		friendInvitation.add(new BasicNameValuePair("uuid", userName));
-		friendInvitation.add(new BasicNameValuePair("friendName", friendName));
+		params.add(new BasicNameValuePair("tag", sendFriendRequest));
+		params.add(new BasicNameValuePair("uuid", userName));
+		params.add(new BasicNameValuePair("friendName", friendName));
         
-        JSONObject json = jsonParser.getJSONFromUrl(playerURL, friendInvitation);
+        JSONObject json = jsonParser.getJSONFromUrl(playerURL, params);
 		Log.d("Create response", json.toString());
         return json;
 	}
 	
 	public JSONArray getFriendRequestList(String userId){
 		
-		List<NameValuePair> friendRequestList = new ArrayList<NameValuePair>();
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		
-		friendRequestList.add(new BasicNameValuePair("tag", friendRequesterTag));
-		friendRequestList.add(new BasicNameValuePair("uuid", userId));
+		params.add(new BasicNameValuePair("tag", friendRequesterTag));
+		params.add(new BasicNameValuePair("uuid", userId));
         
-        return jsonParser.getJSONArrayFromUrl(playerURL, friendRequestList);
+        return jsonParser.getJSONArrayFromUrl(playerURL, params);
 	}
 	
 	
 	public JSONObject acceptFriend(String uuid, String friendName){
 		
-		List<NameValuePair> friendInvitation = new ArrayList<NameValuePair>();
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		
-		friendInvitation.add(new BasicNameValuePair("tag", acceptFriend));
-		friendInvitation.add(new BasicNameValuePair("uuid", uuid));
-		friendInvitation.add(new BasicNameValuePair("friendName", friendName));
+		params.add(new BasicNameValuePair("tag", acceptFriend));
+		params.add(new BasicNameValuePair("uuid", uuid));
+		params.add(new BasicNameValuePair("friendName", friendName));
         
-        return jsonParser.getJSONFromUrl(playerURL, friendInvitation);
+        return jsonParser.getJSONFromUrl(playerURL, params);
 	}
 
 
 	public JSONObject denyFriend(String uuid, String friendName){
 		
-		List<NameValuePair> friendInvitation = new ArrayList<NameValuePair>();
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		
-		friendInvitation.add(new BasicNameValuePair("tag", denyFriend));
-		friendInvitation.add(new BasicNameValuePair("uuid", uuid));
-		friendInvitation.add(new BasicNameValuePair("friendName", friendName));
+		params.add(new BasicNameValuePair("tag", denyFriend));
+		params.add(new BasicNameValuePair("uuid", uuid));
+		params.add(new BasicNameValuePair("friendName", friendName));
         
-        return jsonParser.getJSONFromUrl(playerURL, friendInvitation);
+        return jsonParser.getJSONFromUrl(playerURL, params);
 	}
 	
 	
 	public JSONObject translateToUniqueID(String name){
 		
-		List<NameValuePair> friendInvitation = new ArrayList<NameValuePair>();
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		
-		friendInvitation.add(new BasicNameValuePair("tag", getId));
-		friendInvitation.add(new BasicNameValuePair("friendName", name));
+		params.add(new BasicNameValuePair("tag", getId));
+		params.add(new BasicNameValuePair("friendName", name));
         
-        return jsonParser.getJSONFromUrl(playerURL, friendInvitation);
+        return jsonParser.getJSONFromUrl(playerURL, params);
 	}
 	
 
 	public JSONObject getOnlineStatus(String name){
 		
-		List<NameValuePair> friendInvitation = new ArrayList<NameValuePair>();
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		
-		friendInvitation.add(new BasicNameValuePair("tag", friendOnlineStatus));
-		friendInvitation.add(new BasicNameValuePair("friendName", name));
+		params.add(new BasicNameValuePair("tag", friendOnlineStatus));
+		params.add(new BasicNameValuePair("friendName", name));
         
-        return jsonParser.getJSONFromUrl(playerURL, friendInvitation);
+        return jsonParser.getJSONFromUrl(playerURL, params);
 	}
 	
 	
 	public JSONObject removeFriend(String uuid, String name){
 		
-		List<NameValuePair> friendInvitation = new ArrayList<NameValuePair>();
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		
-		friendInvitation.add(new BasicNameValuePair("tag", deleteFriend));
-		friendInvitation.add(new BasicNameValuePair("uuid", uuid));
-		friendInvitation.add(new BasicNameValuePair("friendName", name));
+		params.add(new BasicNameValuePair("tag", deleteFriend));
+		params.add(new BasicNameValuePair("uuid", uuid));
+		params.add(new BasicNameValuePair("friendName", name));
         
-        return jsonParser.getJSONFromUrl(playerURL, friendInvitation);
+        return jsonParser.getJSONFromUrl(playerURL, params);
 	}
 	
 	

@@ -5,6 +5,10 @@ import java.util.Random;
 import org.json.JSONException;
 import android.content.Context;
 
+/**
+ * @author Felix Fortoul
+ */
+
 public class ItemFunctions {
 	
 	//Counting the lootbonus based on the player's current killstreak
@@ -26,7 +30,7 @@ public class ItemFunctions {
 	public static boolean loot(String uid) {
 
 		Random r = new Random();
-		int roll = r.nextInt(10)+1;
+		int roll = r.nextInt(10);
 		
 		if (roll <= lootBonus(uid)) {
             //Item exist at hub
@@ -36,6 +40,8 @@ public class ItemFunctions {
 		return false;
 		
 	}
+
+    // Checks if the player has an item to collect
     public static boolean isItemCollectable(String uid) {
 
         ProfileFunction profileFunction = new ProfileFunction();

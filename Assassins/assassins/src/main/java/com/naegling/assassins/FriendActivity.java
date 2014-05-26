@@ -37,6 +37,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @author Simonas
+ */
+
 public class FriendActivity extends ActionBarActivity {
 
 	 
@@ -166,7 +170,8 @@ public class FriendActivity extends ActionBarActivity {
 										friendFunc.sendFriendRequest(user.get(KEY_UID),name);
 										friendResult.setText("Request sent!");
 									}else{
-										friendResult.setText("No such user!");										
+										String error = searchUsers.getString("error_msg");
+                                        friendResult.setText(error);
 									}
 								}
 							} catch (Exception e) {
@@ -225,11 +230,11 @@ public class FriendActivity extends ActionBarActivity {
 	        }
 
 	        public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-	            // hide the given tab
+
 	        }
 
 	        public void onTabReselected(Tab tab, FragmentTransaction ft) {
-	            // probably ignore this event
+
 	        }
 	    };
 

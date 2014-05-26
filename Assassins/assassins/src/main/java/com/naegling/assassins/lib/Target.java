@@ -20,6 +20,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+/**
+ * @author David M Szabo
+ */
+
 public class Target {
 	
 	public String uid;
@@ -28,7 +32,8 @@ public class Target {
 	double lon;
 	public MarkerOptions marker;
 	PlayerFunctions playerFunctions = new PlayerFunctions();
- 	
+
+    /** Constructor for target class */
 	public Target (String uid, String name){
 		this.uid = uid;
 		this.name = name;

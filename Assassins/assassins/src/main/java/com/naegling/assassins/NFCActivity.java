@@ -117,50 +117,48 @@ public class NFCActivity extends Activity {
 
         if (NFCFunction.getInstance().getNFCAdapter().ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
             String message = "" + NFCFunction.getInstance().getMessageFromPi(intent);
-            if (message.equals("Item collected")) {
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Item collected", Toast.LENGTH_LONG).show();
 
-                View popupView = getLayoutInflater().inflate(R.layout.item_collect_popup, null);
-                popupWindow = new PopupWindow(popupView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
-                TextView tvOldItem = (TextView) popupView.findViewById(R.id.textViewOldItem);
-                TextView tvNewItem = (TextView) popupView.findViewById(R.id.textViewNewItem);
-                tvOldItem.setText(oldItem);
-                tvNewItem.setText(newItem);
-                ImageView ivOldItem = (ImageView) popupView.findViewById(R.id.imageViewOldItem);
-                ImageView ivNewItem = (ImageView) popupView.findViewById(R.id.imageViewNewItem);
-                ivOldItem.setImageBitmap(pics[0]);
-                ivNewItem.setImageBitmap(pics[1]);
-                popupWindow.setFocusable(true);
-                popupWindow.setBackgroundDrawable(new ColorDrawable());
-                popupWindow.showAtLocation(getWindow().getDecorView().findViewById(android.R.id.content), Gravity.CENTER, 0, 0);
+            View popupView = getLayoutInflater().inflate(R.layout.item_collect_popup, null);
+            popupWindow = new PopupWindow(popupView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
+            TextView tvOldItem = (TextView) popupView.findViewById(R.id.textViewOldItem);
+            TextView tvNewItem = (TextView) popupView.findViewById(R.id.textViewNewItem);
+            tvOldItem.setText(oldItem);
+            tvNewItem.setText(newItem);
+            ImageView ivOldItem = (ImageView) popupView.findViewById(R.id.imageViewOldItem);
+            ImageView ivNewItem = (ImageView) popupView.findViewById(R.id.imageViewNewItem);
+            ivOldItem.setImageBitmap(pics[0]);
+            ivNewItem.setImageBitmap(pics[1]);
+            popupWindow.setFocusable(true);
+            popupWindow.setBackgroundDrawable(new ColorDrawable());
+            popupWindow.showAtLocation(getWindow().getDecorView().findViewById(android.R.id.content), Gravity.CENTER, 0, 0);
 
-                ivNewItem.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.e("Strings:", uid + ", " + type + ", " + itemId);
-                        profileFunction.setItem(uid, type, itemId);
-                        profileFunction.setItemCollectable(uid, false);
+            ivNewItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e("Strings:", uid + ", " + type + ", " + itemId);
+                    profileFunction.setItem(uid, type, itemId);
+                    profileFunction.setItemCollectable(uid, false);
 
-                        popupWindow.dismiss();
-                        Toast.makeText(getApplicationContext(), newItem + " selected.", Toast.LENGTH_LONG).show();
-                        finish();
-                    }
-                });
+                    popupWindow.dismiss();
+                    Toast.makeText(getApplicationContext(), newItem + " selected.", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            });
 
-                ivOldItem.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+            ivOldItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                        profileFunction.setItemCollectable(uid, false);
-                        Toast.makeText(getApplicationContext(), oldItem + " selected.", Toast.LENGTH_LONG).show();
-                        popupWindow.dismiss();
-                        finish();
-                    }
-                });
+                    profileFunction.setItemCollectable(uid, false);
+                    Toast.makeText(getApplicationContext(), oldItem + " selected.", Toast.LENGTH_LONG).show();
+                    popupWindow.dismiss();
+                    finish();
+                }
+            });
 
-            }
-            else
-                Toast.makeText(getApplicationContext(), "Tag not recognized " + message, Toast.LENGTH_LONG).show();
+
+
 
         }
 

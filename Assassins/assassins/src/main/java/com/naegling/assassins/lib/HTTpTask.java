@@ -18,6 +18,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.os.AsyncTask;
 
+/**
+ * @author Johan Nilsson
+ */
+
 public class HTTpTask extends AsyncTask<Object, Object, Object>{
 
     static InputStream is = null;

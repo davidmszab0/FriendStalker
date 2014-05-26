@@ -3,18 +3,23 @@ package com.naegling.assassins;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +38,9 @@ import com.naegling.assassins.lib.UserFunctions;
 
 import java.util.HashMap;
 
-
+/**
+ * @author Johan Nilsson, Henrik Edholm, Mikaela Edström and David M Szabo
+ */
 public class MainActivity extends ActionBarActivity {
 	// Global Variables
 	UserFunctions userFunctions;
@@ -84,21 +91,27 @@ public class MainActivity extends ActionBarActivity {
             assassinate = (Button) findViewById(R.id.assassinate_button);
             assassinate.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+                    String message = "";
                     boolean success = playerFunctions.assassinate(getApplicationContext(), targetClass.uid);
                     if(success) {
-                    	playerFunctions.updateStatistics(getApplicationContext(), targetClass.uid);
-                        Toast.makeText( getApplicationContext(), "You slaughtered " + targetClass.name, Toast.LENGTH_LONG).show();
+                        playerFunctions.updateStatistics(getApplicationContext(), targetClass.uid);
+                        message = "You slaughtered " + targetClass.name + "!";
+                        //Toast.makeText(getApplicationContext(), "You slaughtered " + targetClass.name, Toast.LENGTH_LONG).show();
                         if (ItemFunctions.loot(uid)) {
                             buttonCollectItem.setVisibility(View.VISIBLE);
                             profileFunc.setItemCollectable(uid, true);
                         }
 
                     } else {
-                    	Toast.makeText( getApplicationContext(), targetClass.name + " escaped!", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), targetClass.name + " escaped!", Toast.LENGTH_LONG).show();
+                        message = targetClass.name + " escaped!";
                     }
+
+
+
                     targetClass = null;
                     getTarget();
-
+                    Toast.makeText(getApplication(), message, Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -192,7 +205,7 @@ public class MainActivity extends ActionBarActivity {
         super.onResume();
         if (locationManager != null)
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 2, locationListener);
-        //playerFunctions.setOnlineStatus(getApplicationContext(), "1");
+        playerFunctions.setOnlineStatus(getApplicationContext(), "1");
         if (ItemFunctions.isItemCollectable(uid)) {
             buttonCollectItem.setVisibility(View.VISIBLE);
         } else {
@@ -202,6 +215,7 @@ public class MainActivity extends ActionBarActivity {
 
 
 	/**
+     * @autho Johan Nilsson
 	 * function to load map. If map is not created it will create it for you
 	 * */
 	private void initilizeMap() {
@@ -273,7 +287,10 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    
+
+    /**
+     * @author Mikaela Lidström
+     */
     public void getTarget() {
     	// gets the random target and adds it to the map
     	if(targetClass == null) {
@@ -303,7 +320,12 @@ public class MainActivity extends ActionBarActivity {
             }
         }
     }
-    
+
+    /**
+     * @author Mikaela Lidström and Henrik Edholm
+     * @param latLong
+     * @return
+     */
     public Location convertLocation(LatLng latLong) {
     	
     	Location location = new Location("Test");
@@ -313,33 +335,11 @@ public class MainActivity extends ActionBarActivity {
     	return location;
 	
     }
-    private class LocationTask extends AsyncTask<Location, Object, Object> {
 
-        @Override
-        protected Object doInBackground(Location... params) {
 
-            playerFunctions.updatePlayerLocation(getApplicationContext(), params[0], "1");
-            //targetClass = null;
-            getTarget();
-            checkIfKilled();
-
-            if(distanceInt > 15000) {
-                        	targetClass = null;
-                        	Toast.makeText( getApplicationContext(), "This target is too far away", Toast.LENGTH_SHORT).show();
-            }
-
-            if(distanceInt >= 50){
-                assassinate.setClickable(false);
-                assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_button));
-
-            } else {
-                assassinate.setClickable(true);
-                assassinate.setBackgroundDrawable(getResources().getDrawable(R.drawable.assassinate_button));
-            }
-            return null;
-        }
-    }
-    
+    /**
+     * @author Mikaela Lidström and Henrik Edholm
+     */
     public void checkIfKilled() {
     	JSONObject Deaths = profileFunc.getUserDeaths(getApplicationContext());
     	int newDeaths = 0;
@@ -364,7 +364,10 @@ public class MainActivity extends ActionBarActivity {
     		notifications.youGotKilled(getApplicationContext(), killer);
     	}       
     }
-    
+
+    /**
+     * @author Mikaela Lidström and Henrik Edholm
+     */
     public void getOldDeaths() {
     	JSONObject Deaths = profileFunc.getUserDeaths(getApplicationContext());
     	try {

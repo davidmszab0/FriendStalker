@@ -64,6 +64,7 @@ public class ProfileActivity extends Activity {
     TextView wSTextView;
     TextView aKTextView;
     TextView aSTextView;
+    HashMap<String, String> user;
 
 	
 	@Override
@@ -72,7 +73,7 @@ public class ProfileActivity extends Activity {
 		setContentView(R.layout.activity_profile);
 
 		DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-		HashMap<String, String> user = db.getUserDetails();
+		user = db.getUserDetails();
 
 		// TextViews being initialized
 		nameTextView = (TextView)findViewById(R.id.profileUsername);
@@ -92,13 +93,19 @@ public class ProfileActivity extends Activity {
 		aKTextView = (TextView)findViewById(R.id.aBonusKill);
 		aSTextView = (TextView)findViewById(R.id.aBonusSurv);
 
+
+	}
+
+    @Override
+    public void onResume() {
+        super.onResume();
         // Making new profile function
         ProfileFunction pFunc = new ProfileFunction();
 
 
-		// Initializes variables
-		int kills = 0;
-		int deaths = 0;
+        // Initializes variables
+        int kills = 0;
+        int deaths = 0;
         Double kdRatio;
         int wBonusKill = 0;
         int wBonusSurv = 0;
@@ -110,13 +117,13 @@ public class ProfileActivity extends Activity {
         // Get data from the server through API
         JSONObject jsonProfile = pFunc.getProfile(user.get(KEY_UID));
 
-		// Setting the user nameTextView and email to the interface
-		nameTextView.setText(user.get(KEY_NAME));
-		emailTextView.setText(user.get(KEY_EMAIL));
-		uid = user.get(KEY_UID);
+        // Setting the user nameTextView and email to the interface
+        nameTextView.setText(user.get(KEY_NAME));
+        emailTextView.setText(user.get(KEY_EMAIL));
+        uid = user.get(KEY_UID);
         email = user.get(KEY_EMAIL);
 
-		// Get picture for profile, weapon and armour and set ImageViews
+        // Get picture for profile, weapon and armour and set ImageViews
 
         try {
             URL[] urls = {new URL(jsonProfile.getString(KEY_PICT)),new URL(jsonProfile.getString(KEY_WPICT)),new URL(jsonProfile.getString(KEY_APICT))};
@@ -153,31 +160,29 @@ public class ProfileActivity extends Activity {
         }
 
         // set the text to the textviews
-		killsTextView.setText("" + kills);
-		deathsTextView.setText("" + deaths);
+        killsTextView.setText("" + kills);
+        deathsTextView.setText("" + deaths);
         weaponNameTextView.setText(wName);
         armourNameTextView.setText(aName);
 
-		// calculate the k/d ratio and set it in the textview
-		if (deaths > 0)
+        // calculate the k/d ratio and set it in the textview
+        if (deaths > 0)
             kdRatio = 0.0 + kills / deaths;
         else
             kdRatio = 0.0;
-		kDTextView.setText(Double.toString(kdRatio));
+        kDTextView.setText(Double.toString(kdRatio));
 
-		
 
-		// Adding the bonuses from the items to the interface
-		bonusKillTextView.setText("+" + Integer.toString(wBonusKill + aBonusKill) + "%");
-		bonusSurvTextView.setText("+" + Integer.toString(wBonusSurv + aBonusSurv) + "%");
-		
-		wKTextView.setText("Kill Bonus: " + Integer.toString(wBonusKill));
-		aKTextView.setText("Kill Bonus: " + Integer.toString(aBonusKill));
-		wSTextView.setText("Defence Bonus: " + Integer.toString(wBonusSurv));
-		aSTextView.setText("Defence Bonus: " + Integer.toString(aBonusSurv));
 
-	}
+        // Adding the bonuses from the items to the interface
+        bonusKillTextView.setText("+" + Integer.toString(wBonusKill + aBonusKill) + "%");
+        bonusSurvTextView.setText("+" + Integer.toString(wBonusSurv + aBonusSurv) + "%");
 
+        wKTextView.setText("Kill Bonus: " + Integer.toString(wBonusKill));
+        aKTextView.setText("Kill Bonus: " + Integer.toString(aBonusKill));
+        wSTextView.setText("Defence Bonus: " + Integer.toString(wBonusSurv));
+        aSTextView.setText("Defence Bonus: " + Integer.toString(aBonusSurv));
+    }
 
 	
 	// when pressing the back button go back to the main activity

@@ -29,7 +29,7 @@ class DB_Functions {
     }
 
     function getAllRanking() {
-        $result = mysql_query("SELECT CAST((s.noKills / s.noDeaths) as DECIMAL(5,1)) as killDeath, a.name 
+        $result = mysql_query("SELECT CAST((s.noKills - s.noDeaths) as DECIMAL(5,1)) as killDeath, a.name 
                             FROM Statistics as s 
                             INNER JOIN Account as a ON a.account_id = s.account_id 
                             WHERE s.noDeaths > 0 AND s.noKills > 0 
@@ -44,7 +44,7 @@ class DB_Functions {
     }
 
     function getFriendRanking($uuid) {
-        $result = mysql_query("SELECT CAST((s.noKills / s.noDeaths) as DECIMAL(5,1)) as killDeath, a.name 
+        $result = mysql_query("SELECT CAST((s.noKills - s.noDeaths) as DECIMAL(5,1)) as killDeath, a.name 
                             FROM Statistics as s 
                             INNER JOIN Account as a ON a.account_id = s.account_id 
                             INNER JOIN FriendList as f ON f.friend_id = a.unique_id 
@@ -126,8 +126,8 @@ class DB_Functions {
         $result3 = mysql_query("UPDATE Statistics INNER JOIN Account ON Account.account_id = Statistics.account_id
                              SET killedBy = (SELECT name FROM Account WHERE unique_id = '$uuid') 
                              WHERE Account.unique_id = '$target'");
-        $result4 = mysql_query("UPDATE Account SET killstreak = killstreak + 1 WHERE unique_id = $uuid");
-        $result5 = mysql_query("UPDATE Account SET killstreak = 0 WHERE unique_id = $target");
+        $result4 = mysql_query("UPDATE Account SET killstreak = killstreak + 1 WHERE unique_id = '$uuid'");
+        $result5 = mysql_query("UPDATE Account SET killstreak = 0 WHERE unique_id = '$target'");
 
         return true;
 

@@ -2,7 +2,8 @@
 <ViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rankingSwitcher"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:screenOrientation="portrait" >
     
 <TableLayout
     android:layout_width="match_parent"

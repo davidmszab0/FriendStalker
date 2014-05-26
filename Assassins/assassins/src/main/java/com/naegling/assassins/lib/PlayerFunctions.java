@@ -16,7 +16,7 @@ import android.content.Context;
 import android.location.Location;
 
 /**
- * Created by Johan on 2014-04-28.
+ * Created by Johan Nilsson, Henrik Edholm and Mikaela Lidström.
  */
 public class PlayerFunctions {
 
@@ -40,6 +40,14 @@ public class PlayerFunctions {
     	jsonParser = new JSONParser(); 
     }
 
+    /**
+     * Updates players location and status on server
+     * @author Johan Nilsson
+     * @param context
+     * @param location
+     * @param status
+     * @return
+     */
     public JSONObject updatePlayerLocation(Context context, Location location, String status){
         DatabaseHandler dbh = new DatabaseHandler(context);
         HashMap hm = dbh.getUserDetails();
@@ -56,6 +64,12 @@ public class PlayerFunctions {
         return jsonParser.getJSONFromUrl(playerURL, params);
     }
 
+    /**
+     * Gets a JSON object representation of the targets location
+     * @author Johan Nilsson
+     * @param target
+     * @return
+     */
     public JSONObject getTargetLocation(String target){
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("tag", getTargetLocationTag));
@@ -64,6 +78,13 @@ public class PlayerFunctions {
         return jsonParser.getJSONFromUrl(playerURL, params);
     }
 
+    /**
+     * Sets the online status of the player on server
+     * @author Johan Nilsson
+     * @param context
+     * @param status
+     * @return
+     */
     public JSONObject setOnlineStatus(Context context, String status) {
         DatabaseHandler dbh = new DatabaseHandler(context);
         HashMap hm = dbh.getUserDetails();
@@ -77,6 +98,11 @@ public class PlayerFunctions {
         return jsonParser.getJSONFromUrl(playerURL, params);
     }
 
+    /**
+     * Gets a JSON array representation of all players online
+     * @author Johan Nilsson
+     * @return
+     */
     public JSONArray getAllOnline(){
     	
         List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -84,7 +110,27 @@ public class PlayerFunctions {
 
         return jsonParser.getJSONArrayFromUrl(playerURL, params);
     }
-    
+
+    /** Get the name of a player
+     * @author Mikaela Lidström
+     * @param uuid
+     * @return
+     */
+    public JSONObject getName(String uuid) {
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", getNameTag));
+        params.add(new BasicNameValuePair("uuid", uuid));
+
+        return jsonParser.getJSONFromUrl(playerURL, params);
+    }
+
+    /**
+     * Updates the target of a player
+     * @author Mikaela Lidström
+     * @param context
+     * @param target
+     * @return
+     */
     public JSONObject updateTarget(Context context, String target) {
     	DatabaseHandler dbh = new DatabaseHandler(context);
     	HashMap hm = dbh.getUserDetails();
@@ -98,7 +144,14 @@ public class PlayerFunctions {
     	return jsonParser.getJSONFromUrl(playerURL, params);
     	
     }
-    
+
+    /**
+     * Gets all other players online except player that is passed as argument
+     *
+     * @author
+     * @param uid
+     * @return
+     */
     public JSONArray getAllUid(String uid){
         
     	List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -107,7 +160,12 @@ public class PlayerFunctions {
         
         return jsonParser.getJSONArrayFromUrl(playerURL, params);
     }
-    
+
+    /**
+     * Gets a JSONarray representation of the five top ranked players
+     * @author Mikeala Lidström
+     * @return
+     */
     public JSONArray getAllRanking(){
     	
     	List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -115,7 +173,12 @@ public class PlayerFunctions {
     	
     	return jsonParser.getJSONArrayFromUrl(playerURL, params);
     }
-    
+
+    /**
+     * Gets a JSONarray representation of a players friends ranking
+     * @param context
+     * @return
+     */
     public JSONArray getFriendRanking(Context context){
     	DatabaseHandler dbh = new DatabaseHandler(context);
     	HashMap hm = dbh.getUserDetails();
@@ -127,15 +190,14 @@ public class PlayerFunctions {
     	
     	return jsonParser.getJSONArrayFromUrl(playerURL, params);
     }
-    
-    public JSONObject getName(String uuid) {
-    	List<NameValuePair> params = new ArrayList<NameValuePair>();
-    	params.add(new BasicNameValuePair("tag", getNameTag));
-    	params.add(new BasicNameValuePair("uuid", uuid));
-    	
-    	return jsonParser.getJSONFromUrl(playerURL, params);
-    }
-    
+
+    /**
+     * Updates a players statistics after assasination
+     * @author Mikaela Lidström
+     * @param context
+     * @param target
+     * @return
+     */
     public JSONObject updateStatistics(Context context, String target) {
     	DatabaseHandler dbh = new DatabaseHandler(context);
     	HashMap hm = dbh.getUserDetails();
@@ -148,7 +210,13 @@ public class PlayerFunctions {
         
         return jsonParser.getJSONFromUrl(playerURL, params);
     }
-    
+
+    /**
+     * Gets a players killer
+     * @author Henrik Edholm
+     * @param context
+     * @return
+     */
     public JSONObject getKiller(Context context) {
 		DatabaseHandler dbh = new DatabaseHandler(context);
 		HashMap hm = dbh.getUserDetails();
@@ -160,8 +228,14 @@ public class PlayerFunctions {
 		
 		return jsonParser.getJSONFromUrl(playerURL, params);
 	}
-    
-    
+
+    /**
+     * Calculates and checks if an assassination is successful or not
+     * @author Henrik Edholm
+     * @param context
+     * @param target
+     * @return
+     */
     public boolean assassinate(Context context, String target) {
     	DatabaseHandler dbh = new DatabaseHandler(context);
     	HashMap hm = dbh.getUserDetails();

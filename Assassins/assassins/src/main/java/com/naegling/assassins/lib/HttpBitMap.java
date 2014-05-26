@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created by Johan on 2014-05-02.
+ * Created by Johan Nilsson
  */
 public class HttpBitMap extends AsyncTask<URL, Object, Bitmap[]> {
 

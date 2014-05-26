@@ -4,7 +4,6 @@ class DB_Functions {
  
     private $db;
  
-    //put your code here
     // constructor
     function __construct() {
         require_once 'DB_Connect.php';
@@ -44,6 +43,9 @@ class DB_Functions {
         }
     }
 
+    /** 
+     * Store a users target user id
+     */
     public function storeUserInTarget($uuid) {
         $result = mysql_query("INSERT INTO Target(player_id) VALUES('$uuid')");
         // check for successful store
@@ -53,7 +55,9 @@ class DB_Functions {
             return false;
         }
     }
-
+    /**
+     * Change the passord for user
+     */
     public function changePassword($uuid, $password) {
         $hash = $this->hashSSHA($password);
         $encrypted_password = $hash['encrypted'];
@@ -68,6 +72,8 @@ class DB_Functions {
  
     /**
      * Get user by email and password
+     * @param email
+     * @param password
      */
     public function getUserByEmailAndPassword($email, $password) {
         $result = mysql_query("SELECT * FROM Account WHERE email = '$email'") or die(mysql_error());
@@ -89,7 +95,9 @@ class DB_Functions {
         }
     }
 
-    /* Checks if the user exist */
+    /** Checks if the user exist 
+     *  @param uuid
+     */
     function userExists($uuid) {
         $result = mysql_query("SELECT * from Account WHERE unique_id = '$uuid'");
         $no_of_rows = mysql_num_rows($result);
@@ -104,6 +112,7 @@ class DB_Functions {
  
     /**
      * Check if the e-mail already exists in the db
+     * @param email
      */
     public function isEmailExisted($email) {
         $result = mysql_query("SELECT email from Account WHERE email = '$email'");
@@ -119,6 +128,7 @@ class DB_Functions {
 
     /**
      * Check if the name already exists in the db
+     * @param name
      */
     public function isNameExisted($name) {
         $result = mysql_query("SELECT name from Account WHERE name = '$name'");
@@ -133,7 +143,7 @@ class DB_Functions {
     } 
 
     /** 
-    * Set new password to account
+    * Set new password to account with specified email
     * @param email
     */
     public function newPassword($email) {

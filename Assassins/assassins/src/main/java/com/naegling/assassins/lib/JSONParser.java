@@ -12,6 +12,10 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.util.Log;
 
+/**
+ * @author Johan Nilsson
+ */
+
 public class JSONParser {
     static InputStream is = null;
     static JSONObject jObj = null;

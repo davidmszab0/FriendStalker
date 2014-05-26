@@ -133,24 +133,22 @@ class DB_Functions {
         }
     }
 
-    function getId($uuid){
-        $result = mysql_query("SELECT unique_id FROM Account WHERE name = '$uuid'");
-        $no_of_rows = mysql_num_rows($result);
-        if ($no_of_rows > 0) {
-            // user existed
-            $result = mysql_fetch_array($result);
-            return $result;
-        } else {
-            // user not existed
-            return false;
-        }
-    }
 
     function getKillStreak($uuid) {
         $result = mysql_query("SELECT killstreak FROM Account WHERE unique_id = '$uuid'");
         $no_of_rows = mysql_num_rows($result);
         if ($no_of_rows > 0) {
             return mysql_fetch_array($result);
+        } else {
+            return false;
+        }
+    }
+
+    function setKillstreak($uuid, $killstreak) {
+        $result = mysql_query("UPDATE Account SET killstreak = '$killstreak' WHERE unique_id = '$uuid'");
+        $affected_rows = mysql_affected_rows();
+        if ($affected_rows > 0) {
+            return true;
         } else {
             return false;
         }

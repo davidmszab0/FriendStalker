@@ -67,7 +67,7 @@ public class RankingActivity extends Activity {
 		try {
 			for(int i = 0; i < friendRanking.length(); i++) {
 				textFriendArray[i].setText(friendRanking.getJSONObject(i).getString("name"));
-				numFriendArray[i].setText(Double.toString(ranking.getJSONObject(i).getDouble("killDeath")));
+				numFriendArray[i].setText(Double.toString(friendRanking.getJSONObject(i).getDouble("killDeath")));
 
 			}
 		} catch (JSONException e) {

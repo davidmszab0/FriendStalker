@@ -12,8 +12,6 @@
 #include <stdio.h>
 #include <string.h>
 
-/* Local macros and definitions */
-
 // size of communication buffers (required for HAL)
 #define INPUT_BUFF_MAX     256      // for T4T according to FSCI in phpalI14443p4C.h
 #define OUTPUT_BUFF_MAX    256
@@ -74,8 +72,6 @@ int main( int argc, char * argv[] )
     chp = (uint8_t *)dirname(argv[0]);
     chdir(chp);
 
-    /* BEGIN: HW INITIALIZATION */
-
     /* Initialize the Reader BAL (Bus Abstraction Layer) component */
     status = phbalReg_RPi_spi_Init(&bal, sizeof(phbalReg_RPi_spi_DataParams_t));
 
@@ -125,8 +121,6 @@ int main( int argc, char * argv[] )
     /* Initialize OSAL layer */
     status = phOsal_RPi_Init(&osal);
     CHECK_STATUS(status);
-
-    /* END: HW INITIALIZATION */
 
     /* Card emu. initialization - card emulation is presented like MIFARE Ultralight card */
     sak = 0x00;

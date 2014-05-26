@@ -260,7 +260,7 @@ if (isset($_POST['tag']) && !empty($_POST['tag'])) {
 
 	 }
 
-	 
+	
 	else if ($tag == 'get_user_killstreak') {
 	 	$uuid = $_POST['uuid'];
 	 	$data = $db->getKillStreak($uuid);
@@ -275,12 +275,19 @@ if (isset($_POST['tag']) && !empty($_POST['tag'])) {
 	 	}
  	}
 
-	 else if ($tag == 'get_id'){
-	 	$friendName = $_POST['uuid'];
-        $data = $db->getId($friendName);
-	 	$response['friend_id'] = $data['unique_id'];
-	 	echo json_encode($response);
-	 }
+ 	else if ($tag == 'set_killstreak') {
+ 		$uuid = $_POST['uuid'];
+ 		$killstreak = $_POST['killstreak'];
+ 		$data = $db->setKillstreak($uuid, $killstreak);
+ 		if ($data != false) {
+ 			$response['success'] = 1;
+	 		echo json_encode($response);
+ 		} else {
+ 			$response['error'] = 1;
+	 		$response['error_msg'] = "Error updating database";
+	 		echo json_encode($response);
+ 		}
+ 	}
 
 	 else if ($tag == 'is_item_collectable') {
 	 	$uuid = $_POST['uuid'];

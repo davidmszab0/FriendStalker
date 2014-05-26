@@ -13,6 +13,10 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
+/**
+ * Mikaela Lidström and Henrik Edholm
+ */
+
 public class Notifications {
 	int notId = 1;
 	// Add app running notification  
