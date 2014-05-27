@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:screenOrientation="portrait" >
+    
+    <EditText
+        android:id="@+id/add_friend_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/add_friend_text" 
+        />
+    
+    <Button
+        android:id="@+id/button_send_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_send_friend_request"  
+        />
+    
+    <TextView
+        android:id="@+id/add_friend_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    
+
+</LinearLayout>

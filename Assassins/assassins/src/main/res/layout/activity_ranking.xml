@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rankingSwitcher"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:screenOrientation="portrait" >
+    
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:weightSum="4">
+
+    <TableRow
+        android:id="@+id/allRankRow1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        
+        <TextView
+        android:id="@+id/allRankText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/allRankText1"
+        android:layout_marginTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/allRankNum1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="150dp"
+            android:gravity="right"
+            android:text="@string/allRankNum1"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/allRankRow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/allRankText2" >
+        <TextView
+        android:id="@+id/allRankText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/allRankText2"
+        android:layout_marginTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF" />
+        
+        <TextView
+        android:id="@+id/allRankNum2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/allRankNum2"
+        android:layout_marginTop="20dp"
+        android:gravity="right"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/allRankRow3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/allRankText3" >
+        <TextView
+        android:id="@+id/allRankText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/allRankText3"
+        android:layout_marginTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF" />
+        
+        <TextView
+        android:id="@+id/allRankNum3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/allRankNum3"
+        android:layout_marginTop="20dp"
+        android:gravity="right"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/allRankRow4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/allRankText4" >
+        <TextView
+        android:id="@+id/allRankText4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/allRankText4"
+        android:layout_marginTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF" />
+        
+        <TextView
+        android:id="@+id/allRankNum4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/allRankNum4"
+        android:layout_marginTop="20dp"
+        android:gravity="right"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/allRankRow5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/allRankText5" >
+        <TextView
+        android:id="@+id/allRankText5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/allRankText5"
+        android:layout_marginTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF" />
+        
+        <TextView
+        android:id="@+id/allRankNum5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/allRankNum5"
+        android:layout_marginTop="20dp"
+        android:gravity="right"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF" />
+    </TableRow>
+
+    <Button
+        android:id="@+id/friendRankButton"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="175dp"
+        android:layout_weight="0.75"
+        android:background="@drawable/assassinate_button"
+        android:text="Show Friend Ranking" />
+
+	</TableLayout>
+    
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:weightSum="6">
+
+    <TableRow
+        android:id="@+id/friendsRankRow1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <TextView
+        android:id="@+id/friendRankText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/friendRankText1"
+        android:layout_marginTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF" />
+        
+        <TextView
+            android:id="@+id/friendRankNum1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="150dp"
+            android:gravity="right"
+            android:text="@string/friendRankNum1"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/friendsRankRow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <TextView
+        android:id="@+id/friendRankText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/friendRankText2"
+        android:layout_marginTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF" />
+        
+        <TextView
+            android:id="@+id/friendRankNum2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="150dp"
+            android:gravity="right"
+            android:text="@string/friendRankNum2"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/friendsRankRow3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <TextView
+        android:id="@+id/friendRankText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/friendRankText3"
+        android:layout_marginTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF" />
+        <TextView
+            android:id="@+id/friendRankNum3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="150dp"
+            android:gravity="right"
+            android:text="@string/friendRankNum3"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
+    </TableRow>
+    
+    <Button
+        android:id="@+id/allRankButton"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="250dp"
+        android:layout_weight="0.75"
+        android:background="@drawable/assassinate_button"
+        android:text="Show All Ranking" />
+    
+    
+
+</TableLayout>
+
+
+
+</ViewSwitcher>

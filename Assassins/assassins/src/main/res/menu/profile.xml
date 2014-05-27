@@ -1,0 +1,29 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.naegling.assassins.ProfileActivity" >
+
+    <item
+        android:id="@+id/take_picture"
+        android:orderInCategory="100"
+        android:title="@string/title_take_pic"
+        app:showAsAction="never"/>
+    <item 
+        android:id="@+id/action_ranking"
+        android:orderInCategory="100"
+        android:title="@string/action_ranking"
+        app:showAsAction="never"/>
+    
+    <item
+        android:id="@+id/change_password"
+        android:orderInCategory="100"
+        android:title="@string/title_activity_change_password"
+        app:showAsAction="never"/>
+    
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title="@string/action_logout"
+        app:showAsAction="never"/>
+    
+</menu>

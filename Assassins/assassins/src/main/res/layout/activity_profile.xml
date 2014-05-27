@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:screenOrientation="portrait" >
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="3">
+        <ImageView
+            android:id="@+id/profilePicture"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/profile_picture"
+            android:src="@drawable/profile_picture" />
+
+        <TextView
+            android:id="@+id/profileUsername"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_username"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="left"
+            android:background="#88580000"
+            android:paddingLeft="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/profileEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_email"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="right"
+            android:paddingRight="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/linearLayout3"
+            android:background="#88580000">
+            <TextView
+                android:id="@+id/profileStatistics"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/profile_statistics"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:gravity="center_horizontal" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="100dp">
+                <TextView
+                    android:id="@+id/profileKills"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_kills"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:paddingRight="20dp"
+                    android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/profileNumberKills"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_number_kills"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_weight="1" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="100dp">
+                <TextView
+                    android:id="@+id/profileDeaths"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_deaths"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/profileNumberDeath"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_number_deaths"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="100dp">
+                <TextView
+                    android:id="@+id/profileKDRatio"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_k_d_ratio"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/profileNumberKD"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_number_k_d"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="100dp">>
+                <TextView
+                    android:id="@+id/profileBonusToKill"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_bonusToKill"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/profileNumberBonusKill"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_number_bonus_kill"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="100dp">
+                <TextView
+                    android:id="@+id/profileBonusToSurvive"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_bonusToSurvive"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/profileNumberBonusSurvive"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_number_bonus_survive"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_weight="1" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_weight="5"
+        android:background="#88580000"
+        android:baselineAligned="false">
+
+        <TextView
+            android:id="@+id/profileEquipment"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_equipment"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:autoText="true" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/profileArmourText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_armour"
+                    android:gravity="center_horizontal" />
+                <ImageView
+                    android:id="@+id/profileEquipmentArmour"
+                    android:layout_width="fill_parent"
+                    android:layout_height="100dp"
+                    android:contentDescription="@string/armour_pic"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/abc_ab_bottom_solid_light_holo" />
+
+                <TextView
+                    android:id="@+id/aBonusKill"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/aBonusKill"
+                    android:paddingLeft="30dp" />
+                <TextView
+                    android:id="@+id/aBonusSurv"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/aBonusSurv"
+                    android:paddingLeft="30dp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/profileWeaponText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_weapon"
+                    android:gravity="center_horizontal" />
+                <ImageView
+                    android:id="@+id/profileEquipmentWeapon"
+                    android:layout_width="fill_parent"
+                    android:layout_height="100dp"
+                    android:contentDescription="@string/weapon_pic"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/abc_ab_bottom_solid_light_holo" />
+
+                <TextView
+                    android:id="@+id/wBonusKill"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wBonusKill"
+                    android:paddingLeft="30dp" />
+
+                <TextView
+                    android:id="@+id/wBonusSurv"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wBonusSurv"
+                    android:paddingLeft="30dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
