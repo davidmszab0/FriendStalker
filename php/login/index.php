@@ -1,11 +1,8 @@
 <?php
 /**
- * File to handle all API requests
- * Accepts GET and POST
- * 
- * Each request will be identified by TAG
- * Response will be JSON data
- * check for POST request 
+ * The index page that handles the POST methods regarding login and register features 
+ * and returns JSON data depending on which tag and other parameters are entered
+ * @author Johan Nilsson
  **/
 if (isset($_POST['tag']) && !empty($_POST['tag'])) {
     // get tag
@@ -78,9 +75,10 @@ if (isset($_POST['tag']) && !empty($_POST['tag'])) {
                 echo json_encode($response);
             }
         }
+
     } else if ($tag == 'storeUserInTarget') {
         $uuid = $_POST['uuid'];
-         // store user
+         // store user as target
         if($db->userExists($uuid)) {
 
             $user = $db->storeUserInTarget($uuid);
@@ -98,6 +96,7 @@ if (isset($_POST['tag']) && !empty($_POST['tag'])) {
             echo "Not existing user";
         }  
     } else if ($tag == 'change_password') {
+        // changes password for player
         $uuid = $_POST['uuid'];
         $password = $_POST['password'];
         if($db->userExists($uuid)) {
@@ -115,6 +114,7 @@ if (isset($_POST['tag']) && !empty($_POST['tag'])) {
             echo json_encode($response);
         }
     } else if ($tag == 'new_password') {
+        // generate a random password and sends it to players e-mail
         $email = $_POST['email'];
         if($db->isEmailExisted($email)) {
             $password = $db->newPassword($email);
@@ -144,6 +144,9 @@ if (isset($_POST['tag']) && !empty($_POST['tag'])) {
     echo "Access Denied";
 }
 
+/**
+ * Function to send an e-mail
+ */
 function sendMail($email, $password) {
     $subject="New password for Assassins"; 
     $header="From: ro-reply@davidmszabo.com"; 

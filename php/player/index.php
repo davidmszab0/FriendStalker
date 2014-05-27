@@ -1,5 +1,11 @@
 <?php 
 
+/**
+ * The index page that handles the POST methods regarding player features 
+ * and returns JSON data depending on which tag and other parameters are entered
+ * @author Mikaela Lidström and Henrik Edholm
+ **/
+
 if (isset($_POST['tag']) && !empty($_POST['tag'])) {
 
 	$tag = $_POST['tag'];

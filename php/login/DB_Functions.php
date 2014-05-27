@@ -18,8 +18,8 @@ class DB_Functions {
     }
  
     /**
-     * Storing new user
-     * returns user details
+     * Storing new player
+     * returns player details
      */
     public function storeUser($name, $email, $password) {
         $uuid = uniqid('', true);
@@ -30,7 +30,7 @@ class DB_Functions {
             VALUES('$uuid', '$name', '$email', '$encrypted_password', '$salt', NOW())");
         // check for successful store
         if ($result) {
-            // get user details 
+            // get player details 
             $uid = mysql_insert_id(); // last inserted id
             $result = mysql_query("SELECT * FROM Account WHERE account_id = $uid");
             $stats = mysql_query("INSERT INTO Statistics(account_id) VALUES($uid)");
@@ -43,8 +43,8 @@ class DB_Functions {
         }
     }
 
-    /** 
-     * Store a users target user id
+    /**
+     * Stores a target for a player
      */
     public function storeUserInTarget($uuid) {
         $result = mysql_query("INSERT INTO Target(player_id) VALUES('$uuid')");
@@ -56,9 +56,10 @@ class DB_Functions {
         }
     }
     /**
-     * Change the passord for user
+     * Changes the password for a player
      */
     public function changePassword($uuid, $password) {
+        // 
         $hash = $this->hashSSHA($password);
         $encrypted_password = $hash['encrypted'];
         $salt = $hash['salt'];
@@ -71,9 +72,7 @@ class DB_Functions {
     }
  
     /**
-     * Get user by email and password
-     * @param email
-     * @param password
+     * Get player by email and password
      */
     public function getUserByEmailAndPassword($email, $password) {
         $result = mysql_query("SELECT * FROM Account WHERE email = '$email'") or die(mysql_error());
@@ -86,33 +85,30 @@ class DB_Functions {
             $hash = $this->checkhashSSHA($salt, $password);
             // check for password equality
             if ($encrypted_password == $hash) {
-                // user authentication details are correct
+                // player authentication details are correct
                 return $result;
             }
         } else {
-            // user not found
+            // player not found
             return false;
         }
     }
 
-    /** Checks if the user exist 
-     *  @param uuid
-     */
+    /* Checks if the player exist */
     function userExists($uuid) {
         $result = mysql_query("SELECT * from Account WHERE unique_id = '$uuid'");
         $no_of_rows = mysql_num_rows($result);
         if ($no_of_rows > 0) {
-            // user existed
+            // player existed
             return true;
         } else {
-            // user not existed
+            // player not existed
             return false;
         }
     }
  
     /**
      * Check if the e-mail already exists in the db
-     * @param email
      */
     public function isEmailExisted($email) {
         $result = mysql_query("SELECT email from Account WHERE email = '$email'");
@@ -128,7 +124,6 @@ class DB_Functions {
 
     /**
      * Check if the name already exists in the db
-     * @param name
      */
     public function isNameExisted($name) {
         $result = mysql_query("SELECT name from Account WHERE name = '$name'");
@@ -143,7 +138,7 @@ class DB_Functions {
     } 
 
     /** 
-    * Set new password to account with specified email
+    * Set new password for player
     * @param email
     */
     public function newPassword($email) {

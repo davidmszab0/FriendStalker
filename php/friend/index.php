@@ -1,10 +1,18 @@
 <?php 
     
+/**
+ * The index page that handles the POST methods regarding friend features and returns JSON data depending on which tag and other parameters are entered
+ * @author Elsa Wide
+ */
+    
     if (isset($_POST['tag']) && !empty($_POST['tag'])) {
         $tag = $_POST['tag'];
         require_once 'DB_Functions.php';
         $db = new DB_Functions();
+        
         $response = array("tag" => $tag, "success" => 0, "error" => 0);
+        
+        // returns friend list json
         if($tag == 'friend_id_tag') {
             $uuid = $_POST['uuid'];
             if($db->userExists($uuid)) {
@@ -23,6 +31,8 @@
                 echo "No existing user";
             }
         }
+
+        // returns friend request
         else if($tag == 'get_friend_requests') {
             $uuid = $_POST['uuid'];
             if($db->userExists($uuid)) {
@@ -41,6 +51,8 @@
                 echo "No existing user";
             }
         }
+
+        // returns user name
         else if($tag == 'search_username'){
             $uuid = $_POST['uuid'];
                 $data = $db->searchUsername($uuid);
@@ -54,6 +66,8 @@
                     echo json_encode($response);
             }
         }
+
+        // sets a request of a friend
         else if($tag == 'send_request') {
             $uuid = $_POST['uuid'];
             echo $uuid;
@@ -74,12 +88,16 @@
                         echo "You can't add yourself";
                     }
                 } else{
-                    echo $data;
+                    $respone["error"] = 1;
+                    $response["error_msg"] = $data;
+                    echo json_encode($response); 
                 }
             } else {
             echo "Not existing user";
             }
         }
+
+        // sets request as accepted
         else if($tag == 'accept_request') {
             $uuid = $_POST['uuid'];
             if($db->userExists($uuid)){
@@ -92,6 +110,8 @@
                 echo "Not existing user";
             }
         }
+
+        // returns a friend id
         else if($tag == 'get_friend_id') {
             $friend = $_POST['friendName'];
             $friend = $db->getFriendUID($friend);
@@ -99,6 +119,8 @@
             $response["friendUID"] = $friend;
             echo json_encode($response);
         }
+
+        // returns online status of a player
         else if($tag == 'is_friend_online'){
             $friend = $_POST['friendName'];
             $data = $db->friendOnline($friend);
@@ -112,6 +134,8 @@
                 echo json_encode($response);
             }
         }
+
+        // denies friend request
         else if($tag == 'deny_request') {
             $uuid = $_POST['uuid'];
             if($db->userExists($uuid)){
@@ -123,6 +147,8 @@
                 echo "Not existing user";
             }
         }
+
+        // deletes the friend relationship
         else if($tag == 'remove_friend') {
             $uuid = $_POST['uuid'];
             if($db->userExists($uuid)){

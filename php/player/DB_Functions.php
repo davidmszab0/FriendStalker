@@ -1,10 +1,14 @@
 <?php
+
+/**
+ * Functions for updating database related to player functions
+ * @author Mikaela Lidström and Henrik Edholm
+ */
  
 class DB_Functions {
 
     private $db;
- 
-    //put your code here
+
     // constructor
     function __construct() {
         require_once 'DB_Connect.php';
@@ -17,7 +21,10 @@ class DB_Functions {
     function __destruct() {
          
     }
- 
+    
+    /**
+     * Function to store a plyers location and status
+     */
     function storeUserLocation($uuid, $lat, $long, $status) {
         $result = mysql_query("UPDATE Account SET latitude = $lat, longitude = $long, online = $status 
                             WHERE unique_id = '$uuid'");
@@ -28,6 +35,9 @@ class DB_Functions {
         }
     }
 
+    /**
+     * Function to get the top five ranked players
+     */
     function getAllRanking() {
         $result = mysql_query("SELECT CAST((s.noKills - s.noDeaths) as DECIMAL(5,1)) as killDeath, a.name 
                             FROM Statistics as s 
@@ -43,6 +53,9 @@ class DB_Functions {
         }
     }
 
+    /**
+     * Function to get a players friends top rankings
+     */
     function getFriendRanking($uuid) {
         $result = mysql_query("SELECT CAST((s.noKills - s.noDeaths) as DECIMAL(5,1)) as killDeath, a.name 
                             FROM Statistics as s 
@@ -59,6 +72,9 @@ class DB_Functions {
         }
     }
 
+    /**
+     * Function to store a players target
+     */
     function storeUserTarget($uuid, $targetUser) {
         $result = mysql_query("UPDATE Target SET target_id = '$targetUser' 
                             WHERE player_id = '$uuid'");
@@ -69,6 +85,9 @@ class DB_Functions {
         }
     }
 
+    /**
+     * Function to get the id of a players target
+     */
     function getTargetId($uuid) {
         $result = mysql_query("SELECT target_id FROM Target WHERE player_id = '$uuid'");
         $no_of_rows = mysql_num_rows($result);
@@ -80,6 +99,9 @@ class DB_Functions {
         }
     }
 
+    /**
+     * Function to get a plyers name
+     */ 
     function getName($uuid) {
         $result = mysql_query("SELECT name FROM Account WHERE unique_id = '$uuid'");
         $no_of_rows = mysql_num_rows($result);
@@ -92,6 +114,9 @@ class DB_Functions {
         }
     }
 
+    /**
+     * Get the name of a players killer
+     */
     function getKiller($uuid) {
         $result = mysql_query("SELECT killedBy FROM Statistics 
                             INNER JOIN Account ON Account.account_id = Statistics.account_id 
@@ -106,6 +131,9 @@ class DB_Functions {
         }
     }
 
+    /**
+     * Checks if the user exists in the database
+     */
     function userExists($uuid) {
         $result = mysql_query("SELECT * from Account WHERE unique_id = '$uuid'");
         $no_of_rows = mysql_num_rows($result);
@@ -118,6 +146,9 @@ class DB_Functions {
         }
     }
 
+    /**
+     * Updates the statistics after a kill
+     */
     function updateStatistics($uuid, $target) {
         $result = mysql_query("UPDATE Statistics INNER JOIN Account ON Account.account_id = Statistics.account_id
                             SET noKills = noKills + 1 WHERE Account.unique_id = '$uuid'");
@@ -133,6 +164,9 @@ class DB_Functions {
 
     }
 
+    /**
+     * Get the location of a target
+     */
     function getTargetLocation($uuid) {
         $result = mysql_query("SELECT * FROM Account WHERE unique_id = '$uuid'");
         $no_of_rows = mysql_num_rows($result);
@@ -146,6 +180,9 @@ class DB_Functions {
         }
     }
 
+    /**
+     * Get the data of all users that are online
+     */
     function getAllOnline() {
         $result = mysql_query("SELECT * FROM Account WHERE online = 1");
         $no_of_rows = mysql_num_rows($result);
@@ -160,6 +197,9 @@ class DB_Functions {
         } 
     }
 
+    /**
+     * Gets all users online exept the player
+     */
     function getAllOnlineUsers($uuid) {
         $result = mysql_query("SELECT * FROM Account WHERE online = 1 AND unique_id <> '$uuid'");
         $no_of_rows = mysql_num_rows($result);
@@ -172,7 +212,9 @@ class DB_Functions {
             return false;
         } 
     }
-
+    /**
+     * Sets the online status of a player
+     */
     function setOnlineStatus($uuid, $status) {
         $result = mysql_query("UPDATE Account SET online = $status WHERE unique_id = '$uuid'");
         if ($result) {

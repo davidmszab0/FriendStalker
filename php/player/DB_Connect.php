@@ -1,5 +1,9 @@
 <?php
- 
+
+/**
+ * Class for DB connection
+ */
+
 class DB_Connect {
  
     // constructor
@@ -9,7 +13,7 @@ class DB_Connect {
  
     // destructor
     function __destruct() {
-        // $this->close();
+
     }
  
     // Connecting to database

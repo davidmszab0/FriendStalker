@@ -9,7 +9,7 @@ class DB_Connect {
  
     // destructor
     function __destruct() {
-        // $this->close();
+
     }
  
     // Connecting to database
