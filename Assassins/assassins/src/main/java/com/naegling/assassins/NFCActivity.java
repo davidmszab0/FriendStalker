@@ -35,7 +35,9 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
-
+/**
+ * @author Johan Nilsson
+ */
 public class NFCActivity extends Activity {
 
     private static String KEY_SUCCESS = "success";

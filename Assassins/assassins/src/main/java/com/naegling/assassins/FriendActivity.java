@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * @author Simonas
+ * @author Simonas Stirbys
  */
 
 public class FriendActivity extends ActionBarActivity {

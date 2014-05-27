@@ -22,6 +22,9 @@ import com.google.android.gms.gcm.*;
 import com.naegling.assassins.lib.DatabaseHandler;
 import com.naegling.assassins.lib.UserFunctions;
 
+/**
+ * @author Johan Nilsson
+ */
 
 public class RegisterActivity extends Activity {
 

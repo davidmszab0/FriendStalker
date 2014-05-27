@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.util.Log;
 
-/**
+/** Parsing json data
  * @author Johan Nilsson
  */
 

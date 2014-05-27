@@ -36,8 +36,12 @@ public class FriendFunctions {
 	public FriendFunctions(){
 		jsonParser = new JSONParser();
 	}
-	
-	
+
+    /**
+     * Gets the list of a players friends
+     * @param userId
+     * @return
+     */
 	public JSONArray getFriendList(String userId){
 		
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -47,8 +51,12 @@ public class FriendFunctions {
         
         return jsonParser.getJSONArrayFromUrl(playerURL, params);
 	}
-	
-	
+
+    /**
+     * Checks if a player exists or not by name
+     * @param friendName
+     * @return
+     */
 	public JSONObject searchForFriend(String friendName){
 		
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -58,7 +66,13 @@ public class FriendFunctions {
         
         return jsonParser.getJSONFromUrl(playerURL, params);
 	}
-	
+
+    /**
+     * Sets a request from one player to another
+     * @param userName
+     * @param friendName
+     * @return
+     */
 	public JSONObject sendFriendRequest(String userName, String friendName){
 		
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -71,7 +85,12 @@ public class FriendFunctions {
 		Log.d("Create response", json.toString());
         return json;
 	}
-	
+
+    /**
+     * Gets the friend requests for a player
+     * @param userId
+     * @return
+     */
 	public JSONArray getFriendRequestList(String userId){
 		
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -81,8 +100,13 @@ public class FriendFunctions {
         
         return jsonParser.getJSONArrayFromUrl(playerURL, params);
 	}
-	
-	
+
+    /**
+     * Acceptance of a request for a player
+     * @param uuid
+     * @param friendName
+     * @return
+     */
 	public JSONObject acceptFriend(String uuid, String friendName){
 		
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -94,7 +118,12 @@ public class FriendFunctions {
         return jsonParser.getJSONFromUrl(playerURL, params);
 	}
 
-
+    /**
+     * Denial of a friend request for a player
+     * @param uuid
+     * @param friendName
+     * @return
+     */
 	public JSONObject denyFriend(String uuid, String friendName){
 		
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -105,8 +134,12 @@ public class FriendFunctions {
         
         return jsonParser.getJSONFromUrl(playerURL, params);
 	}
-	
-	
+
+    /**
+     * Gets the unique id from a name
+     * @param name
+     * @return
+     */
 	public JSONObject translateToUniqueID(String name){
 		
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -116,8 +149,12 @@ public class FriendFunctions {
         
         return jsonParser.getJSONFromUrl(playerURL, params);
 	}
-	
 
+    /**
+     * Gets a a players online status
+     * @param name
+     * @return
+     */
 	public JSONObject getOnlineStatus(String name){
 		
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -127,8 +164,13 @@ public class FriendFunctions {
         
         return jsonParser.getJSONFromUrl(playerURL, params);
 	}
-	
-	
+
+    /**
+     * Removes a friend from a player
+     * @param uuid
+     * @param name
+     * @return
+     */
 	public JSONObject removeFriend(String uuid, String name){
 		
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -139,8 +181,13 @@ public class FriendFunctions {
         
         return jsonParser.getJSONFromUrl(playerURL, params);
 	}
-	
-	
+
+    /**
+     * Converts a JSONarray to an ArrayList
+     * @param jsonArray
+     * @param arrayList
+     * @return
+     */
 	public ArrayList<String> translate(JSONArray jsonArray, ArrayList<String> arrayList){		
 		String friendListString = "";
 		int startInt = 0;

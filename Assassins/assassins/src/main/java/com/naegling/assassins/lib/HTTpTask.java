@@ -19,6 +19,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.os.AsyncTask;
 
 /**
+ * Class that extends AsyncTask to process the http request as a background process getting a json string
  * @author Johan Nilsson
  */
 

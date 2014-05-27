@@ -11,6 +11,10 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.os.AsyncTask;
 
+/** Class with functions for login and register
+ * @author Johan Nilsson
+ */
+
 public class UserFunctions extends AsyncTask{
 
     private JSONParser jsonParser;

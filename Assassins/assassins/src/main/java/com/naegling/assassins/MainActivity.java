@@ -91,6 +91,8 @@ public class MainActivity extends ActionBarActivity {
             assassinate = (Button) findViewById(R.id.assassinate_button);
             assassinate.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+                    if (locationManager != null)
+                        locationManager.removeUpdates(locationListener);
                     String message = "";
                     boolean success = playerFunctions.assassinate(getApplicationContext(), targetClass.uid);
                     if(success) {
@@ -112,6 +114,8 @@ public class MainActivity extends ActionBarActivity {
                     targetClass = null;
                     getTarget();
                     Toast.makeText(getApplication(), message, Toast.LENGTH_LONG).show();
+                    if (locationManager != null)
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 2, locationListener);
                 }
             });
 

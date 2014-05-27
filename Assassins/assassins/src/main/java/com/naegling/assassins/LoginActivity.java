@@ -15,7 +15,9 @@ import com.naegling.assassins.lib.UserFunctions;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
+/**
+ * @author Johan Nilsson
+ */
 public class LoginActivity extends Activity {
 
     Button btnLogin;

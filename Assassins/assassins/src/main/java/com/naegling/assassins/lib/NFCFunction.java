@@ -16,6 +16,11 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
+/**
+ * Class for handling NFC actions
+ * @author Johan Nilsson
+ */
+
 public class NFCFunction {
 
 	private Context context;

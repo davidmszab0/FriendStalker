@@ -17,6 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+/**
+ * @author Mikaela Lidström and Henrik Edholm
+ */
 public class RankingActivity extends Activity {
 	private ViewSwitcher switcher;
 	private static final int REFRESH_SCREEN = 1;

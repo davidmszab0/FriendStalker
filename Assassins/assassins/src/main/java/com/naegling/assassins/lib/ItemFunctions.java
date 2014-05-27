@@ -5,7 +5,7 @@ import java.util.Random;
 import org.json.JSONException;
 import android.content.Context;
 
-/**
+/** Class to handle item functions for collecting items
  * @author Felix Fortoul
  */
 

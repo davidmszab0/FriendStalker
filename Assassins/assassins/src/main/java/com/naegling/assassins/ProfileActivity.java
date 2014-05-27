@@ -24,6 +24,10 @@ import com.naegling.assassins.lib.HttpBitMap;
 import com.naegling.assassins.lib.ProfileFunction;
 import com.naegling.assassins.lib.UserFunctions;
 
+/**
+ * @author Mikaela Lidström and Henrik Edholm
+ */
+
 public class ProfileActivity extends Activity {
 
 	// JSON Response node names
